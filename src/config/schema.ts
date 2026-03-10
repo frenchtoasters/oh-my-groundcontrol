@@ -7,6 +7,9 @@ const FALLBACK_AGENT_NAMES = [
   'explorer',
   'librarian',
   'fixer',
+  'ptah',
+  'sia',
+  'maat',
 ] as const;
 
 const MANUAL_AGENT_NAMES = [
@@ -16,6 +19,9 @@ const MANUAL_AGENT_NAMES = [
   'explorer',
   'librarian',
   'fixer',
+  'ptah',
+  'sia',
+  'maat',
 ] as const;
 
 const ProviderModelIdSchema = z
@@ -55,6 +61,9 @@ export const ManualPlanSchema = z
     explorer: ManualAgentPlanSchema,
     librarian: ManualAgentPlanSchema,
     fixer: ManualAgentPlanSchema,
+    ptah: ManualAgentPlanSchema,
+    sia: ManualAgentPlanSchema,
+    maat: ManualAgentPlanSchema,
   })
   .strict();
 
@@ -72,6 +81,9 @@ const FallbackChainsSchema = z
     explorer: AgentModelChainSchema.optional(),
     librarian: AgentModelChainSchema.optional(),
     fixer: AgentModelChainSchema.optional(),
+    ptah: AgentModelChainSchema.optional(),
+    sia: AgentModelChainSchema.optional(),
+    maat: AgentModelChainSchema.optional(),
   })
   .catchall(AgentModelChainSchema);
 
@@ -129,7 +141,15 @@ export const PresetSchema = z.record(z.string(), AgentOverrideConfigSchema);
 export type Preset = z.infer<typeof PresetSchema>;
 
 // MCP names
-export const McpNameSchema = z.enum(['websearch', 'context7', 'grep_app']);
+export const McpNameSchema = z.enum([
+  'websearch',
+  'context7',
+  'grep_app',
+  'git',
+  'pytest',
+  'deepwiki',
+  'kubernetes',
+]);
 export type McpName = z.infer<typeof McpNameSchema>;
 
 // Background task configuration
@@ -147,6 +167,22 @@ export const FailoverConfigSchema = z.object({
 
 export type FailoverConfig = z.infer<typeof FailoverConfigSchema>;
 
+// Session export configuration
+export const SessionExportConfigSchema = z.object({
+  enabled: z.boolean().default(true),
+  inactivityTimeoutMs: z.number().min(60000).default(3600000), // 1 hour
+  exportDir: z.string().optional(), // default: ~/.opencode/oh-my-groundcontrol/sessions/
+});
+
+export type SessionExportConfig = z.infer<typeof SessionExportConfigSchema>;
+
+// HashLine edit configuration
+export const HashlineEditConfigSchema = z.object({
+  enabled: z.boolean().default(true),
+});
+
+export type HashlineEditConfig = z.infer<typeof HashlineEditConfigSchema>;
+
 // Main plugin config
 export const PluginConfigSchema = z.object({
   preset: z.string().optional(),
@@ -159,6 +195,9 @@ export const PluginConfigSchema = z.object({
   tmux: TmuxConfigSchema.optional(),
   background: BackgroundTaskConfigSchema.optional(),
   fallback: FailoverConfigSchema.optional(),
+  allowedProviders: z.array(z.string()).optional(),
+  sessionExport: SessionExportConfigSchema.optional(),
+  hashline_edit: HashlineEditConfigSchema.optional(),
 });
 
 export type PluginConfig = z.infer<typeof PluginConfigSchema>;

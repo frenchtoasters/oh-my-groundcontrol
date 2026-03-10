@@ -1,0 +1,26 @@
+export {
+  HASHLINE_DICT,
+  HASHLINE_OUTPUT_PATTERN,
+  HASHLINE_REF_PATTERN,
+  NIBBLE_STR,
+} from './constants';
+export { applyHashlineEdits } from './edit-operations';
+export {
+  computeLineHash,
+  formatHashLine,
+  formatHashLines,
+  streamHashLinesFromLines,
+  streamHashLinesFromUtf8,
+} from './hash-computation';
+export { createHashlineEditTool } from './tools';
+export type {
+  AppendEdit,
+  HashlineEdit,
+  PrependEdit,
+  ReplaceEdit,
+} from './types';
+export {
+  type LineRef,
+  parseLineRef,
+  validateLineRef,
+} from './validation';

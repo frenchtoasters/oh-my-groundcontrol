@@ -1,15 +1,50 @@
 # Quick Reference Guide
 
-Complete reference for oh-my-opencode-slim configuration and capabilities.
+Complete reference for oh-my-groundcontrol configuration and capabilities.
 
 ## Table of Contents
 
+- [Planning Workflow](#planning-workflow)
 - [Presets](#presets)
 - [Skills](#skills)
   - [Cartography](#cartography)
 - [MCP Servers](#mcp-servers)
 - [Tools & Capabilities](#tools--capabilities)
 - [Configuration](#configuration)
+
+---
+
+## Planning Workflow
+
+oh-my-groundcontrol follows a plan-first workflow inspired by the ancient Egyptian Ennead. The nine agents are organized into two phases:
+
+### The Architects — Plan Before You Build
+
+```
+Ptah (creates the plan)
+  → Sia (optional: analyzes risks and ambiguities)
+    → Maat (optional: verifies the plan is executable)
+```
+
+**Ptah** is the divine architect — start here when you need structured planning. He conducts interviews, gathers requirements, and produces decision-complete work plans. **Sia** can optionally analyze the request for hidden risks before planning begins. **Maat** can optionally verify the finished plan is balanced and free of blockers.
+
+### The Builders — Execute the Plan
+
+```
+Orchestrator (coordinates execution)
+  → Explorer / Oracle / Librarian / Designer / Fixer
+```
+
+Once the plan is blessed, the **Orchestrator** takes command and delegates tasks to the specialist agents: **Explorer** for reconnaissance, **Oracle** for strategic advice, **Librarian** for external knowledge, **Designer** for visual craft, and **Fixer** for fast implementation.
+
+### Choosing Your Entry Point
+
+Both **Ptah** and the **Orchestrator** are primary agents (tab-selectable):
+
+| Start With | When To Use |
+|------------|-------------|
+| **Ptah** | Complex multi-step tasks that benefit from structured planning |
+| **Orchestrator** | Direct execution tasks where you already know what needs to be done |
 
 ---
 
@@ -43,7 +78,7 @@ Useful flags:
 
 **Method 1: Edit Config File**
 
-Edit `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc`) and change the `preset` field:
+Edit `~/.config/opencode/oh-my-groundcontrol.json` (or `.jsonc`) and change the `preset` field:
 
 ```json
 {
@@ -71,6 +106,9 @@ Uses OpenAI models exclusively:
   "preset": "openai",
   "presets": {
     "openai": {
+      "ptah": { "model": "openai/gpt-5.2-codex", "skills": [], "mcps": [] },
+      "sia": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
+      "maat": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
       "orchestrator": { "model": "openai/gpt-5.2-codex", "skills": ["*"], "mcps": ["websearch"] },
       "oracle": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
       "librarian": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch", "context7", "grep_app"] },
@@ -88,12 +126,12 @@ Access Claude 4.5 and Gemini 3 models through Google's Antigravity infrastructur
 
 **Installation:**
 ```bash
-bunx oh-my-opencode-slim install --antigravity=yes --opencode-free=yes --opencode-free-model=auto
+bunx oh-my-groundcontrol install --antigravity=yes --opencode-free=yes --opencode-free-model=auto
 ```
 
 **Agent Mapping:**
-- Orchestrator: Kimi (if available)
-- Oracle: GPT (if available)
+- Ptah/Orchestrator: Kimi (if available)
+- Sia/Maat/Oracle: GPT (if available)
 - Explorer/Librarian/Designer/Fixer: Gemini 3 Flash via Antigravity
 - If OpenCode free mode is enabled, Explorer/Librarian/Fixer may use selected free `opencode/*` support model while `designer` stays on external mapping
 
@@ -120,9 +158,12 @@ Mixed setup combining multiple providers:
 
 ```json
 {
-  "preset": "alvin",
+  "preset": "frenchtoasters",
   "presets": {
-    "alvin": {
+    "frenchtoasters": {
+      "ptah": { "model": "google/claude-opus-4-5-thinking", "skills": [], "mcps": [] },
+      "sia": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
+      "maat": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
       "orchestrator": { "model": "google/claude-opus-4-5-thinking", "skills": ["*"], "mcps": ["*"] },
       "oracle": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
       "librarian": { "model": "google/gemini-3-flash", "variant": "low", "skills": [], "mcps": ["websearch", "context7", "grep_app"] },
@@ -216,7 +257,7 @@ python3 ~/.config/opencode/skills/cartography/scripts/cartographer.py update --r
 
 ### Skills Assignment
 
-You can customize which skills each agent is allowed to use in `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc`).
+You can customize which skills each agent is allowed to use in `~/.config/opencode/oh-my-groundcontrol.json` (or `.jsonc`).
 
 **Syntax:**
 
@@ -268,16 +309,19 @@ Control which agents can access which MCP servers using per-agent allowlists:
 
 | Agent | Default MCPs |
 |-------|--------------|
+| `ptah` | none |
+| `sia` | none |
+| `maat` | none |
 | `orchestrator` | `websearch` |
-| `designer` | none |
 | `oracle` | none |
 | `librarian` | `websearch`, `context7`, `grep_app` |
 | `explorer` | none |
+| `designer` | none |
 | `fixer` | none |
 
 ### Configuration & Syntax
 
-You can configure MCP access in your plugin configuration file: `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc`).
+You can configure MCP access in your plugin configuration file: `~/.config/opencode/oh-my-groundcontrol.json` (or `.jsonc`).
 
 **Per-Agent Permissions**
 
@@ -332,7 +376,7 @@ You can disable specific MCP servers globally by adding them to the `disabled_mc
 
 #### Quick Setup
 
-1. **Enable tmux integration** in `oh-my-opencode-slim.json` (or `.jsonc`):
+1. **Enable tmux integration** in `oh-my-groundcontrol.json` (or `.jsonc`):
 
    ```json
    {
@@ -410,17 +454,17 @@ OpenCode automatically formats files after they're written or edited using langu
 | File | Purpose |
 |------|---------|
 | `~/.config/opencode/opencode.json` | OpenCode core settings |
-| `~/.config/opencode/oh-my-opencode-slim.json` or `.jsonc` | Plugin settings (agents, tmux, MCPs) |
-| `.opencode/oh-my-opencode-slim.json` or `.jsonc` | Project-local plugin overrides (optional) |
+| `~/.config/opencode/oh-my-groundcontrol.json` or `.jsonc` | Plugin settings (agents, tmux, MCPs) |
+| `.opencode/oh-my-groundcontrol.json` or `.jsonc` | Project-local plugin overrides (optional) |
 
 > **💡 JSONC Support:** Configuration files support JSONC format (JSON with Comments). Use `.jsonc` extension to enable comments and trailing commas. If both `.jsonc` and `.json` exist, `.jsonc` takes precedence.
 
 ### Prompt Overriding
 
-You can customize agent prompts by creating markdown files in `~/.config/opencode/oh-my-opencode-slim/`:
+You can customize agent prompts by creating markdown files in `~/.config/opencode/oh-my-groundcontrol/`:
 
 - With no preset, prompt files are loaded directly from this directory.
-- With `preset` set (for example `test`), the plugin first checks `~/.config/opencode/oh-my-opencode-slim/{preset}/`, then falls back to the root prompt directory.
+- With `preset` set (for example `test`), the plugin first checks `~/.config/opencode/oh-my-groundcontrol/{preset}/`, then falls back to the root prompt directory.
 
 | File | Purpose |
 |------|---------|
@@ -430,7 +474,7 @@ You can customize agent prompts by creating markdown files in `~/.config/opencod
 **Example:**
 
 ```
-~/.config/opencode/oh-my-opencode-slim/
+~/.config/opencode/oh-my-groundcontrol/
   ├── test/
   │   ├── orchestrator.md      # Preset-specific override (preferred)
   │   └── explorer_append.md
@@ -460,8 +504,8 @@ The plugin supports **JSONC** format for configuration files, allowing you to:
 - Use trailing commas in arrays and objects
 
 **File Priority:**
-1. `oh-my-opencode-slim.jsonc` (preferred if exists)
-2. `oh-my-opencode-slim.json` (fallback)
+1. `oh-my-groundcontrol.jsonc` (preferred if exists)
+2. `oh-my-groundcontrol.json` (fallback)
 
 **Example JSONC Configuration:**
 
@@ -486,7 +530,7 @@ The plugin supports **JSONC** format for configuration files, allowing you to:
 }
 ```
 
-### Plugin Config (`oh-my-opencode-slim.json` or `oh-my-opencode-slim.jsonc`)
+### Plugin Config (`oh-my-groundcontrol.json` or `oh-my-groundcontrol.jsonc`)
 
 The installer generates this file based on your providers. You can manually customize it to mix and match models. See the [Presets](#presets) section for detailed configuration options.
 

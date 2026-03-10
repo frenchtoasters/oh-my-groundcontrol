@@ -8,12 +8,15 @@ import {
 /** Default MCPs per agent - "*" means all MCPs, "!item" excludes specific MCPs */
 
 export const DEFAULT_AGENT_MCPS: Record<AgentName, string[]> = {
-  orchestrator: ['websearch'],
+  orchestrator: ['websearch', 'git', 'pytest', 'deepwiki'],
   designer: [],
-  oracle: [],
-  librarian: ['websearch', 'context7', 'grep_app'],
-  explorer: [],
-  fixer: [],
+  oracle: ['deepwiki'],
+  librarian: ['websearch', 'context7', 'grep_app', 'deepwiki'],
+  explorer: ['git'],
+  fixer: ['git', 'pytest'],
+  ptah: ['websearch', 'deepwiki'],
+  sia: ['deepwiki'],
+  maat: [],
 };
 
 /**

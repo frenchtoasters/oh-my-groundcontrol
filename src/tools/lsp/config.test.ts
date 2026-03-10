@@ -1,23 +1,18 @@
-import { beforeEach, describe, expect, mock, test } from 'bun:test';
+import { afterAll, beforeEach, describe, expect, spyOn, test } from 'bun:test';
+import * as fs from 'node:fs';
+import * as os from 'node:os';
 import { join } from 'node:path';
-
-// Mock fs and os BEFORE importing the modules that use them
-mock.module('fs', () => ({
-  existsSync: mock(() => false),
-}));
-
-mock.module('os', () => ({
-  homedir: () => '/home/user',
-}));
-
-import { existsSync } from 'node:fs';
-// Now import the code to test
 import { findServerForExtension, isServerInstalled } from './config';
 
 describe('config', () => {
+  const existsSyncSpy = spyOn(fs, 'existsSync');
+  const homedirSpy = spyOn(os, 'homedir').mockReturnValue(
+    '/home/user' as never,
+  );
+
   beforeEach(() => {
-    (existsSync as any).mockClear();
-    (existsSync as any).mockImplementation(() => false);
+    existsSyncSpy.mockReset();
+    existsSyncSpy.mockReturnValue(false);
   });
 
   describe('isServerInstalled', () => {
@@ -26,8 +21,8 @@ describe('config', () => {
     });
 
     test('should detect absolute paths', () => {
-      (existsSync as any).mockImplementation(
-        (path: string) => path === '/usr/bin/lsp-server',
+      existsSyncSpy.mockImplementation(
+        (path: any) => path === '/usr/bin/lsp-server',
       );
       expect(isServerInstalled(['/usr/bin/lsp-server'])).toBe(true);
       expect(isServerInstalled(['/usr/bin/missing'])).toBe(false);
@@ -37,9 +32,8 @@ describe('config', () => {
       const originalPath = process.env.PATH;
       process.env.PATH = '/usr/local/bin:/usr/bin';
 
-      (existsSync as any).mockImplementation(
-        (path: string) =>
-          path === join('/usr/bin', 'typescript-language-server'),
+      existsSyncSpy.mockImplementation(
+        (path: any) => path === join('/usr/bin', 'typescript-language-server'),
       );
 
       expect(isServerInstalled(['typescript-language-server'])).toBe(true);
@@ -56,9 +50,7 @@ describe('config', () => {
         'typescript-language-server',
       );
 
-      (existsSync as any).mockImplementation(
-        (path: string) => path === localBin,
-      );
+      existsSyncSpy.mockImplementation((path: any) => path === localBin);
 
       expect(isServerInstalled(['typescript-language-server'])).toBe(true);
     });
@@ -72,9 +64,7 @@ describe('config', () => {
         'typescript-language-server',
       );
 
-      (existsSync as any).mockImplementation(
-        (path: string) => path === globalBin,
-      );
+      existsSyncSpy.mockImplementation((path: any) => path === globalBin);
 
       expect(isServerInstalled(['typescript-language-server'])).toBe(true);
     });
@@ -82,7 +72,7 @@ describe('config', () => {
 
   describe('findServerForExtension', () => {
     test('should return found for .ts extension if installed', () => {
-      (existsSync as any).mockReturnValue(true);
+      existsSyncSpy.mockReturnValue(true);
       const result = findServerForExtension('.ts');
       expect(result.status).toBe('found');
       if (result.status === 'found') {
@@ -91,7 +81,7 @@ describe('config', () => {
     });
 
     test('should return found for .py extension if installed (prefers basedpyright)', () => {
-      (existsSync as any).mockReturnValue(true);
+      existsSyncSpy.mockReturnValue(true);
       const result = findServerForExtension('.py');
       expect(result.status).toBe('found');
       if (result.status === 'found') {
@@ -105,7 +95,7 @@ describe('config', () => {
     });
 
     test('should return not_installed if server not in PATH', () => {
-      (existsSync as any).mockReturnValue(false);
+      existsSyncSpy.mockReturnValue(false);
       const result = findServerForExtension('.ts');
       expect(result.status).toBe('not_installed');
       if (result.status === 'not_installed') {
@@ -115,5 +105,10 @@ describe('config', () => {
         );
       }
     });
+  });
+
+  afterAll(() => {
+    existsSyncSpy.mockRestore();
+    homedirSpy.mockRestore();
   });
 });

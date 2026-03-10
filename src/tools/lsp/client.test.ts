@@ -1,4 +1,5 @@
 import {
+  afterAll,
   afterEach,
   beforeEach,
   describe,
@@ -144,5 +145,9 @@ describe('LSPServerManager', () => {
     // Instead, let's just verify that stopAll is exported and works, which we already did.
     expect(onSpy).toBeDefined();
     onSpy.mockRestore();
+  });
+
+  afterAll(() => {
+    mock.restore();
   });
 });

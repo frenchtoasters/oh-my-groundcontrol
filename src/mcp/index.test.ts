@@ -9,16 +9,24 @@ describe('createBuiltinMcps', () => {
     expect(names).toContain('websearch');
     expect(names).toContain('context7');
     expect(names).toContain('grep_app');
+    expect(names).toContain('git');
+    expect(names).toContain('pytest');
+    expect(names).toContain('deepwiki');
+    expect(names).toContain('kubernetes');
   });
 
   test('returns all MCPs with empty disabled list', () => {
     const mcps = createBuiltinMcps([]);
     const names = Object.keys(mcps);
 
-    expect(names.length).toBe(3);
+    expect(names.length).toBe(7);
     expect(names).toContain('websearch');
     expect(names).toContain('context7');
     expect(names).toContain('grep_app');
+    expect(names).toContain('git');
+    expect(names).toContain('pytest');
+    expect(names).toContain('deepwiki');
+    expect(names).toContain('kubernetes');
   });
 
   test('excludes single disabled MCP', () => {
@@ -37,11 +45,19 @@ describe('createBuiltinMcps', () => {
     expect(names).not.toContain('websearch');
     expect(names).not.toContain('grep_app');
     expect(names).toContain('context7');
-    expect(names.length).toBe(1);
+    expect(names.length).toBe(5);
   });
 
   test('excludes all MCPs when all disabled', () => {
-    const mcps = createBuiltinMcps(['websearch', 'context7', 'grep_app']);
+    const mcps = createBuiltinMcps([
+      'websearch',
+      'context7',
+      'grep_app',
+      'git',
+      'pytest',
+      'deepwiki',
+      'kubernetes',
+    ]);
     const names = Object.keys(mcps);
 
     expect(names.length).toBe(0);
@@ -52,10 +68,14 @@ describe('createBuiltinMcps', () => {
     const names = Object.keys(mcps);
 
     // All valid MCPs should still be present
-    expect(names.length).toBe(3);
+    expect(names.length).toBe(7);
     expect(names).toContain('websearch');
     expect(names).toContain('context7');
     expect(names).toContain('grep_app');
+    expect(names).toContain('git');
+    expect(names).toContain('pytest');
+    expect(names).toContain('deepwiki');
+    expect(names).toContain('kubernetes');
   });
 
   test('MCP configs have required properties', () => {
@@ -92,5 +112,38 @@ describe('createBuiltinMcps', () => {
 
     expect(grep_app).toBeDefined();
     expect('url' in grep_app).toBe(true);
+  });
+
+  test('git MCP has correct structure', () => {
+    const mcps = createBuiltinMcps();
+    const git = mcps.git;
+
+    expect(git).toBeDefined();
+    expect('command' in git).toBe(true);
+  });
+
+  test('pytest MCP has correct structure', () => {
+    const mcps = createBuiltinMcps();
+    const pytest = mcps.pytest;
+
+    expect(pytest).toBeDefined();
+    expect('command' in pytest).toBe(true);
+  });
+
+  test('deepwiki MCP has correct structure', () => {
+    const mcps = createBuiltinMcps();
+    const deepwiki = mcps.deepwiki;
+
+    expect(deepwiki).toBeDefined();
+    expect('url' in deepwiki).toBe(true);
+  });
+
+  test('kubernetes MCP has correct structure and is disabled', () => {
+    const mcps = createBuiltinMcps();
+    const kubernetes = mcps.kubernetes;
+
+    expect(kubernetes).toBeDefined();
+    expect('command' in kubernetes).toBe(true);
+    expect(kubernetes.enabled).toBe(false);
   });
 });

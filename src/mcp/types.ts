@@ -5,12 +5,14 @@ export type RemoteMcpConfig = {
   url: string;
   headers?: Record<string, string>;
   oauth?: false;
+  enabled?: boolean;
 };
 
 export type LocalMcpConfig = {
   type: 'local';
   command: string[];
   environment?: Record<string, string>;
+  enabled?: boolean;
 };
 
 export type McpConfig = RemoteMcpConfig | LocalMcpConfig;

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, mock, test } from 'bun:test';
+import { afterAll, beforeEach, describe, expect, mock, test } from 'bun:test';
 import { TmuxSessionManager } from './tmux-session-manager';
 
 // Define the mock outside so we can access it
@@ -171,5 +171,9 @@ describe('TmuxSessionManager', () => {
       expect(mockCloseTmuxPane).toHaveBeenCalledWith('p1');
       expect(mockCloseTmuxPane).toHaveBeenCalledWith('p2');
     });
+  });
+
+  afterAll(() => {
+    mock.restore();
   });
 });

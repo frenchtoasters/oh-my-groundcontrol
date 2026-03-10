@@ -270,11 +270,13 @@ describe('agent classification', () => {
   test('getAgentConfigs applies correct classification visibility and mode', () => {
     const configs = getAgentConfigs();
 
-    // Primary agent
+    // Primary agents (tab-selectable)
     expect(configs.orchestrator.mode).toBe('primary');
+    expect(configs.ptah.mode).toBe('primary');
 
     // Subagents
     for (const name of SUBAGENT_NAMES) {
+      if (name === 'ptah') continue; // ptah is primary
       expect(configs[name].mode).toBe('subagent');
     }
   });
@@ -292,9 +294,9 @@ describe('createAgents', () => {
     expect(names).toContain('fixer');
   });
 
-  test('creates exactly 6 agents (1 primary + 5 subagents)', () => {
+  test('creates exactly 9 agents (1 primary + 8 subagents)', () => {
     const agents = createAgents();
-    expect(agents.length).toBe(6);
+    expect(agents.length).toBe(9);
   });
 });
 

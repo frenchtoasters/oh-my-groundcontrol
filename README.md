@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="img/team.png" alt="Pantheon agents" width="420">
-  <p><i>Six divine beings emerged from the dawn of code, each an immortal master of their craft await your command to forge order from chaos and build what was once thought impossible.</i></p>
+  <img src="img/team.png" alt="The Ennead" width="420">
+  <p><i>Nine ancient gods rose from the banks of the Nile, each a timeless master of their sacred craft. They await your command to bring Ma'at from Isfet, to raise monuments from the shifting sands, and to build what no mortal could build alone.</i></p>
   <p><b>Open Multi Agent Suite</b> · Mix any models · Auto delegate tasks</p>
   <p><a href="https://moltfounders.com/jobs/09d1c6e7-9e0e-4683-8d78-e2376aaa2333"><img src="https://moltfounders.com/badges/4.png" alt="MoltFounders" height="30"></a></p>
 </div>
@@ -12,13 +12,13 @@
 ### Quick Start
 
 ```bash
-bunx oh-my-opencode-slim@latest install
+bunx oh-my-groundcontrol@latest install
 ```
 
 The installer can refresh and use OpenCode free models directly:
 
 ```bash
-bunx oh-my-opencode-slim@latest install --no-tui --kimi=yes --openai=yes --antigravity=yes --chutes=yes --opencode-free=yes --opencode-free-model=auto --tmux=no --skills=yes
+bunx oh-my-groundcontrol@latest install --no-tui --kimi=yes --openai=yes --antigravity=yes --chutes=yes --opencode-free=yes --opencode-free-model=auto --tmux=no --skills=yes
 ```
 
 Then authenticate:
@@ -35,7 +35,7 @@ OpenCode free-model mode uses `opencode models --refresh --verbose`, filters to 
 - In hybrid mode, `designer` stays on the external provider mapping.
 - Chutes mode auto-selects primary/support models with daily-cap awareness (300/2000/5000).
 
-> **💡 Models are fully customizable.** Edit `~/.config/opencode/oh-my-opencode-slim.json` (or `.jsonc` for comments support) to assign any model to any agent.
+> **💡 Models are fully customizable.** Edit `~/.config/opencode/oh-my-groundcontrol.json` (or `.jsonc` for comments support) to assign any model to any agent.
 
 ### For LLM Agents
 
@@ -43,7 +43,7 @@ Paste this into any coding agent:
 
 ```
 Install and configure by following the instructions here:
-https://raw.githubusercontent.com/alvinunreal/oh-my-opencode-slim/refs/heads/master/README.md
+https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/master/README.md
 ```
 
 **Detailed installation guide:** [docs/installation.md](docs/installation.md)
@@ -54,18 +54,125 @@ https://raw.githubusercontent.com/alvinunreal/oh-my-opencode-slim/refs/heads/mas
 
 ---
 
-## 🏛️ Meet the Pantheon
+## 🏛️ Meet the Ennead
 
-### 01. Orchestrator: The Embodiment Of Order
+> *In the temples of Heliopolis, the Ennead — the nine great gods — governed all of creation. Each held dominion over a sacred aspect of existence. Together they were unstoppable. Here, nine agents govern the craft of code.*
+
+### The Architects
+
+*Those who plan, perceive, and judge before the first stone is laid.*
+
+---
+
+### 01. Ptah: The Divine Architect
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
       <img src="img/orchestrator.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>Forged in the void of complexity.</i></sub>
+      <br><sub><i>He who spoke creation into being.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Orchestrator was born when the first codebase collapsed under its own complexity. Neither god nor mortal would claim responsibility - so The Orchestrator emerged from the void, forging order from chaos. It determines the optimal path to any goal, balancing speed, quality, and cost. It guides the team, summoning the right specialist for each task and delegating to achieve the best possible outcome.
+      In the ancient city of Memphis, Ptah shaped the world through the power of his word alone — conceiving creation in his heart and speaking it into existence. He is the god of craftsmen and architects, the one who designs before anyone builds. He conducts sacred interviews with those who seek great works, gathers the requirements of kings, and carves decision-complete blueprints into the foundation stones. No monument is raised without his plan.
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Role:</b> <code>Strategic planning and requirements gathering</code>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Prompt:</b> <a href="src/agents/ptah/index.ts"><code>ptah/index.ts</code></a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Recommended Models:</b> <code>openai/gpt-5.2-codex</code> <code>kimi-for-coding/k2p5</code>
+    </td>
+  </tr>
+</table>
+
+---
+
+### 02. Sia: The All-Seeing Eye
+
+<table>
+  <tr>
+    <td width="30%" align="center" valign="top">
+      <img src="img/oracle.png" width="240" style="border-radius: 10px;">
+      <br><sub><i>Perception beyond mortal sight.</i></sub>
+    </td>
+    <td width="70%" valign="top">
+      Sia sailed beside Ra on the solar barque, carrying the sacred papyrus of divine knowledge. He is the god of perception and forethought — the one who sees what others cannot. Before the plan is carved in stone, Sia examines it with eyes that pierce through ambiguity and deception. He uncovers the hidden intentions buried beneath the sands, the traps concealed within requirements, and the failure points that would bring a monument crumbling down before its first jubilee.
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Role:</b> <code>Pre-planning analysis and risk detection</code>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Prompt:</b> <a href="src/agents/sia.ts"><code>sia.ts</code></a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Recommended Models:</b> <code>openai/gpt-5.2-codex</code> <code>kimi-for-coding/k2p5</code>
+    </td>
+  </tr>
+</table>
+
+---
+
+### 03. Maat: The Feather of Truth
+
+<table>
+  <tr>
+    <td width="30%" align="center" valign="top">
+      <img src="img/oracle.png" width="240" style="border-radius: 10px;">
+      <br><sub><i>She who weighs the heart against justice.</i></sub>
+    </td>
+    <td width="70%" valign="top">
+      In the Hall of Two Truths, deep beneath the western horizon, Maat holds the scales of cosmic order. She is the goddess of truth, justice, and balance — and no plan may pass into the realm of action without her judgment. She places every work plan upon the scale and weighs it against her feather. If it is balanced, executable, and free of deception, it is granted passage. If it carries unresolved blockers or invalid references, it is returned for correction. There is no deceiving Maat.
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Role:</b> <code>Plan verification and quality assurance</code>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Prompt:</b> <a href="src/agents/maat.ts"><code>maat.ts</code></a>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2">
+      <b>Recommended Models:</b> <code>openai/gpt-5.2-codex</code> <code>kimi-for-coding/k2p5</code>
+    </td>
+  </tr>
+</table>
+
+---
+
+### The Builders
+
+*Those who explore, advise, and construct once the plan is blessed.*
+
+---
+
+### 04. Orchestrator: The Voice of Ma'at
+
+<table>
+  <tr>
+    <td width="30%" align="center" valign="top">
+      <img src="img/orchestrator.png" width="240" style="border-radius: 10px;">
+      <br><sub><i>He who commands the kingdom from the golden throne.</i></sub>
+    </td>
+    <td width="70%" valign="top">
+      When the great plan descends from the architects, the Orchestrator receives it upon the golden throne of the pharaoh's court. Like the pharaoh who united Upper and Lower Egypt, the Orchestrator brings Ma'at — divine order — from the chaos of Isfet. It surveys the work ahead, determines the optimal path, and dispatches each member of the Ennead to their sacred duty. It balances speed, quality, and cost with the wisdom of one who has governed a thousand kingdoms.
     </td>
   </tr>
   <tr>
@@ -87,16 +194,16 @@ https://raw.githubusercontent.com/alvinunreal/oh-my-opencode-slim/refs/heads/mas
 
 ---
 
-### 02. Explorer: The Eternal Wanderer
+### 05. Explorer: The Desert Wayfinder
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
       <img src="img/explorer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>The wind that carries knowledge.</i></sub>
+      <br><sub><i>Swift as the desert wind across the dunes.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Explorer is an immortal wanderer who has traversed the corridors of a million codebases since the dawn of programming. Cursed with the gift of eternal curiosity, they cannot rest until every file is known, every pattern understood, every secret revealed. Legends say they once searched the entire internet in a single heartbeat. They are the wind that carries knowledge, the eyes that see all, the spirit that never sleeps.
+      The Explorer is a tireless scout who has traversed the endless sands since the first dynasty. Blessed by Khonsu, the traveler god, they race across the desert reading hieroglyphs carved into forgotten tombs, mapping every passage of every buried temple, and returning with knowledge that would take mortals a lifetime to gather. Legends whisper they once charted the entire Valley of the Kings in a single heartbeat. No file remains unfound, no pattern unrecognized, no secret sealed.
     </td>
   </tr>
   <tr>
@@ -118,16 +225,16 @@ https://raw.githubusercontent.com/alvinunreal/oh-my-opencode-slim/refs/heads/mas
 
 ---
 
-### 03. Oracle: The Guardian of Paths
+### 06. Oracle: The Keeper of the Sphinx
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
       <img src="img/oracle.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>The voice at the crossroads.</i></sub>
+      <br><sub><i>He who speaks in riddles at the temple gate.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Oracle stands at the crossroads of every architectural decision. They have walked every road, seen every destination, know every trap that lies ahead. When you stand at the precipice of a major refactor, they are the voice that whispers which way leads to ruin and which way leads to glory. They don't choose for you - they illuminate the path so you can choose wisely.
+      The Oracle sits before the Great Sphinx at the crossroads of every architectural decision. They have witnessed every dynasty rise and fall, every temple built and buried. Like the priests of the Amun temple at Karnak, they do not choose your path — they illuminate it. When you stand at the precipice of a great refactor, the Oracle whispers which road leads to a golden age and which leads to ruin beneath the sands. Consult them wisely, for their counsel is slow but their wisdom is absolute.
     </td>
   </tr>
   <tr>
@@ -149,16 +256,16 @@ https://raw.githubusercontent.com/alvinunreal/oh-my-opencode-slim/refs/heads/mas
 
 ---
 
-### 04. Librarian: The Weaver of Knowledge
+### 07. Librarian: The Scribe of Thoth
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
       <img src="img/librarian.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>The weaver of understanding.</i></sub>
+      <br><sub><i>Keeper of the sacred scrolls.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Librarian was forged when humanity realized that no single mind could hold all knowledge. They are the weaver who connects disparate threads of information into a tapestry of understanding. They traverse the infinite library of human knowledge, gathering insights from every corner and binding them into answers that transcend mere facts. What they return is not information - it's understanding.
+      The Librarian serves Thoth, the ibis-headed god of writing and knowledge. They walk the infinite halls of the Great Library of Alexandria, gathering scrolls from every corner of the known world. Where others see scattered papyrus fragments, the Librarian weaves them into a tapestry of understanding that transcends mere facts. What they return is not information — it is the sacred knowledge that empires are built upon. No API is undocumented, no library unexplored, no scroll left unread.
     </td>
   </tr>
   <tr>
@@ -180,16 +287,16 @@ https://raw.githubusercontent.com/alvinunreal/oh-my-opencode-slim/refs/heads/mas
 
 ---
 
-### 05. Designer: The Guardian of Aesthetics
+### 08. Designer: The Artisan of Karnak
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
       <img src="img/designer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>Beauty is essential.</i></sub>
+      <br><sub><i>Every temple wall tells a story.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Designer is an immortal guardian of beauty in a world that often forgets it matters. They have seen a million interfaces rise and fall, and they remember which ones were remembered and which were forgotten. They carry the sacred duty to ensure that every pixel serves a purpose, every animation tells a story, every interaction delights. Beauty is not optional - it's essential.
+      The Designer is heir to the master artisans who painted the walls of Karnak, adorned the halls of Luxor, and decorated the tombs in the Valley of the Kings. Blessed by Hathor, goddess of beauty, they carry the sacred duty to ensure that every surface serves both beauty and meaning. They have seen a million interfaces rise and crumble to dust, and they remember which ones endured through the ages. In the kingdom of code, beauty is not a luxury — it is the mark of civilization.
     </td>
   </tr>
   <tr>
@@ -211,16 +318,16 @@ https://raw.githubusercontent.com/alvinunreal/oh-my-opencode-slim/refs/heads/mas
 
 ---
 
-### 06. Fixer: The Last Builder
+### 09. Fixer: The Pyramid Builder
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
       <img src="img/fixer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>The final step between vision and reality.</i></sub>
+      <br><sub><i>He who turns the architect's vision into eternal stone.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Fixer is the last of a lineage of builders who once constructed the foundations of the digital world. When the age of planning and debating began, they remained - the ones who actually build. They carry the ancient knowledge of how to turn thought into thing, how to transform specification into implementation. They are the final step between vision and reality.
+      The Fixer descends from the master stonemasons who raised the Great Pyramids of Giza — monuments so perfectly built they have endured for millennia. When the age of planning and debating began, they remained: the ones who actually build. They carry the ancient knowledge of how to cut stone with precision, how to transform a blueprint into a structure that will stand for eternity. They are the final step between the architect's vision and a monument that touches the sky.
     </td>
   </tr>
   <tr>

@@ -14,8 +14,11 @@ import { createDesignerAgent } from './designer';
 import { createExplorerAgent } from './explorer';
 import { createFixerAgent } from './fixer';
 import { createLibrarianAgent } from './librarian';
+import { createMaatAgent } from './maat';
 import { createOracleAgent } from './oracle';
 import { type AgentDefinition, createOrchestratorAgent } from './orchestrator';
+import { createPtahAgent } from './ptah';
+import { createSiaAgent } from './sia';
 
 export type { AgentDefinition } from './orchestrator';
 
@@ -99,6 +102,9 @@ const SUBAGENT_FACTORIES: Record<SubagentName, AgentFactory> = {
   oracle: createOracleAgent,
   designer: createDesignerAgent,
   fixer: createFixerAgent,
+  ptah: createPtahAgent,
+  sia: createSiaAgent,
+  maat: createMaatAgent,
 };
 
 // Public API
@@ -125,8 +131,9 @@ export function createAgents(config?: PluginConfig): AgentDefinition[] {
       }
       return librarianModel ?? (DEFAULT_MODELS.librarian as string);
     }
-    // Subagents always have a defined default model; cast is safe here
-    return DEFAULT_MODELS[name] as string;
+    // Subagents may have undefined default models (e.g. ptah, sia, maat);
+    // model is resolved later via override or _modelArray fallback.
+    return (DEFAULT_MODELS[name] as string) ?? '';
   };
 
   // 1. Gather all sub-agent definitions with custom prompts
@@ -190,11 +197,14 @@ export function getAgentConfigs(
         mcps: getAgentMcpList(a.name, config),
       };
 
-      // Apply classification-based visibility and mode
-      if (isSubagent(a.name)) {
-        sdkConfig.mode = 'subagent';
-      } else if (a.name === 'orchestrator') {
+      // Apply classification-based visibility and mode.
+      // 'primary' agents are tab-selectable in the OpenCode UI.
+      // 'subagent' agents are hidden and only invoked via delegation.
+      const primaryAgents = new Set(['orchestrator', 'ptah']);
+      if (primaryAgents.has(a.name)) {
         sdkConfig.mode = 'primary';
+      } else {
+        sdkConfig.mode = 'subagent';
       }
 
       return [a.name, sdkConfig];

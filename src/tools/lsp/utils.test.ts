@@ -1,15 +1,6 @@
-import { beforeEach, describe, expect, mock, test } from 'bun:test';
+import { afterAll, beforeEach, describe, expect, spyOn, test } from 'bun:test';
+import * as fs from 'node:fs';
 
-// Mock fs BEFORE importing modules
-mock.module('fs', () => ({
-  readFileSync: mock(() => ''),
-  writeFileSync: mock(),
-  unlinkSync: mock(),
-  existsSync: mock(() => true),
-  statSync: mock(() => ({ isDirectory: () => false })),
-}));
-
-import { readFileSync, unlinkSync, writeFileSync } from 'node:fs';
 import {
   applyWorkspaceEdit,
   filterDiagnosticsBySeverity,
@@ -21,10 +12,22 @@ import {
 } from './utils';
 
 describe('utils', () => {
+  const readFileSyncSpy = spyOn(fs, 'readFileSync').mockReturnValue(
+    '' as never,
+  );
+  const writeFileSyncSpy = spyOn(fs, 'writeFileSync').mockImplementation(
+    () => {},
+  );
+  const unlinkSyncSpy = spyOn(fs, 'unlinkSync').mockImplementation(() => {});
+  const existsSyncSpy = spyOn(fs, 'existsSync').mockReturnValue(true);
+  const statSyncSpy = spyOn(fs, 'statSync').mockReturnValue({
+    isDirectory: () => false,
+  } as any);
+
   beforeEach(() => {
-    (readFileSync as any).mockClear();
-    (writeFileSync as any).mockClear();
-    (unlinkSync as any).mockClear();
+    readFileSyncSpy.mockClear();
+    writeFileSyncSpy.mockClear();
+    unlinkSyncSpy.mockClear();
   });
 
   describe('uriToPath', () => {
@@ -96,7 +99,7 @@ describe('utils', () => {
     test('should apply single file edit', () => {
       const uri = 'file:///test.ts';
       const filePath = uriToPath(uri);
-      (readFileSync as any).mockReturnValue('line1\nline2\nline3');
+      readFileSyncSpy.mockReturnValue('line1\nline2\nline3');
 
       const edit = {
         changes: {
@@ -115,12 +118,12 @@ describe('utils', () => {
       const result = applyWorkspaceEdit(edit as any);
       expect(result.success).toBe(true);
       expect(result.filesModified).toContain(filePath);
-      expect(writeFileSync).toHaveBeenCalled();
+      expect(writeFileSyncSpy).toHaveBeenCalled();
     });
 
     test('should handle overlapping edits by sorting them in reverse order', () => {
       const uri = 'file:///test.ts';
-      (readFileSync as any).mockReturnValue('abcde');
+      readFileSyncSpy.mockReturnValue('abcde');
 
       const edit = {
         changes: {
@@ -145,7 +148,7 @@ describe('utils', () => {
 
       const result = applyWorkspaceEdit(edit as any);
       expect(result.success).toBe(true);
-      const writtenContent = (writeFileSync as any).mock.calls[0][1];
+      const writtenContent = writeFileSyncSpy.mock.calls[0][1];
       expect(writtenContent).toBe('1b3de');
     });
 
@@ -156,7 +159,7 @@ describe('utils', () => {
 
       const result = applyWorkspaceEdit(edit as any);
       expect(result.success).toBe(true);
-      expect(writeFileSync).toHaveBeenCalledWith(
+      expect(writeFileSyncSpy).toHaveBeenCalledWith(
         uriToPath('file:///new.ts'),
         '',
         'utf-8',
@@ -166,7 +169,7 @@ describe('utils', () => {
     test('should handle rename file operation', () => {
       const oldUri = 'file:///old.ts';
       const newUri = 'file:///new.ts';
-      (readFileSync as any).mockReturnValue('some content');
+      readFileSyncSpy.mockReturnValue('some content');
 
       const edit = {
         documentChanges: [{ kind: 'rename', oldUri, newUri }],
@@ -174,12 +177,12 @@ describe('utils', () => {
 
       const result = applyWorkspaceEdit(edit as any);
       expect(result.success).toBe(true);
-      expect(writeFileSync).toHaveBeenCalledWith(
+      expect(writeFileSyncSpy).toHaveBeenCalledWith(
         uriToPath(newUri),
         'some content',
         'utf-8',
       );
-      expect(unlinkSync).toHaveBeenCalledWith(uriToPath(oldUri));
+      expect(unlinkSyncSpy).toHaveBeenCalledWith(uriToPath(oldUri));
     });
 
     test('should handle delete file operation', () => {
@@ -190,7 +193,7 @@ describe('utils', () => {
 
       const result = applyWorkspaceEdit(edit as any);
       expect(result.success).toBe(true);
-      expect(unlinkSync).toHaveBeenCalledWith(uriToPath(uri));
+      expect(unlinkSyncSpy).toHaveBeenCalledWith(uriToPath(uri));
     });
 
     test('should return error if no edit provided', () => {
@@ -211,5 +214,13 @@ describe('utils', () => {
       const formatted = formatApplyResult(result);
       expect(formatted).toContain('Applied 1 edit(s)');
     });
+  });
+
+  afterAll(() => {
+    readFileSyncSpy.mockRestore();
+    writeFileSyncSpy.mockRestore();
+    unlinkSyncSpy.mockRestore();
+    existsSyncSpy.mockRestore();
+    statSyncSpy.mockRestore();
   });
 });

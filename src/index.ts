@@ -3,18 +3,23 @@ import { createAgents, getAgentConfigs } from './agents';
 import { BackgroundTaskManager, TmuxSessionManager } from './background';
 import { loadPluginConfig, type TmuxConfig } from './config';
 import { parseList } from './config/agent-mcps';
+import { validateAllowedProviders } from './config/validate-providers';
 import {
   createAutoUpdateCheckerHook,
   createDelegateTaskRetryHook,
+  createEditErrorRecoveryHook,
+  createHashlineReadEnhancerHook,
   createJsonErrorRecoveryHook,
   createPhaseReminderHook,
   createPostReadNudgeHook,
 } from './hooks';
 import { createBuiltinMcps } from './mcp';
+import { SessionExporter } from './session';
 import {
   ast_grep_replace,
   ast_grep_search,
   createBackgroundTools,
+  createHashlineEditTool,
   grep,
   lsp_diagnostics,
   lsp_find_references,
@@ -70,6 +75,9 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
   // Initialize TmuxSessionManager to handle OpenCode's built-in Task tool sessions
   const tmuxSessionManager = new TmuxSessionManager(ctx, tmuxConfig);
 
+  // Initialize session exporter for periodic session backup
+  const sessionExporter = new SessionExporter(ctx.client, config.sessionExport);
+
   // Initialize auto-update checker hook
   const autoUpdateChecker = createAutoUpdateCheckerHook(ctx, {
     showStartupToast: true,
@@ -88,8 +96,22 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
   // Initialize JSON parse error recovery hook
   const jsonErrorRecoveryHook = createJsonErrorRecoveryHook(ctx);
 
+  // Initialize hashline read enhancer hook (transforms Read output to LINE#HASH|)
+  const hashlineReadEnhancerHook = createHashlineReadEnhancerHook(
+    config.hashline_edit,
+  );
+
+  // Initialize edit error recovery hook (helps recover from Edit tool failures)
+  const editErrorRecoveryHook = createEditErrorRecoveryHook();
+
+  // Conditionally create hashline edit tool (enabled by default)
+  const hashlineEditEnabled = config.hashline_edit?.enabled !== false;
+  const hashlineEditTool = hashlineEditEnabled
+    ? createHashlineEditTool()
+    : undefined;
+
   return {
-    name: 'oh-my-opencode-slim',
+    name: 'oh-my-groundcontrol',
 
     agent: agents,
 
@@ -102,11 +124,23 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
       grep,
       ast_grep_search,
       ast_grep_replace,
+      ...(hashlineEditTool ? { hashline_edit: hashlineEditTool } : {}),
     },
 
     mcp: mcps,
 
     config: async (opencodeConfig: Record<string, unknown>) => {
+      // Enforce allowedProviders if configured.
+      // When set, opencodeConfig.enabled_providers must match exactly.
+      const providerError = validateAllowedProviders(
+        config.allowedProviders,
+        opencodeConfig.enabled_providers as string[] | undefined,
+      );
+      if (providerError) {
+        console.error(providerError);
+        throw new Error(providerError);
+      }
+
       (opencodeConfig as { default_agent?: string }).default_agent =
         'orchestrator';
 
@@ -128,9 +162,7 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
           (opencodeConfig.provider as Record<string, unknown>) ?? {};
         const configuredProviders = Object.keys(providerConfig);
 
-        for (const [agentName, modelArray] of Object.entries(
-          modelArrayMap,
-        )) {
+        for (const [agentName, modelArray] of Object.entries(modelArrayMap)) {
           let resolved = false;
           for (const modelEntry of modelArray) {
             const slashIdx = modelEntry.id.indexOf('/');
@@ -221,6 +253,18 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
       // Handle auto-update checking
       await autoUpdateChecker.event(input);
 
+      // Forward all session events to session exporter
+      await sessionExporter.onSessionEvent(
+        input.event as {
+          type: string;
+          properties?: {
+            info?: { id?: string; parentID?: string; title?: string };
+            sessionID?: string;
+            status?: { type: string };
+          };
+        },
+      );
+
       // Handle tmux pane spawning for OpenCode's Task tool sessions
       await tmuxSessionManager.onSessionCreated(
         input.event as {
@@ -288,6 +332,32 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
         },
       );
 
+      await editErrorRecoveryHook['tool.execute.after'](
+        input as {
+          tool: string;
+          sessionID?: string;
+          callID?: string;
+        },
+        output as {
+          title: string;
+          output: unknown;
+          metadata: unknown;
+        },
+      );
+
+      await hashlineReadEnhancerHook['tool.execute.after'](
+        input as {
+          tool: string;
+          sessionID?: string;
+          callID?: string;
+        },
+        output as {
+          title: string;
+          output: unknown;
+          metadata: unknown;
+        },
+      );
+
       await postReadNudgeHook['tool.execute.after'](
         input as {
           tool: string;
@@ -309,8 +379,10 @@ export default OhMyOpenCodeLite;
 export type {
   AgentName,
   AgentOverrideConfig,
+  HashlineEditConfig,
   McpName,
   PluginConfig,
+  SessionExportConfig,
   TmuxConfig,
   TmuxLayout,
 } from './config';
