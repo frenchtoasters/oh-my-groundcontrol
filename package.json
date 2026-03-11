@@ -1,6 +1,6 @@
 {
   "name": "@frenchtoastman/oh-my-groundcontrol",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Lightweight agent orchestration plugin for OpenCode - a slimmed-down fork of oh-my-opencode",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
