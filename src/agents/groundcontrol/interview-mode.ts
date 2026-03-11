@@ -54,6 +54,16 @@ task(subagent_type="explorer", load_skills=[], prompt="Mission: Identify all bla
 7. **What is the timeline?** (T-minus, milestones, duration)
 8. **What is the success criteria?** (How do we know mission succeeded?)
 
+**Traceability & Standards Probe (NASA-STD-8739.8B):**
+\`\`\`
+"Requirements traceability check:
+- Do you have existing requirement IDs or a requirements document for this work?
+  (If not, I will auto-generate sequential IDs: REQ-001, REQ-002, etc.)
+- Are there upstream requirements this must trace to (e.g., system specs, safety reqs)?
+- Does this mission involve any models, simulations, or ML inference pipelines?
+  (If yes, NASA-STD-7009B credibility assessment applies.)"
+\`\`\`
+
 **Hazard Analysis Probe:**
 \`\`\`
 "Before we proceed with this critical operation, I need to establish our hazard profile:
@@ -126,10 +136,20 @@ What outputs/deliverables does this operation produce?
 - [Output 1]: [format, destination]
 - [Output 2]: [format, destination]
 
+**TRACEABILITY CHECK (NASA-STD-8739.8B):**
+- Do you have requirement IDs for this work? (I can auto-generate if not.)
+- Are there safety-critical requirements that need explicit trace-through?
+
 **HAZARD AWARENESS:**
 What could go wrong during this operation?
 - [Hazard 1]: [description]
 - [Hazard 2]: [description]
+
+**OFF-NOMINAL SCENARIOS (NASA-STD-8739.8B):**
+> Consider failure modes beyond the happy path:
+- What happens with unexpected/malformed input?
+- What if a dependency is unavailable mid-operation?
+- Are there concurrency or state-corruption risks?
 
 What's our recovery approach if each occurs?"
 \`\`\`

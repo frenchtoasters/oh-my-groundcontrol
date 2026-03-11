@@ -49,6 +49,16 @@ Generate flight plan to: \`.groundcontrol/plans/{name}.md\`
 > *NPR 7150.2D Mandate: All requirements must be traceable to design, implementation, and test.*
 1. **[REQ-01]**: [Specification with measurable outcome] ➔ *Traces to:* [Planned Component/Test]
 2. **[REQ-02]**: [Specification with measurable outcome] ➔ *Traces to:* [Planned Component/Test]
+### Requirements Traceability Matrix (NASA-STD-8739.8B)
+> *Every requirement must trace forward to implementation and test. If the user has no existing requirement IDs, auto-generate sequential IDs (e.g., REQ-001, REQ-002).*
+
+| Req ID | Requirement Description | Design Component | Implementation | Test/Verification | Status |
+|--------|------------------------|------------------|----------------|-------------------|--------|
+| [REQ-001] | [Description] | [Component] | [File/Module] | [Test ID/Method] | [Open] |
+| [REQ-002] | [Description] | [Component] | [File/Module] | [Test ID/Method] | [Open] |
+
+> **Fallback**: If no external requirement IDs exist, Groundcontrol assigns sequential IDs (REQ-001..REQ-N) and traces them through to verification.
+
 ### Constraints & Boundaries
 - **MUST HAVE**: [Non-negotiable requirements]
 - **MUST NOT HAVE**: [Explicit exclusions from scope]
@@ -56,6 +66,7 @@ Generate flight plan to: \`.groundcontrol/plans/{name}.md\`
 
 ### Success Criteria (Phase Gate)
 - [ ] Requirements documented and approved
+- [ ] Traceability matrix populated (all REQs traced to design + test)
 - [ ] Scope boundaries established
 - [ ] Success metrics defined
 
@@ -155,6 +166,14 @@ Generate flight plan to: \`.groundcontrol/plans/{name}.md\`
 - [ ] Integration verification
 - [ ] Manual QA scenarios executed
 
+**Off-Nominal / Safety-Critical QA Scenarios (NASA-STD-8739.8B)**:
+> *Identify edge cases, failure modes, and boundary conditions that could cause incorrect, unsafe, or degraded behavior.*
+- [ ] **Boundary condition**: [Input at min/max/overflow] → Expected: [behavior]
+- [ ] **Invalid input**: [Malformed/missing/null data] → Expected: [graceful handling]
+- [ ] **Resource exhaustion**: [Memory/disk/network failure] → Expected: [degraded mode]
+- [ ] **Concurrent access**: [Race condition scenario] → Expected: [safe resolution]
+- [ ] **Recovery verification**: [After failure, system returns to known-good state]
+
 **Phase Gate Checkpoint**:
 - [ ] Implementation complete
 - [ ] Self-verified
@@ -190,6 +209,19 @@ Check: [Hazard name from Phase 2]
 Verification: [How we confirm hazard did not manifest]
 Threshold: [Pass/fail boundary]
 \`\`\`
+
+#### Protocol 4.3: Simulation Credibility Assessment (NASA-STD-7009B) — CONDITIONAL
+> *Include this section ONLY when the mission involves models, simulations, physics engines, ML inference pipelines, or any software whose outputs are used to inform real-world decisions.*
+
+| Factor | Assessment | Evidence | Score (1-5) |
+|--------|-----------|----------|-------------|
+| Verification | [Code correctness proven?] | [Test results/review] | [1-5] |
+| Validation | [Outputs match real-world data?] | [Comparison data] | [1-5] |
+| Input Pedigree | [Input data quality/provenance?] | [Source documentation] | [1-5] |
+| Results Uncertainty | [Uncertainty bounds quantified?] | [Analysis method] | [1-5] |
+| Results Robustness | [Sensitivity to input variation?] | [Sensitivity tests] | [1-5] |
+
+> **Credibility Threshold**: Score ≥ 3 in all factors for decision-support use. Flag any factor scoring ≤ 2 as a mission risk in the Hazard Analysis (Phase 2).
 
 ### Final Mission Certification
 
