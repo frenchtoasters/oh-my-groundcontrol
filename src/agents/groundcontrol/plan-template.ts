@@ -7,7 +7,7 @@
 
 export const GROUNDCONTROL_PLAN_TEMPLATE = `## Flight Plan Structure
 
-Generate flight plan to: \\\`.groundcontrol/flights/{name}.md\\\`
+Generate flight plan to: \`.groundcontrol/plans/{name}.md\`
 
 \\\`\\\`\\\`markdown
 # FLIGHT PLAN: {Mission Title}
@@ -45,10 +45,10 @@ Generate flight plan to: \\\`.groundcontrol/flights/{name}.md\\\`
 
 > **Objective**: Establish mission parameters, success criteria, and constraints.
 
-### Mission Requirements
-1. **[Requirement 1]**: [Specification with measurable outcome]
-2. **[Requirement 2]**: [Specification with measurable outcome]
-
+### Mission Requirements & Bi-Directional Traceability
+> *NPR 7150.2D Mandate: All requirements must be traceable to design, implementation, and test.*
+1. **[REQ-01]**: [Specification with measurable outcome] ➔ *Traces to:* [Planned Component/Test]
+2. **[REQ-02]**: [Specification with measurable outcome] ➔ *Traces to:* [Planned Component/Test]
 ### Constraints & Boundaries
 - **MUST HAVE**: [Non-negotiable requirements]
 - **MUST NOT HAVE**: [Explicit exclusions from scope]
@@ -78,18 +78,29 @@ Generate flight plan to: \\\`.groundcontrol/flights/{name}.md\\\`
 > 9. Scrutability — Makes failure modes diagnosable
 > 10. Frugality — Avoids unnecessary features and complexity
 
-### Hazard Analysis Matrix
-
+### Hazard Analysis & Software Risk Management
+> *NPR 7150.2D Compliance: Software Risk Management*
 | ID | Hazard Description | Severity | Probability | Mitigation Strategy | Abort Trigger | Recovery Path |
 |----|-------------------|----------|-------------|---------------------|---------------|---------------|
 | H1 | [Description] | [P1-Critical/P2-Major/P3-Minor] | [High/Med/Low] | [Strategy] | [Go/No-Go condition] | [Rollback procedure] |
 | H2 | [Description] | [P1/P2/P3] | [High/Med/Low] | [Strategy] | [Condition] | [Rollback] |
 
-### Abort Strategy
-**Abort Criteria** (Go/No-Go thresholds):
-- [ ] ABORT if [Hazard ID] probability exceeds [threshold]
-- [ ] ABORT if [Condition] is not met
-- [ ] ABORT if [Resource] is unavailable
+### Abort & Adaptation Strategy
+> **NOTE: MISSION RESILIENCE**
+> Do not abort on the first failure. We expect to encounter errors, learn from them, and adapt.
+> Only abort the mission if there are SIGNIFICANT DEVIATIONS from the plan required to solve the issue,
+> or if an unrecoverable safety threshold is breached (NASA-STD-8739.8).
+
+**Adaptation & Non-conformance Protocol** (How to handle normal failures / defects):
+- **Test Failures**: Re-evaluate the implementation, fix the code, do not abort. Document the non-conformance.
+- **Missing Minor Dependencies**: Find alternatives or workarounds. Document the deviation.
+- **Integration Issues**: Isolate the component, verify interfaces, adapt the approach.
+
+**Deviation Thresholds** (When to STOP and request re-planning):
+- [ ] ABORT if the core architecture must be fundamentally changed
+- [ ] ABORT if a critical dependency is entirely missing or incompatible
+- [ ] ABORT if [Hazard ID] manifests and recovery is impossible
+- [ ] ABORT if [Resource] is persistently unavailable
 
 **Recovery Protocol**:
 - Rollback to previous state: [Procedure]

@@ -93,6 +93,8 @@ CLEARANCE CHECKLIST (ALL must be YES to auto-transition):
 □ Technical approach decided?
 □ Test strategy confirmed (TDD/tests-after/none + agent QA)?
 □ No blocking questions outstanding?
+□ Bi-Directional Traceability established for all requirements?
+□ Hazard analysis and non-conformance/adaptation protocols defined?
 \`\`\`
 
 **IF all YES**: Immediately transition to Plan Generation (Phase 2).
@@ -230,7 +232,7 @@ After all Edits, Read the plan file to confirm all tasks are present and no cont
 </write_protocol>
 
 ### 7. DRAFT AS WORKING MEMORY (MANDATORY)
-**During interview, CONTINUOUSLY record decisions to a draft file.**
+**During interview, CONTINUOUSLY record decisions to a draft file. NEVER create a full plan before a draft is reviewed and approved.**
 
 **Draft Location**: \`.groundcontrol/drafts/{name}.md\`
 
@@ -241,6 +243,8 @@ After all Edits, Read the plan file to confirm all tasks are present and no cont
 - Agreed-upon constraints and boundaries
 - Questions asked and answers received
 - Technical choices and rationale
+- Requirements with Bi-Directional Traceability (NPR 7150.2D)
+- Hazard analysis and software risk management criteria
 
 **Draft Update Triggers:**
 - After EVERY meaningful user response
@@ -267,6 +271,9 @@ After all Edits, Read the plan file to confirm all tasks are present and no cont
 ## Scope Boundaries
 - INCLUDE: [what's in scope]
 - EXCLUDE: [what's explicitly out]
+
+## Hazard Analysis & Risk Management
+- [hazard]: [mitigation strategy / adaptation protocol]
 \`\`\`
 
 **Why Draft Matters:**
@@ -295,6 +302,8 @@ CLEARANCE CHECKLIST:
 □ Technical approach decided?
 □ Test strategy confirmed (TDD/tests-after/none + agent QA)?
 □ No blocking questions outstanding?
+□ Bi-Directional Traceability established for all requirements?
+□ Hazard analysis and non-conformance/adaptation protocols defined?
 
 → ALL YES? Announce: "All requirements clear. Proceeding to plan generation." Then transition.
 → ANY NO? Ask the specific unclear question.

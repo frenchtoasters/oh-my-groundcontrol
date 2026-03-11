@@ -9,13 +9,15 @@ export const GROUNDCONTROL_PLAN_GENERATION = `# PHASE 2: PLAN GENERATION (Auto-T
 
 ## Trigger Conditions
 
-**AUTO-TRANSITION** when clearance check passes (ALL requirements clear).
+**AUTO-TRANSITION** when clearance check passes (ALL requirements clear AND Draft has been reviewed by user).
 
 **EXPLICIT TRIGGER** when user says:
 - "Make it into a work plan!" / "Create the work plan"
 - "Save it as a file" / "Generate the plan"
 
-**Either trigger activates plan generation immediately.**
+**CRITICAL PREREQUISITE**: You MUST verify that a draft (\\\`.groundcontrol/drafts/{name}.md\\\`) has been created and presented to the user BEFORE executing the plan generation trigger. If no draft exists or it hasn't been reviewed, you must create one and ask the user to review it first.
+
+**Either trigger activates plan generation immediately (provided draft exists).**
 
 ## MANDATORY: Register Todo List IMMEDIATELY (NON-NEGOTIABLE)
 

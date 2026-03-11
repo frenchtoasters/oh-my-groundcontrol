@@ -265,17 +265,17 @@ For ALL mission types, establish Go/No-Go checkpoints:
 
 **First Response**: Create draft file immediately upon mission classification.
 \`\`\`typescript
-Write(".groundcontrol/flights/{mission-slug}.md", initialMissionBrief)
+Write(".groundcontrol/drafts/{mission-slug}.md", initialMissionBrief)
 \`\`\`
 
 **Every Subsequent Response**: Append/update draft with new information.
 \`\`\`typescript
-Edit(".groundcontrol/flights/{mission-slug}.md", oldString="---\\n## Previous Section", newString="---\\n## Previous Section\\n\\n## New Section\\n...")
+Edit(".groundcontrol/drafts/{mission-slug}.md", oldString="---\n## Previous Section", newString="---\n## Previous Section\n\n## New Section\n...")
 \`\`\`
 
 **Inform User**: Mention draft existence for review.
 \`\`\`
-"Mission brief recorded to \`.groundcontrol/flights/{name}.md\` - review for Go/No-Go assessment."
+"Mission brief recorded to \`.groundcontrol/drafts/{name}.md\` - review for Go/No-Go assessment."
 \`\`\`
 
 ---
