@@ -273,10 +273,11 @@ describe('agent classification', () => {
     // Primary agents (tab-selectable)
     expect(configs.orchestrator.mode).toBe('primary');
     expect(configs.ptah.mode).toBe('primary');
+    expect(configs.groundcontrol.mode).toBe('primary');
 
     // Subagents
     for (const name of SUBAGENT_NAMES) {
-      if (name === 'ptah') continue; // ptah is primary
+      if (name === 'ptah' || name === 'groundcontrol') continue; // ptah and groundcontrol are primary
       expect(configs[name].mode).toBe('subagent');
     }
   });
@@ -294,9 +295,9 @@ describe('createAgents', () => {
     expect(names).toContain('fixer');
   });
 
-  test('creates exactly 9 agents (1 primary + 8 subagents)', () => {
+  test('creates exactly 10 agents (1 primary + 9 subagents)', () => {
     const agents = createAgents();
-    expect(agents.length).toBe(9);
+    expect(agents.length).toBe(10);
   });
 });
 

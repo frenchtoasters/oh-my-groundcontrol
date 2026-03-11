@@ -115,7 +115,9 @@ describe('config-io', () => {
     expect(result.success).toBe(true);
 
     const saved = JSON.parse(readFileSync(configPath, 'utf-8'));
-    expect(saved.plugin).toContain('oh-my-groundcontrol');
+    expect(saved.plugin).toContain(
+      '@frenchtoastman/oh-my-groundcontrol@latest',
+    );
     expect(saved.plugin).not.toContain('oh-my-groundcontrol@1.0.0');
     expect(saved.plugin.length).toBe(2);
   });
@@ -203,7 +205,9 @@ describe('config-io', () => {
 
     writeFileSync(
       configPath,
-      JSON.stringify({ plugin: ['oh-my-groundcontrol'] }),
+      JSON.stringify({
+        plugin: ['@frenchtoastman/oh-my-groundcontrol@latest'],
+      }),
     );
     writeFileSync(
       litePath,
@@ -221,7 +225,9 @@ describe('config-io', () => {
     expect(result.success).toBe(true);
 
     const saved = JSON.parse(readFileSync(configPath, 'utf-8'));
-    expect(saved.plugin).toContain('oh-my-groundcontrol');
+    expect(saved.plugin).toContain(
+      '@frenchtoastman/oh-my-groundcontrol@latest',
+    );
     expect(saved.provider).toBeUndefined();
 
     const detected = detectCurrentConfig();

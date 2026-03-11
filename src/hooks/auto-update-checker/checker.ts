@@ -7,6 +7,7 @@ import {
   INSTALLED_PACKAGE_JSON,
   NPM_FETCH_TIMEOUT,
   NPM_REGISTRY_URL,
+  OLD_PACKAGE_NAME,
   PACKAGE_NAME,
   USER_OPENCODE_CONFIG,
   USER_OPENCODE_CONFIG_JSONC,
@@ -78,7 +79,15 @@ function getLocalDevPath(directory: string): string | null {
       const plugins = config.plugin ?? [];
 
       for (const entry of plugins) {
-        if (entry.startsWith('file://') && entry.includes(PACKAGE_NAME)) {
+        // For local dev paths, check against OLD_PACKAGE_NAME to maintain local dev workflow
+        if (entry.startsWith('file://') && entry.includes(OLD_PACKAGE_NAME)) {
+          try {
+            return fileURLToPath(entry);
+          } catch {
+            return entry.replace('file://', '');
+          }
+        }
+        if (entry.includes(PACKAGE_NAME)) {
           try {
             return fileURLToPath(entry);
           } catch {
@@ -150,6 +159,21 @@ export function findPluginEntry(directory: string): PluginEntryInfo | null {
       const plugins = config.plugin ?? [];
 
       for (const entry of plugins) {
+        // Check for OLD_PACKAGE_NAME entries (legacy)
+        if (entry === OLD_PACKAGE_NAME) {
+          return { entry, isPinned: false, pinnedVersion: null, configPath };
+        }
+        if (entry.startsWith(`${OLD_PACKAGE_NAME}@`)) {
+          const pinnedVersion = entry.slice(OLD_PACKAGE_NAME.length + 1);
+          const isPinned = pinnedVersion !== 'latest';
+          return {
+            entry,
+            isPinned,
+            pinnedVersion: isPinned ? pinnedVersion : null,
+            configPath,
+          };
+        }
+        // Check for new PACKAGE_NAME entries
         if (entry === PACKAGE_NAME) {
           return { entry, isPinned: false, pinnedVersion: null, configPath };
         }

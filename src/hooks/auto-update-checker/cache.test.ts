@@ -5,7 +5,8 @@ import { invalidatePackage } from './cache';
 // Mock internal dependencies
 mock.module('./constants', () => ({
   CACHE_DIR: '/mock/cache',
-  PACKAGE_NAME: 'oh-my-groundcontrol',
+  PACKAGE_NAME: '@frenchtoastman/oh-my-groundcontrol',
+  OLD_PACKAGE_NAME: 'oh-my-groundcontrol',
 }));
 
 mock.module('../../shared/logger', () => ({
@@ -55,7 +56,7 @@ describe('auto-update-checker/cache', () => {
       readMock.mockReturnValue(
         JSON.stringify({
           dependencies: {
-            'oh-my-groundcontrol': '1.0.0',
+            '@frenchtoastman/oh-my-groundcontrol': '1.0.0',
             'other-pkg': '1.0.0',
           },
         }),
@@ -66,7 +67,9 @@ describe('auto-update-checker/cache', () => {
       expect(result).toBe(true);
       const callArgs = writeMock.mock.calls[0];
       const savedJson = JSON.parse(callArgs[1]);
-      expect(savedJson.dependencies['oh-my-groundcontrol']).toBeUndefined();
+      expect(
+        savedJson.dependencies['@frenchtoastman/oh-my-groundcontrol'],
+      ).toBeUndefined();
       expect(savedJson.dependencies['other-pkg']).toBe('1.0.0');
     });
   });

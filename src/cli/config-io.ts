@@ -20,7 +20,8 @@ import type {
   OpenCodeConfig,
 } from './types';
 
-const PACKAGE_NAME = 'oh-my-groundcontrol';
+const PACKAGE_NAME = '@frenchtoastman/oh-my-groundcontrol';
+const OLD_PACKAGE_NAME = 'oh-my-groundcontrol';
 
 /**
  * Strip JSON comments (single-line // and multi-line) and trailing commas for JSONC support.
@@ -117,13 +118,17 @@ export async function addPluginToOpenCodeConfig(): Promise<ConfigMergeResult> {
     const config = parsedConfig ?? {};
     const plugins = config.plugin ?? [];
 
-    // Remove existing oh-my-groundcontrol entries
+    // Remove existing oh-my-groundcontrol entries (both old and new formats)
     const filteredPlugins = plugins.filter(
-      (p) => p !== PACKAGE_NAME && !p.startsWith(`${PACKAGE_NAME}@`),
+      (p) =>
+        p !== OLD_PACKAGE_NAME &&
+        !p.startsWith(`${OLD_PACKAGE_NAME}@`) &&
+        p !== PACKAGE_NAME &&
+        !p.startsWith(`${PACKAGE_NAME}@`),
     );
 
-    // Add fresh entry
-    filteredPlugins.push(PACKAGE_NAME);
+    // Add fresh entry with @latest version
+    filteredPlugins.push(`${PACKAGE_NAME}@latest`);
     config.plugin = filteredPlugins;
 
     writeConfig(configPath, config);
@@ -217,6 +222,7 @@ export function canModifyOpenCodeConfig(): boolean {
 
 export function addAntigravityPlugin(): ConfigMergeResult {
   const configPath = getExistingConfigPath();
+
   try {
     const { config: parsedConfig, error } = parseConfig(configPath);
     if (error) {
@@ -248,6 +254,7 @@ export function addAntigravityPlugin(): ConfigMergeResult {
 
 export function addGoogleProvider(): ConfigMergeResult {
   const configPath = getExistingConfigPath();
+
   try {
     const { config: parsedConfig, error } = parseConfig(configPath);
     if (error) {
@@ -342,6 +349,7 @@ export function addGoogleProvider(): ConfigMergeResult {
 
 export function addChutesProvider(): ConfigMergeResult {
   const configPath = getExistingConfigPath();
+
   try {
     // Chutes now follows the OpenCode auth flow (same as other providers).
     // Keep this step as a no-op success for backward-compatible install output.
@@ -392,7 +400,9 @@ export function detectCurrentConfig(): DetectedConfig {
   if (!config) return result;
 
   const plugins = config.plugin ?? [];
-  result.isInstalled = plugins.some((p) => p.startsWith(PACKAGE_NAME));
+  result.isInstalled = plugins.some(
+    (p) => p.startsWith(OLD_PACKAGE_NAME) || p.startsWith(PACKAGE_NAME),
+  );
   result.hasAntigravity = plugins.some((p) =>
     p.startsWith('opencode-antigravity-auth'),
   );

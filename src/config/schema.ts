@@ -8,6 +8,7 @@ const FALLBACK_AGENT_NAMES = [
   'librarian',
   'fixer',
   'ptah',
+  'groundcontrol',
   'sia',
   'maat',
 ] as const;
@@ -20,6 +21,7 @@ const MANUAL_AGENT_NAMES = [
   'librarian',
   'fixer',
   'ptah',
+  'groundcontrol',
   'sia',
   'maat',
 ] as const;
@@ -62,6 +64,7 @@ export const ManualPlanSchema = z
     librarian: ManualAgentPlanSchema,
     fixer: ManualAgentPlanSchema,
     ptah: ManualAgentPlanSchema,
+    groundcontrol: ManualAgentPlanSchema,
     sia: ManualAgentPlanSchema,
     maat: ManualAgentPlanSchema,
   })
@@ -82,6 +85,7 @@ const FallbackChainsSchema = z
     librarian: AgentModelChainSchema.optional(),
     fixer: AgentModelChainSchema.optional(),
     ptah: AgentModelChainSchema.optional(),
+    groundcontrol: AgentModelChainSchema.optional(),
     sia: AgentModelChainSchema.optional(),
     maat: AgentModelChainSchema.optional(),
   })

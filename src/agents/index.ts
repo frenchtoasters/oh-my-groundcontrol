@@ -13,6 +13,7 @@ import { getAgentMcpList } from '../config/agent-mcps';
 import { createDesignerAgent } from './designer';
 import { createExplorerAgent } from './explorer';
 import { createFixerAgent } from './fixer';
+import { createGroundcontrolAgent } from './groundcontrol';
 import { createLibrarianAgent } from './librarian';
 import { createMaatAgent } from './maat';
 import { createOracleAgent } from './oracle';
@@ -103,6 +104,7 @@ const SUBAGENT_FACTORIES: Record<SubagentName, AgentFactory> = {
   designer: createDesignerAgent,
   fixer: createFixerAgent,
   ptah: createPtahAgent,
+  groundcontrol: createGroundcontrolAgent,
   sia: createSiaAgent,
   maat: createMaatAgent,
 };
@@ -200,7 +202,7 @@ export function getAgentConfigs(
       // Apply classification-based visibility and mode.
       // 'primary' agents are tab-selectable in the OpenCode UI.
       // 'subagent' agents are hidden and only invoked via delegation.
-      const primaryAgents = new Set(['orchestrator', 'ptah']);
+      const primaryAgents = new Set(['orchestrator', 'ptah', 'groundcontrol']);
       if (primaryAgents.has(a.name)) {
         sdkConfig.mode = 'primary';
       } else {

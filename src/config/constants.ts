@@ -15,6 +15,7 @@ export const SUBAGENT_NAMES = [
   'designer',
   'fixer',
   'ptah',
+  'groundcontrol',
   'sia',
   'maat',
 ] as const;
@@ -35,6 +36,7 @@ export type AgentName = (typeof ALL_AGENT_NAMES)[number];
 export const SUBAGENT_DELEGATION_RULES: Record<AgentName, readonly string[]> = {
   orchestrator: SUBAGENT_NAMES,
   ptah: ['explorer', 'librarian', 'oracle', 'sia', 'maat'],
+  groundcontrol: ['explorer', 'librarian', 'oracle', 'sia', 'maat'],
   sia: [],
   maat: [],
   fixer: [],
@@ -49,6 +51,7 @@ export const SUBAGENT_DELEGATION_RULES: Record<AgentName, readonly string[]> = {
 export const DEFAULT_MODELS: Record<AgentName, string | undefined> = {
   orchestrator: undefined,
   ptah: undefined,
+  groundcontrol: undefined,
   sia: undefined,
   maat: undefined,
   oracle: 'openai/gpt-5.2-codex',

@@ -15,6 +15,7 @@ export const DEFAULT_AGENT_MCPS: Record<AgentName, string[]> = {
   explorer: ['git'],
   fixer: ['git', 'pytest'],
   ptah: ['websearch', 'deepwiki'],
+  groundcontrol: ['websearch', 'deepwiki'],
   sia: ['deepwiki'],
   maat: [],
 };
