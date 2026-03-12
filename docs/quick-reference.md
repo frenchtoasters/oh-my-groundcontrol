@@ -18,6 +18,13 @@ Complete reference for oh-my-groundcontrol configuration and capabilities.
 
 oh-my-groundcontrol follows a plan-first workflow inspired by NASA mission control protocols. The agents are organized into phases:
 
+### Mission Control Standards Adherence
+
+Our planning, execution, and verification pipelines enforce protocols based on official NASA standards:
+- **[NASA-STD-8739.8B](https://standards.nasa.gov/system/files/tmp/NASA-STD-8739.8B.pdf)** (Software Assurance and Software Safety Standard): Ensures rigorous traceability, off-nominal scenario handling, and safety-critical QA paths during the Groundcontrol planning phase.
+- **[NASA-STD-7009B](https://standards.nasa.gov/sites/default/files/standards/NASA/B/1/NASA-STD-7009B-Final-3-5-2024.pdf)** (Standard for Models and Simulations): Required during complex system modeling to enforce credibility assessment before committing to architectural designs.
+
+
 ### The Architects — Plan Before You Build
 
 ```
