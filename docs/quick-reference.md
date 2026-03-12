@@ -28,12 +28,12 @@ Our planning, execution, and verification pipelines enforce protocols based on o
 ### The Architects — Plan Before You Build
 
 ```
-Contractor (creates the plan)
+Groundcontrol (creates the plan)
   → PreFlight (optional: analyzes risks and ambiguities)
     → Verification (optional: verifies the plan is executable)
 ```
 
-**Contractor** is the divine architect — start here when you need structured planning. He conducts interviews, gathers requirements, and produces decision-complete work plans. **PreFlight** can optionally analyze the request for hidden risks before planning begins. **Verification** can optionally verify the finished plan is balanced and free of blockers.
+**Groundcontrol** is the divine architect — start here when you need structured, rigorous planning adhering to strict standards. He conducts interviews, gathers requirements, and produces decision-complete work plans. **Contractor** is an optional alternative for when you need a plan without the strict overhead of Groundcontrol's formal standards. **PreFlight** can optionally analyze the request for hidden risks before planning begins. **Verification** can optionally verify the finished plan is balanced and free of blockers.
 
 ### The Builders — Execute the Plan
 
@@ -50,7 +50,8 @@ Both **Contractor** and the **Orchestrator** are primary agents (tab-selectable)
 
 | Start With | When To Use |
 |------------|-------------|
-| **Contractor** | Complex multi-step tasks that benefit from structured planning |
+| **Groundcontrol** | Complex multi-step tasks requiring rigorous, standard-compliant planning |
+| **Contractor** | Complex tasks needing a structured plan quickly without maximum rigor |
 | **Orchestrator** | Direct execution tasks where you already know what needs to be done |
 
 ---
@@ -316,6 +317,7 @@ Control which agents can access which MCP servers using per-agent allowlists:
 
 | Agent | Default MCPs |
 |-------|--------------|
+| `groundcontrol` | none |
 | `contractor` | none |
 | `pre-flight` | none |
 | `verification` | none |

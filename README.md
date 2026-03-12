@@ -60,7 +60,7 @@ Our planning, execution, and verification pipelines enforce protocols based on o
 - **[NASA-STD-8739.8B](https://standards.nasa.gov/system/files/tmp/NASA-STD-8739.8B.pdf)** (Software Assurance and Software Safety Standard): Ensures rigorous traceability, off-nominal scenario handling, and safety-critical QA paths during the Groundcontrol planning phase.
 - **[NASA-STD-7009B](https://standards.nasa.gov/sites/default/files/standards/NASA/B/1/NASA-STD-7009B-Final-3-5-2024.pdf)** (Standard for Models and Simulations): Required during complex system modeling to enforce credibility assessment before committing to architectural designs.
 
-> *At mission control, nine specialized operators govern the success of every launch. Each holds authority over a critical telemetry system. Together they ensure mission success. Here, nine agents govern the craft of code.*
+> *At mission control, ten specialized operators govern the success of every launch. Each holds authority over a critical telemetry system. Together they ensure mission success. Here, ten agents govern the craft of code.*
 
 ### The Flight Directors
 
@@ -68,7 +68,7 @@ Our planning, execution, and verification pipelines enforce protocols based on o
 
 ```mermaid
 graph TD
-    U["🧑 User"] -->|"request"| P["🏛️ Contractor · Groundcontrol"]
+    U["🧑 User"] -->|"request"| P["🏛️ Groundcontrol"]
     P -->|"gap analysis"| S["👁️ PreFlight"]
     P -->|"codebase recon"| E["🧭 Explorer"]
     P -->|"knowledge retrieval"| L["📜 Librarian"]
@@ -119,7 +119,7 @@ graph TD
 
 ---
 
-### 02. PreFlight: The Risk Analyst
+### 03. PreFlight: The Risk Analyst
 
 <table>
   <tr>
@@ -149,7 +149,7 @@ graph TD
 
 ---
 
-### 03. Verification: The Launch Committer
+### 04. Verification: The Launch Committer
 
 <table>
   <tr>
@@ -185,7 +185,7 @@ graph TD
 
 ```mermaid
 graph TD
-    P["🏛️ Contractor"] -->|"approved plan"| O["👑 Orchestrator"]
+    P["🏛️ Groundcontrol"] -->|"approved plan"| O["👑 Orchestrator"]
     O -->|"implementation"| F["⚒️ Fixer"]
     O -->|"UI/UX"| D["🎨 Designer"]
     O -->|"codebase recon"| E["🧭 Explorer"]
@@ -205,7 +205,7 @@ graph TD
 
 ---
 
-### 04. Orchestrator: The Flight Director
+### 05. Orchestrator: The Flight Director
 
 <table>
   <tr>
@@ -235,7 +235,7 @@ graph TD
 
 ---
 
-### 05. Explorer: The Telemetry Scout
+### 06. Explorer: The Telemetry Scout
 
 <table>
   <tr>
@@ -265,7 +265,7 @@ graph TD
 
 ---
 
-### 06. Oracle: The Principal Architect
+### 07. Oracle: The Principal Architect
 
 <table>
   <tr>
@@ -295,7 +295,7 @@ graph TD
 
 ---
 
-### 07. Librarian: The Data Archivist
+### 08. Librarian: The Data Archivist
 
 <table>
   <tr>
@@ -325,7 +325,7 @@ graph TD
 
 ---
 
-### 08. Designer: The Interface Specialist
+### 09. Designer: The Interface Specialist
 
 <table>
   <tr>
@@ -355,7 +355,7 @@ graph TD
 
 ---
 
-### 09. Fixer: The Systems Integrator
+### 10. Fixer: The Systems Integrator
 
 <table>
   <tr>

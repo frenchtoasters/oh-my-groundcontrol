@@ -2,8 +2,8 @@
 export const AGENT_ALIASES: Record<string, string> = {
   explore: 'explorer',
   'frontend-ui-ux-engineer': 'designer',
-  planner: 'contractor',
-  plan: 'contractor',
+  planner: 'groundcontrol',
+  plan: 'groundcontrol',
   build: 'orchestrator',
   reviewer: 'verification',
 };
