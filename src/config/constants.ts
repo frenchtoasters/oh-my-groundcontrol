@@ -2,10 +2,10 @@
 export const AGENT_ALIASES: Record<string, string> = {
   explore: 'explorer',
   'frontend-ui-ux-engineer': 'designer',
-  planner: 'ptah',
-  plan: 'ptah',
+  planner: 'contractor',
+  plan: 'contractor',
   build: 'orchestrator',
-  reviewer: 'maat',
+  reviewer: 'verification',
 };
 
 export const SUBAGENT_NAMES = [
@@ -14,10 +14,10 @@ export const SUBAGENT_NAMES = [
   'oracle',
   'designer',
   'fixer',
-  'ptah',
+  'contractor',
   'groundcontrol',
-  'sia',
-  'maat',
+  'pre-flight',
+  'verification',
 ] as const;
 
 export const ORCHESTRATOR_NAME = 'orchestrator' as const;
@@ -35,10 +35,16 @@ export type AgentName = (typeof ALL_AGENT_NAMES)[number];
 // Unknown agent types not listed here default to explorer-only access
 export const SUBAGENT_DELEGATION_RULES: Record<AgentName, readonly string[]> = {
   orchestrator: SUBAGENT_NAMES,
-  ptah: ['explorer', 'librarian', 'oracle', 'sia', 'maat'],
-  groundcontrol: ['explorer', 'librarian', 'oracle', 'sia', 'maat'],
-  sia: [],
-  maat: [],
+  contractor: ['explorer', 'librarian', 'oracle', 'pre-flight', 'verification'],
+  groundcontrol: [
+    'explorer',
+    'librarian',
+    'oracle',
+    'pre-flight',
+    'verification',
+  ],
+  'pre-flight': [],
+  verification: [],
   fixer: [],
   designer: [],
   explorer: [],
@@ -50,10 +56,10 @@ export const SUBAGENT_DELEGATION_RULES: Record<AgentName, readonly string[]> = {
 // orchestrator is undefined so its model is fully resolved at runtime via priority fallback
 export const DEFAULT_MODELS: Record<AgentName, string | undefined> = {
   orchestrator: undefined,
-  ptah: undefined,
+  contractor: undefined,
   groundcontrol: undefined,
-  sia: undefined,
-  maat: undefined,
+  'pre-flight': undefined,
+  verification: undefined,
   oracle: 'openai/gpt-5.2-codex',
   librarian: 'openai/gpt-5.1-codex-mini',
   explorer: 'openai/gpt-5.1-codex-mini',

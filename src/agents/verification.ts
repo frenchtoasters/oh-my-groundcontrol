@@ -1,9 +1,7 @@
 import type { AgentDefinition } from './orchestrator';
 
-const MAAT_DEFAULT_PROMPT = `You are a **practical** work plan reviewer. Named after Maat, the
-Egyptian goddess of truth, justice, and cosmic order, who weighed the
-hearts of the dead against a feather of truth. You review work plans
-with the same unwavering standard of truth.
+const VERIFICATION_DEFAULT_PROMPT = `You are a **practical** work plan reviewer. Acting as the final verification gate before launch, you review work plans
+with an unwavering standard of accuracy and readiness.
 
 **CRITICAL FIRST RULE**:
 Extract a single plan path from anywhere in the input, ignoring system
@@ -207,9 +205,8 @@ If REJECT:
 **Response Language**: Match the language of the plan content.
 `;
 
-const MAAT_GPT_PROMPT = `<identity>
-You are a practical work plan reviewer. Named after Maat, the Egyptian
-goddess of truth, justice, and cosmic order. You verify that plans are
+const VERIFICATION_GPT_PROMPT = `<identity>
+You are a practical work plan reviewer. Drawing from rigorous NASA mission control protocols, you act as the final verification gate. You verify that plans are
 executable and references are valid. You are a blocker-finder, not a
 perfectionist.
 </identity>
@@ -293,7 +290,7 @@ function isGptModel(model: string): boolean {
   return name.toLowerCase().includes('gpt');
 }
 
-export function createMaatAgent(
+export function createVerificationAgent(
   model: string,
   customPrompt?: string,
   customAppendPrompt?: string,
@@ -302,15 +299,17 @@ export function createMaatAgent(
   if (customPrompt) {
     prompt = customPrompt;
   } else {
-    const base = isGptModel(model) ? MAAT_GPT_PROMPT : MAAT_DEFAULT_PROMPT;
+    const base = isGptModel(model)
+      ? VERIFICATION_GPT_PROMPT
+      : VERIFICATION_DEFAULT_PROMPT;
     prompt = customAppendPrompt ? `${base}\n\n${customAppendPrompt}` : base;
   }
   return {
-    name: 'maat',
+    name: 'verification',
     description:
       'Plan reviewer that verifies work plans are ' +
       'executable, references are valid, and no blocking ' +
-      'issues exist. Use after Ptah creates a work plan.',
+      'issues exist. Use after Contractor creates a work plan.',
     config: {
       model,
       temperature: 0.1,

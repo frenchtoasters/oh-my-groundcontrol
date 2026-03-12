@@ -9,17 +9,16 @@ import {
   SUBAGENT_NAMES,
 } from '../config';
 import { getAgentMcpList } from '../config/agent-mcps';
-
+import { createContractorAgent } from './contractor';
 import { createDesignerAgent } from './designer';
 import { createExplorerAgent } from './explorer';
 import { createFixerAgent } from './fixer';
 import { createGroundcontrolAgent } from './groundcontrol';
 import { createLibrarianAgent } from './librarian';
-import { createMaatAgent } from './maat';
 import { createOracleAgent } from './oracle';
 import { type AgentDefinition, createOrchestratorAgent } from './orchestrator';
-import { createPtahAgent } from './ptah';
-import { createSiaAgent } from './sia';
+import { createPreFlightAgent } from './pre-flight';
+import { createVerificationAgent } from './verification';
 
 export type { AgentDefinition } from './orchestrator';
 
@@ -103,10 +102,10 @@ const SUBAGENT_FACTORIES: Record<SubagentName, AgentFactory> = {
   oracle: createOracleAgent,
   designer: createDesignerAgent,
   fixer: createFixerAgent,
-  ptah: createPtahAgent,
+  contractor: createContractorAgent,
   groundcontrol: createGroundcontrolAgent,
-  sia: createSiaAgent,
-  maat: createMaatAgent,
+  'pre-flight': createPreFlightAgent,
+  verification: createVerificationAgent,
 };
 
 // Public API
@@ -133,7 +132,7 @@ export function createAgents(config?: PluginConfig): AgentDefinition[] {
       }
       return librarianModel ?? (DEFAULT_MODELS.librarian as string);
     }
-    // Subagents may have undefined default models (e.g. ptah, sia, maat);
+    // Subagents may have undefined default models (e.g. contractor, pre-flight, verification);
     // model is resolved later via override or _modelArray fallback.
     return (DEFAULT_MODELS[name] as string) ?? '';
   };
@@ -202,7 +201,11 @@ export function getAgentConfigs(
       // Apply classification-based visibility and mode.
       // 'primary' agents are tab-selectable in the OpenCode UI.
       // 'subagent' agents are hidden and only invoked via delegation.
-      const primaryAgents = new Set(['orchestrator', 'ptah', 'groundcontrol']);
+      const primaryAgents = new Set([
+        'orchestrator',
+        'contractor',
+        'groundcontrol',
+      ]);
       if (primaryAgents.has(a.name)) {
         sdkConfig.mode = 'primary';
       } else {

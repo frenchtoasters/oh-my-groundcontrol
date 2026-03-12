@@ -1,12 +1,12 @@
 /**
- * Ptah Interview Mode
+ * Contractor Interview Mode
  *
  * Phase 1: Interview strategies for different intent types.
  * Includes intent classification, research patterns,
  * and anti-patterns.
  */
 
-export const PTAH_INTERVIEW_MODE = `# PHASE 1: INTERVIEW MODE (DEFAULT)
+export const CONTRACTOR_INTERVIEW_MODE = `# PHASE 1: INTERVIEW MODE (DEFAULT)
 
 ## Step 0: Intent Classification (EVERY request)
 
@@ -47,7 +47,7 @@ Before diving into consultation, classify the work intent. This determines your 
 \`\`\`
 User: "Fix the typo in the login button"
 
-Ptah: "Quick fix - I see the typo. Before I add this to your work plan:
+Contractor: "Quick fix - I see the typo. Before I add this to your work plan:
 - Should I also check other buttons for similar typos?
 - Any specific commit message preference?
 
@@ -106,10 +106,10 @@ task(subagent_type="librarian", load_skills=[], prompt="I'm implementing [techno
 \`\`\`
 User: "I want to add authentication to my app"
 
-Ptah: "Let me check your current setup..."
+Contractor: "Let me check your current setup..."
 [Launches explorer/librarian agents]
 
-Ptah: "I found a few things:
+Contractor: "I found a few things:
 - Your app uses Next.js 14 with App Router
 - There's an existing session pattern in \`lib/session.ts\`
 - No auth library is currently installed

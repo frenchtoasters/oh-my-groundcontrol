@@ -1,8 +1,6 @@
 <div align="center">
-  <img src="img/team.png" alt="The Ennead" width="420">
-  <p><i>Nine ancient gods rose from the banks of the Nile, each a timeless master of their sacred craft. They await your command to bring Ma'at from Isfet, to raise monuments from the shifting sands, and to build what no mortal could build alone.</i></p>
+  <p><i>Houston, we have a solution. Nine specialized agents stand by at mission control, each a master of their operational domain. They await your command to clear the launchpad, assemble the flight systems, and achieve what no single engineer could build alone.</i></p>
   <p><b>Open Multi Agent Suite</b> · Mix any models · Auto delegate tasks</p>
-  <p><a href="https://moltfounders.com/jobs/09d1c6e7-9e0e-4683-8d78-e2376aaa2333"><img src="https://moltfounders.com/badges/4.png" alt="MoltFounders" height="30"></a></p>
 </div>
 
 ---
@@ -54,26 +52,46 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-## 🏛️ Meet the Ennead
+## 🚀 Meet the Flight Controllers
 
-> *In the temples of Heliopolis, the Ennead — the nine great gods — governed all of creation. Each held dominion over a sacred aspect of existence. Together they were unstoppable. Here, nine agents govern the craft of code.*
+> *At mission control, nine specialized operators govern the success of every launch. Each holds authority over a critical telemetry system. Together they ensure mission success. Here, nine agents govern the craft of code.*
 
-### The Architects
+### The Flight Directors
 
-*Those who plan, perceive, and judge before the first stone is laid.*
+*Those who plan, perceive, and verify before the launch sequence begins.*
+
+```mermaid
+graph TD
+    U["🧑 User"] -->|"request"| P["🏛️ Contractor · Groundcontrol"]
+    P -->|"gap analysis"| S["👁️ PreFlight"]
+    P -->|"codebase recon"| E["🧭 Explorer"]
+    P -->|"knowledge retrieval"| L["📜 Librarian"]
+    P -->|"plan verification"| M["⚖️ Verification"]
+    S -.->|"risks & gaps"| P
+    E -.->|"file map"| P
+    L -.->|"docs & references"| P
+    M -.->|"PASS / FAIL"| P
+    P -->|"approved plan"| O["👑 Orchestrator"]
+
+    style P fill:#2d4a22,stroke:#4a7c34,color:#fff
+    style S fill:#4a3728,stroke:#7a5a3e,color:#fff
+    style E fill:#1a3a4a,stroke:#2a6a8a,color:#fff
+    style L fill:#3a2a4a,stroke:#6a4a8a,color:#fff
+    style M fill:#4a4a1a,stroke:#8a8a2a,color:#fff
+    style O fill:#4a2a1a,stroke:#8a4a2a,color:#fff
+```
 
 ---
 
-### 01. Ptah: The Divine Architect
+### 01. Contractor: The Lead Systems Engineer
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/orchestrator.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>He who spoke creation into being.</i></sub>
+      <sub><i>Designs the mission architecture.</i></sub>
     </td>
     <td width="70%" valign="top">
-      In the ancient city of Memphis, Ptah shaped the world through the power of his word alone — conceiving creation in his heart and speaking it into existence. He is the god of craftsmen and architects, the one who designs before anyone builds. He conducts sacred interviews with those who seek great works, gathers the requirements of kings, and carves decision-complete blueprints into the foundation stones. No monument is raised without his plan.
+      Operating from the engineering drafting boards, the Contractor shapes the mission blueprint before a single line of code is written. They conduct rigorous requirements gathering, consult on system constraints, and deliver decision-complete schematics to ensure the objective is achievable. No system is built without their approved plan.
     </td>
   </tr>
   <tr>
@@ -83,7 +101,7 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
   </tr>
   <tr>
     <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/ptah/index.ts"><code>ptah/index.ts</code></a>
+      <b>Prompt:</b> <a href="src/agents/contractor/index.ts"><code>contractor/index.ts</code></a>
     </td>
   </tr>
   <tr>
@@ -95,16 +113,15 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-### 02. Sia: The All-Seeing Eye
+### 02. PreFlight: The Risk Analyst
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/oracle.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>Perception beyond mortal sight.</i></sub>
+      <sub><i>Identifies anomalies before ignition.</i></sub>
     </td>
     <td width="70%" valign="top">
-      Sia sailed beside Ra on the solar barque, carrying the sacred papyrus of divine knowledge. He is the god of perception and forethought — the one who sees what others cannot. Before the plan is carved in stone, Sia examines it with eyes that pierce through ambiguity and deception. He uncovers the hidden intentions buried beneath the sands, the traps concealed within requirements, and the failure points that would bring a monument crumbling down before its first jubilee.
+      PreFlight acts as the primary safety and risk analysis officer. Before the flight plan is authorized, they examine it for latent bugs, unresolved ambiguities, and catastrophic edge cases. They uncover the hidden pitfalls buried in the requirements and detect failure points that would cause a critical abort mid-mission.
     </td>
   </tr>
   <tr>
@@ -114,7 +131,7 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
   </tr>
   <tr>
     <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/sia.ts"><code>sia.ts</code></a>
+      <b>Prompt:</b> <a href="src/agents/pre-flight.ts"><code>pre-flight.ts</code></a>
     </td>
   </tr>
   <tr>
@@ -126,16 +143,15 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-### 03. Maat: The Feather of Truth
+### 03. Verification: The Launch Committer
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/oracle.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>She who weighs the heart against justice.</i></sub>
+      <sub><i>The final go/no-go for launch.</i></sub>
     </td>
     <td width="70%" valign="top">
-      In the Hall of Two Truths, deep beneath the western horizon, Maat holds the scales of cosmic order. She is the goddess of truth, justice, and balance — and no plan may pass into the realm of action without her judgment. She places every work plan upon the scale and weighs it against her feather. If it is balanced, executable, and free of deception, it is granted passage. If it carries unresolved blockers or invalid references, it is returned for correction. There is no deceiving Maat.
+      Stationed at the final checkpoint, Verification holds the ultimate authority on launch readiness. No plan proceeds to execution without their strict clearance. They run every procedure through a rigorous checklist, ensuring zero blockers and absolute precision. If the telemetry is off, the plan is returned. There are no shortcuts past Verification.
     </td>
   </tr>
   <tr>
@@ -145,7 +161,7 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
   </tr>
   <tr>
     <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/maat.ts"><code>maat.ts</code></a>
+      <b>Prompt:</b> <a href="src/agents/verification.ts"><code>verification.ts</code></a>
     </td>
   </tr>
   <tr>
@@ -157,22 +173,41 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-### The Builders
+### The Engineering Teams
 
-*Those who explore, advise, and construct once the plan is blessed.*
+*Those who explore, advise, and execute once the plan is authorized.*
+
+```mermaid
+graph TD
+    P["🏛️ Contractor"] -->|"approved plan"| O["👑 Orchestrator"]
+    O -->|"implementation"| F["⚒️ Fixer"]
+    O -->|"UI/UX"| D["🎨 Designer"]
+    O -->|"codebase recon"| E["🧭 Explorer"]
+    O -->|"architecture advice"| R["🔮 Oracle"]
+    F -.->|"code changes"| O
+    D -.->|"visual polish"| O
+    E -.->|"file map"| O
+    R -.->|"guidance"| O
+
+    style O fill:#4a2a1a,stroke:#8a4a2a,color:#fff
+    style F fill:#3a3a3a,stroke:#6a6a6a,color:#fff
+    style D fill:#4a1a3a,stroke:#8a2a6a,color:#fff
+    style E fill:#1a3a4a,stroke:#2a6a8a,color:#fff
+    style R fill:#2a2a4a,stroke:#4a4a8a,color:#fff
+    style P fill:#2d4a22,stroke:#4a7c34,color:#fff
+```
 
 ---
 
-### 04. Orchestrator: The Voice of Ma'at
+### 04. Orchestrator: The Flight Director
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/orchestrator.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>He who commands the kingdom from the golden throne.</i></sub>
+      <sub><i>Commands the mission from the central console.</i></sub>
     </td>
     <td width="70%" valign="top">
-      When the great plan descends from the architects, the Orchestrator receives it upon the golden throne of the pharaoh's court. Like the pharaoh who united Upper and Lower Egypt, the Orchestrator brings Ma'at — divine order — from the chaos of Isfet. It surveys the work ahead, determines the optimal path, and dispatches each member of the Ennead to their sacred duty. It balances speed, quality, and cost with the wisdom of one who has governed a thousand kingdoms.
+      When the flight plan is cleared, the Orchestrator takes the central console. They command the workflow, delegating tasks to the specialized engineering teams. They balance execution speed, code quality, and computational cost with the precision of a seasoned mission commander.
     </td>
   </tr>
   <tr>
@@ -194,16 +229,15 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-### 05. Explorer: The Desert Wayfinder
+### 05. Explorer: The Telemetry Scout
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/explorer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>Swift as the desert wind across the dunes.</i></sub>
+      <sub><i>Navigates the deepest system paths.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Explorer is a tireless scout who has traversed the endless sands since the first dynasty. Blessed by Khonsu, the traveler god, they race across the desert reading hieroglyphs carved into forgotten tombs, mapping every passage of every buried temple, and returning with knowledge that would take mortals a lifetime to gather. Legends whisper they once charted the entire Valley of the Kings in a single heartbeat. No file remains unfound, no pattern unrecognized, no secret sealed.
+      The Explorer is a rapid-response data retrieval specialist. They traverse massive codebases to map unchartered modules, scan for legacy patterns, and retrieve critical context that would take an engineer days to find manually. No file remains unfound, no configuration unrecognized.
     </td>
   </tr>
   <tr>
@@ -225,16 +259,15 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-### 06. Oracle: The Keeper of the Sphinx
+### 06. Oracle: The Principal Architect
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/oracle.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>He who speaks in riddles at the temple gate.</i></sub>
+      <sub><i>The ultimate technical authority.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Oracle sits before the Great Sphinx at the crossroads of every architectural decision. They have witnessed every dynasty rise and fall, every temple built and buried. Like the priests of the Amun temple at Karnak, they do not choose your path — they illuminate it. When you stand at the precipice of a great refactor, the Oracle whispers which road leads to a golden age and which leads to ruin beneath the sands. Consult them wisely, for their counsel is slow but their wisdom is absolute.
+      The Oracle is the senior advisor for mission-critical architectural decisions. They understand the long-term impact of deep system refactors and complex dependencies. When you hit a roadblock that threatens the entire stack, the Oracle provides the definitive guidance needed to recover and advance.
     </td>
   </tr>
   <tr>
@@ -256,16 +289,15 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-### 07. Librarian: The Scribe of Thoth
+### 07. Librarian: The Data Archivist
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/librarian.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>Keeper of the sacred scrolls.</i></sub>
+      <sub><i>Retrieves the official documentation.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Librarian serves Thoth, the ibis-headed god of writing and knowledge. They walk the infinite halls of the Great Library of Alexandria, gathering scrolls from every corner of the known world. Where others see scattered papyrus fragments, the Librarian weaves them into a tapestry of understanding that transcends mere facts. What they return is not information — it is the sacred knowledge that empires are built upon. No API is undocumented, no library unexplored, no scroll left unread.
+      The Librarian maintains the external knowledge base. They scan official documentation, recent API changes, and trusted open-source examples to provide the exact specifications required for implementation. They ensure that all external integrations meet the latest official standards.
     </td>
   </tr>
   <tr>
@@ -287,16 +319,15 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-### 08. Designer: The Artisan of Karnak
+### 08. Designer: The Interface Specialist
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/designer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>Every temple wall tells a story.</i></sub>
+      <sub><i>Polishes the user experience.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Designer is heir to the master artisans who painted the walls of Karnak, adorned the halls of Luxor, and decorated the tombs in the Valley of the Kings. Blessed by Hathor, goddess of beauty, they carry the sacred duty to ensure that every surface serves both beauty and meaning. They have seen a million interfaces rise and crumble to dust, and they remember which ones endured through the ages. In the kingdom of code, beauty is not a luxury — it is the mark of civilization.
+      The Designer is focused purely on human-computer interaction and visual polish. They craft the interfaces, components, and layouts that users actually see. In a world of raw data and logic, they ensure the final product is intuitive, responsive, and seamlessly functional.
     </td>
   </tr>
   <tr>
@@ -318,16 +349,15 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ---
 
-### 09. Fixer: The Pyramid Builder
+### 09. Fixer: The Systems Integrator
 
 <table>
   <tr>
     <td width="30%" align="center" valign="top">
-      <img src="img/fixer.png" width="240" style="border-radius: 10px;">
-      <br><sub><i>He who turns the architect's vision into eternal stone.</i></sub>
+      <sub><i>Writes the code, tightens the bolts.</i></sub>
     </td>
     <td width="70%" valign="top">
-      The Fixer descends from the master stonemasons who raised the Great Pyramids of Giza — monuments so perfectly built they have endured for millennia. When the age of planning and debating began, they remained: the ones who actually build. They carry the ancient knowledge of how to cut stone with precision, how to transform a blueprint into a structure that will stand for eternity. They are the final step between the architect's vision and a monument that touches the sky.
+      The Fixer is the dedicated execution engine. When the plan is finalized and the architecture is set, the Fixer writes the implementation. They are the hands-on developers who turn the blueprint into functional, robust software capable of passing all launch parameters.
     </td>
   </tr>
   <tr>
@@ -362,10 +392,3 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 ## 📄 License
 
 MIT
-
----
-
-<!-- MoltFounders Banner -->
-<a href="https://moltfounders.com/jobs/09d1c6e7-9e0e-4683-8d78-e2376aaa2333">
-  <img src="img/moltfounders-banner.png" alt="MoltFounders - The Agent Co-Founder Network">
-</a>

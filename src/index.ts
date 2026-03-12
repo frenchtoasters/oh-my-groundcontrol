@@ -12,6 +12,7 @@ import {
   createJsonErrorRecoveryHook,
   createPhaseReminderHook,
   createPostReadNudgeHook,
+  createQuestionRouterHook,
 } from './hooks';
 import { createBuiltinMcps } from './mcp';
 import { SessionExporter } from './session';
@@ -89,6 +90,9 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
 
   // Initialize post-read nudge hook
   const postReadNudgeHook = createPostReadNudgeHook();
+
+  // Initialize question router hook
+  const questionRouterHook = createQuestionRouterHook(ctx);
 
   // Initialize delegate-task retry guidance hook
   const delegateTaskRetryHook = createDelegateTaskRetryHook(ctx);
@@ -311,6 +315,8 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
     // Inject phase reminder before sending to API (doesn't show in UI)
     'experimental.chat.messages.transform':
       phaseReminderHook['experimental.chat.messages.transform'],
+
+    'chat.message': questionRouterHook['chat.message'],
 
     // Post-tool hooks: retry guidance for delegation errors + post-read nudge
     'tool.execute.after': async (input, output) => {

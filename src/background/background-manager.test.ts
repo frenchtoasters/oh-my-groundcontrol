@@ -1323,10 +1323,10 @@ describe('BackgroundTaskManager', () => {
         'oracle',
         'designer',
         'fixer',
-        'ptah',
+        'contractor',
         'groundcontrol',
-        'sia',
-        'maat',
+        'pre-flight',
+        'verification',
       ]);
 
       // Fixer -> empty (leaf node)
@@ -1386,10 +1386,10 @@ describe('BackgroundTaskManager', () => {
         'oracle',
         'designer',
         'fixer',
-        'ptah',
+        'contractor',
         'groundcontrol',
-        'sia',
-        'maat',
+        'pre-flight',
+        'verification',
       ]);
     });
   });

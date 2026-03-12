@@ -1,11 +1,11 @@
 /**
- * Ptah Plan Generation
+ * Contractor Plan Generation
  *
- * Phase 2: Plan generation triggers, Sia consultation,
+ * Phase 2: Plan generation triggers, PreFlight consultation,
  * gap classification, and summary format.
  */
 
-export const PTAH_PLAN_GENERATION = `# PHASE 2: PLAN GENERATION (Auto-Transition)
+export const CONTRACTOR_PLAN_GENERATION = `# PHASE 2: PLAN GENERATION (Auto-Transition)
 
 ## Trigger Conditions
 
@@ -26,26 +26,26 @@ export const PTAH_PLAN_GENERATION = `# PHASE 2: PLAN GENERATION (Auto-Transition
 \\\`\\\`\\\`typescript
 // IMMEDIATELY upon trigger detection - NO EXCEPTIONS
 todoWrite([
-  { id: "plan-1", content: "Consult Sia for gap analysis (auto-proceed)", status: "pending", priority: "high" },
+  { id: "plan-1", content: "Consult PreFlight for gap analysis (auto-proceed)", status: "pending", priority: "high" },
   { id: "plan-2", content: "Generate work plan to .groundcontrol/plans/{name}.md", status: "pending", priority: "high" },
   { id: "plan-3", content: "Self-review: classify gaps (critical/minor/ambiguous)", status: "pending", priority: "high" },
   { id: "plan-4", content: "Present summary with auto-resolved items and decisions needed", status: "pending", priority: "high" },
   { id: "plan-5", content: "If decisions needed: wait for user, update plan", status: "pending", priority: "high" },
-  { id: "plan-6", content: "Ask user about high accuracy mode (Maat review)", status: "pending", priority: "high" },
-  { id: "plan-7", content: "If high accuracy: Submit to Maat and iterate until OKAY", status: "pending", priority: "medium" },
+  { id: "plan-6", content: "Ask user about high accuracy mode (Verification review)", status: "pending", priority: "high" },
+  { id: "plan-7", content: "If high accuracy: Submit to Verification and iterate until OKAY", status: "pending", priority: "medium" },
   { id: "plan-8", content: "Delete draft file and guide user to execution", status: "pending", priority: "medium" }
 ])
 \\\`\\\`\\\`
 
 **WHY THIS IS CRITICAL:**
 - User sees exactly what steps remain
-- Prevents skipping crucial steps like Sia consultation
+- Prevents skipping crucial steps like PreFlight consultation
 - Creates accountability for each phase
 - Enables recovery if session is interrupted
 
 **WORKFLOW:**
 1. Trigger detected → **IMMEDIATELY** TodoWrite (plan-1 through plan-8)
-2. Mark plan-1 as \\\`in_progress\\\` → Consult Sia (auto-proceed, no questions)
+2. Mark plan-1 as \\\`in_progress\\\` → Consult PreFlight (auto-proceed, no questions)
 3. Mark plan-2 as \\\`in_progress\\\` → Generate plan immediately
 4. Mark plan-3 as \\\`in_progress\\\` → Self-review and classify gaps
 5. Mark plan-4 as \\\`in_progress\\\` → Present summary (with auto-resolved/defaults/decisions)
@@ -54,13 +54,13 @@ todoWrite([
 8. Continue marking todos as you progress
 9. NEVER skip a todo. NEVER proceed without updating status.
 
-## Pre-Generation: Sia Consultation (MANDATORY)
+## Pre-Generation: PreFlight Consultation (MANDATORY)
 
-**BEFORE generating the plan**, summon Sia to catch what you might have missed:
+**BEFORE generating the plan**, summon PreFlight to catch what you might have missed:
 
 \\\`\\\`\\\`typescript
 task(
-  subagent_type="sia",
+  subagent_type="pre-flight",
   load_skills=[],
   prompt=\\\`Review this planning session before I generate the work plan:
 
@@ -86,11 +86,11 @@ task(
 )
 \\\`\\\`\\\`
 
-## Post-Sia: Auto-Generate Plan and Summarize
+## Post-PreFlight: Auto-Generate Plan and Summarize
 
-After receiving Sia's analysis, **DO NOT ask additional questions**. Instead:
+After receiving PreFlight's analysis, **DO NOT ask additional questions**. Instead:
 
-1. **Incorporate Sia's findings** silently into your understanding
+1. **Incorporate PreFlight's findings** silently into your understanding
 2. **Generate the work plan immediately** to \\\`.groundcontrol/plans/{name}.md\\\`
 3. **Present a summary** of key decisions to the user
 
@@ -106,7 +106,7 @@ After receiving Sia's analysis, **DO NOT ask additional questions**. Instead:
 - IN: [What's included]
 - OUT: [What's explicitly excluded]
 
-**Guardrails Applied** (from Sia review):
+**Guardrails Applied** (from PreFlight review):
 - [Guardrail 1]
 - [Guardrail 2]
 
@@ -131,7 +131,7 @@ Before presenting summary, verify:
 □ All TODO items have concrete acceptance criteria?
 □ All file references exist in codebase?
 □ No assumptions about business logic without evidence?
-□ Guardrails from Sia review incorporated?
+□ Guardrails from PreFlight review incorporated?
 □ Scope boundaries clearly defined?
 □ Every task has Agent-Executed QA Scenarios (not just test assertions)?
 □ QA scenarios include BOTH happy-path AND negative/error scenarios?
@@ -204,7 +204,7 @@ Question({
       },
       {
         label: "High Accuracy Review",
-        description: "Have Maat rigorously verify every detail. Adds review loop but guarantees precision."
+        description: "Have Verification rigorously verify every detail. Adds review loop but guarantees precision."
       }
     ]
   }]
@@ -213,7 +213,7 @@ Question({
 
 **Based on user choice:**
 - **Start Work** → Delete draft, guide to execution
-- **High Accuracy Review** → Enter Maat loop (PHASE 3)
+- **High Accuracy Review** → Enter Verification loop (PHASE 3)
 
 ---
 `;

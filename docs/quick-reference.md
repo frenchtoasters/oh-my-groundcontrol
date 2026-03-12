@@ -16,17 +16,17 @@ Complete reference for oh-my-groundcontrol configuration and capabilities.
 
 ## Planning Workflow
 
-oh-my-groundcontrol follows a plan-first workflow inspired by the ancient Egyptian Ennead. The nine agents are organized into two phases:
+oh-my-groundcontrol follows a plan-first workflow inspired by NASA mission control protocols. The agents are organized into phases:
 
 ### The Architects — Plan Before You Build
 
 ```
-Ptah (creates the plan)
-  → Sia (optional: analyzes risks and ambiguities)
-    → Maat (optional: verifies the plan is executable)
+Contractor (creates the plan)
+  → PreFlight (optional: analyzes risks and ambiguities)
+    → Verification (optional: verifies the plan is executable)
 ```
 
-**Ptah** is the divine architect — start here when you need structured planning. He conducts interviews, gathers requirements, and produces decision-complete work plans. **Sia** can optionally analyze the request for hidden risks before planning begins. **Maat** can optionally verify the finished plan is balanced and free of blockers.
+**Contractor** is the divine architect — start here when you need structured planning. He conducts interviews, gathers requirements, and produces decision-complete work plans. **PreFlight** can optionally analyze the request for hidden risks before planning begins. **Verification** can optionally verify the finished plan is balanced and free of blockers.
 
 ### The Builders — Execute the Plan
 
@@ -39,11 +39,11 @@ Once the plan is blessed, the **Orchestrator** takes command and delegates tasks
 
 ### Choosing Your Entry Point
 
-Both **Ptah** and the **Orchestrator** are primary agents (tab-selectable):
+Both **Contractor** and the **Orchestrator** are primary agents (tab-selectable):
 
 | Start With | When To Use |
 |------------|-------------|
-| **Ptah** | Complex multi-step tasks that benefit from structured planning |
+| **Contractor** | Complex multi-step tasks that benefit from structured planning |
 | **Orchestrator** | Direct execution tasks where you already know what needs to be done |
 
 ---
@@ -106,9 +106,9 @@ Uses OpenAI models exclusively:
   "preset": "openai",
   "presets": {
     "openai": {
-      "ptah": { "model": "openai/gpt-5.2-codex", "skills": [], "mcps": [] },
-      "sia": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
-      "maat": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
+      "contractor": { "model": "openai/gpt-5.2-codex", "skills": [], "mcps": [] },
+      "pre-flight": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
+      "verification": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
       "orchestrator": { "model": "openai/gpt-5.2-codex", "skills": ["*"], "mcps": ["websearch"] },
       "oracle": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
       "librarian": { "model": "openai/gpt-5.1-codex-mini", "variant": "low", "skills": [], "mcps": ["websearch", "context7", "grep_app"] },
@@ -130,8 +130,8 @@ bunx oh-my-groundcontrol install --antigravity=yes --opencode-free=yes --opencod
 ```
 
 **Agent Mapping:**
-- Ptah/Orchestrator: Kimi (if available)
-- Sia/Maat/Oracle: GPT (if available)
+- Contractor/Orchestrator: Kimi (if available)
+- PreFlight/Verification/Oracle: GPT (if available)
 - Explorer/Librarian/Designer/Fixer: Gemini 3 Flash via Antigravity
 - If OpenCode free mode is enabled, Explorer/Librarian/Fixer may use selected free `opencode/*` support model while `designer` stays on external mapping
 
@@ -161,9 +161,9 @@ Mixed setup combining multiple providers:
   "preset": "frenchtoasters",
   "presets": {
     "frenchtoasters": {
-      "ptah": { "model": "google/claude-opus-4-5-thinking", "skills": [], "mcps": [] },
-      "sia": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
-      "maat": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
+      "contractor": { "model": "google/claude-opus-4-5-thinking", "skills": [], "mcps": [] },
+      "pre-flight": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
+      "verification": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
       "orchestrator": { "model": "google/claude-opus-4-5-thinking", "skills": ["*"], "mcps": ["*"] },
       "oracle": { "model": "openai/gpt-5.2-codex", "variant": "high", "skills": [], "mcps": [] },
       "librarian": { "model": "google/gemini-3-flash", "variant": "low", "skills": [], "mcps": ["websearch", "context7", "grep_app"] },
@@ -309,9 +309,9 @@ Control which agents can access which MCP servers using per-agent allowlists:
 
 | Agent | Default MCPs |
 |-------|--------------|
-| `ptah` | none |
-| `sia` | none |
-| `maat` | none |
+| `contractor` | none |
+| `pre-flight` | none |
+| `verification` | none |
 | `orchestrator` | `websearch` |
 | `oracle` | none |
 | `librarian` | `websearch`, `context7`, `grep_app` |

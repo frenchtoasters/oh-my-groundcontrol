@@ -7,10 +7,10 @@ const FALLBACK_AGENT_NAMES = [
   'explorer',
   'librarian',
   'fixer',
-  'ptah',
+  'contractor',
   'groundcontrol',
-  'sia',
-  'maat',
+  'pre-flight',
+  'verification',
 ] as const;
 
 const MANUAL_AGENT_NAMES = [
@@ -20,10 +20,10 @@ const MANUAL_AGENT_NAMES = [
   'explorer',
   'librarian',
   'fixer',
-  'ptah',
+  'contractor',
   'groundcontrol',
-  'sia',
-  'maat',
+  'pre-flight',
+  'verification',
 ] as const;
 
 const ProviderModelIdSchema = z
@@ -63,10 +63,10 @@ export const ManualPlanSchema = z
     explorer: ManualAgentPlanSchema,
     librarian: ManualAgentPlanSchema,
     fixer: ManualAgentPlanSchema,
-    ptah: ManualAgentPlanSchema,
+    contractor: ManualAgentPlanSchema,
     groundcontrol: ManualAgentPlanSchema,
-    sia: ManualAgentPlanSchema,
-    maat: ManualAgentPlanSchema,
+    'pre-flight': ManualAgentPlanSchema,
+    verification: ManualAgentPlanSchema,
   })
   .strict();
 
@@ -84,10 +84,10 @@ const FallbackChainsSchema = z
     explorer: AgentModelChainSchema.optional(),
     librarian: AgentModelChainSchema.optional(),
     fixer: AgentModelChainSchema.optional(),
-    ptah: AgentModelChainSchema.optional(),
+    contractor: AgentModelChainSchema.optional(),
     groundcontrol: AgentModelChainSchema.optional(),
-    sia: AgentModelChainSchema.optional(),
-    maat: AgentModelChainSchema.optional(),
+    'pre-flight': AgentModelChainSchema.optional(),
+    verification: AgentModelChainSchema.optional(),
   })
   .catchall(AgentModelChainSchema);
 

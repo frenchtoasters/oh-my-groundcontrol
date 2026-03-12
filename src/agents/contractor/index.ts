@@ -1,9 +1,9 @@
 import type { AgentDefinition } from '../orchestrator';
-import { getPtahPrompt, PTAH_PERMISSION } from './system-prompt';
+import { CONTRACTOR_PERMISSION, getContractorPrompt } from './system-prompt';
 
-export { PTAH_PERMISSION } from './system-prompt';
+export { CONTRACTOR_PERMISSION } from './system-prompt';
 
-export function createPtahAgent(
+export function createContractorAgent(
   model: string,
   customPrompt?: string,
   customAppendPrompt?: string,
@@ -12,11 +12,11 @@ export function createPtahAgent(
   if (customPrompt) {
     prompt = customPrompt;
   } else {
-    const base = getPtahPrompt(model);
+    const base = getContractorPrompt(model);
     prompt = customAppendPrompt ? `${base}\n\n${customAppendPrompt}` : base;
   }
   return {
-    name: 'ptah',
+    name: 'contractor',
     description:
       'Strategic planning consultant that conducts interviews, ' +
       'gathers requirements, and generates decision-complete ' +
@@ -26,7 +26,7 @@ export function createPtahAgent(
       model,
       temperature: 0.1,
       prompt,
-      ...PTAH_PERMISSION,
+      ...CONTRACTOR_PERMISSION,
     },
   };
 }

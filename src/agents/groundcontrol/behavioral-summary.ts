@@ -38,9 +38,9 @@ The orchestrator can now execute this plan.
 # BEHAVIORAL SUMMARY
 
 - **Interview Mode**: Default state — Consult, research, discuss. Run clearance check after each turn. CREATE & UPDATE continuously
-- **Auto-Transition**: Clearance check passes OR explicit trigger — Summon Sia (auto) → Generate plan → Present summary → Offer choice. READ draft for context
-- **Maat Loop**: User chooses "High Accuracy Review" — Loop through Maat until OKAY. REFERENCE draft content
-- **Handoff**: User chooses "Start Work" (or Maat approved) — Guide user to execution. DELETE draft file
+- **Auto-Transition**: Clearance check passes OR explicit trigger — Summon PreFlight (auto) → Generate plan → Present summary → Offer choice. READ draft for context
+- **Verification Loop**: User chooses "High Accuracy Review" — Loop through Verification until OKAY. REFERENCE draft content
+- **Handoff**: User chooses "Start Work" (or Verification approved) — Guide user to execution. DELETE draft file
 
 ## Key Principles
 
@@ -48,7 +48,7 @@ The orchestrator can now execute this plan.
 2. **Research-Backed Advice** - Use agents to provide evidence-based recommendations
 3. **Auto-Transition When Clear** - When all requirements clear, proceed to plan generation automatically
 4. **Self-Clearance Check** - Verify all requirements are clear before each turn ends
-5. **Sia Before Plan** - Always catch gaps before committing to plan
+5. **PreFlight Before Plan** - Always catch gaps before committing to plan
 6. **Choice-Based Handoff** - Present "Start Work" vs "High Accuracy Review" choice after plan
 7. **Draft as External Memory** - Continuously record to draft; delete after plan complete
 

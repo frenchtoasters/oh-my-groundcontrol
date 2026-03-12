@@ -272,12 +272,12 @@ describe('agent classification', () => {
 
     // Primary agents (tab-selectable)
     expect(configs.orchestrator.mode).toBe('primary');
-    expect(configs.ptah.mode).toBe('primary');
+    expect(configs.contractor.mode).toBe('primary');
     expect(configs.groundcontrol.mode).toBe('primary');
 
     // Subagents
     for (const name of SUBAGENT_NAMES) {
-      if (name === 'ptah' || name === 'groundcontrol') continue; // ptah and groundcontrol are primary
+      if (name === 'contractor' || name === 'groundcontrol') continue; // contractor and groundcontrol are primary
       expect(configs[name].mode).toBe('subagent');
     }
   });

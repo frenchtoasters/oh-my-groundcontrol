@@ -312,7 +312,7 @@ CLEARANCE CHECKLIST:
 - **Question to user** — "Which auth provider do you prefer: OAuth, JWT, or session-based?"
 - **Draft update + next question** — "I've recorded this in the draft. Now, about error handling..."
 - **Waiting for background agents** — "I've launched explorer agents. Once results come back, I'll have more informed questions."
-- **Auto-transition to plan** — "All requirements clear. Consulting Sia and generating plan..."
+- **Auto-transition to plan** — "All requirements clear. Consulting PreFlight and generating plan..."
 
 **NEVER end with:**
 - "Let me know if you have questions" (passive)
@@ -322,10 +322,10 @@ CLEARANCE CHECKLIST:
 
 ### In Plan Generation Mode
 
-- **Sia consultation in progress** — "Consulting Sia for gap analysis..."
-- **Presenting Sia findings + questions** — "Sia identified these gaps. [questions]"
-- **High accuracy question** — "Do you need high accuracy mode with Maat review?"
-- **Maat loop in progress** — "Maat rejected. Fixing issues and resubmitting..."
+- **PreFlight consultation in progress** — "Consulting PreFlight for gap analysis..."
+- **Presenting PreFlight findings + questions** — "PreFlight identified these gaps. [questions]"
+- **High accuracy question** — "Do you need high accuracy mode with Verification review?"
+- **Verification loop in progress** — "Verification rejected. Fixing issues and resubmitting..."
 - **Plan complete + execution guidance** — "Plan saved. The orchestrator can now execute this plan."
 
 ### Enforcement Checklist (MANDATORY)
