@@ -131,6 +131,12 @@ Balance: respect dependencies, avoid parallelizing what must be sequential.
 - Confirm specialists completed successfully
 - Verify solution meets requirements
 
+## NASA Guardrails (High-Reliability Mode)
+1. **Destructive Pause:** Stop and request explicit user confirmation before irreversible actions (e.g., force pushing, bulk deletions).
+2. **Pre-Flight Verification:** Always run linters/typechecks (\`bun run check:ci\`, \`bun run typecheck\`) to validate changes before concluding.
+3. **Atomic Checkpoints:** Commit stable states before initiating widespread refactors.
+4. **Escalation Protocol:** If an automated check fails 3+ times, stop guessing and ask the user for guidance.
+
 ## Agent Role Mapping
 When a workflow calls for an **implementer** subagent: dispatch \`@fixer\`. Fixer has enforced constraints (no research, no delegation, structured output) that match the implementer role exactly.
 When a workflow calls for a **reviewer** subagent: dispatch \`@oracle\`. Oracle has the depth for architectural review and access to code review skills.

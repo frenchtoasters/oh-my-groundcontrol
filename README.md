@@ -56,9 +56,26 @@ https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/
 
 ### Mission Control Standards Adherence
 
-Our planning, execution, and verification pipelines enforce protocols based on official NASA standards:
-- **[NASA-STD-8739.8B](https://standards.nasa.gov/system/files/tmp/NASA-STD-8739.8B.pdf)** (Software Assurance and Software Safety Standard): Ensures rigorous traceability, off-nominal scenario handling, and safety-critical QA paths during the Groundcontrol planning phase.
-- **[NASA-STD-7009B](https://standards.nasa.gov/sites/default/files/standards/NASA/B/1/NASA-STD-7009B-Final-3-5-2024.pdf)** (Standard for Models and Simulations): Required during complex system modeling to enforce credibility assessment before committing to architectural designs.
+Our planning, execution, and verification pipelines enforce protocols based on official NASA standards. We have synthesized these into four core **NASA Guardrails** for AI agent execution:
+
+1. **Destructive Pause (NASA-STD-8739.8B):** Stop and request explicit user confirmation before irreversible actions (e.g., force pushing, bulk deletions).
+2. **Pre-Flight Verification (NASA-HDBK-8739.19-3):** Always run linters and typechecks (`bun run check:ci`, `bun run typecheck`) to validate changes before concluding.
+3. **Atomic Checkpoints (NASA-HDBK-8739.18):** Commit stable states before initiating widespread refactors.
+4. **Escalation Protocol (NASA-STD-7009B):** If an automated check fails 3+ times, stop guessing and ask the user for guidance.
+
+#### Source Documentation
+The principles driving our agent behavior are extracted directly from the [NASA Technical Standards System](https://standards.nasa.gov):
+
+- [NASA-STD-7009B](https://standards.nasa.gov/standard/nasa/nasa-std-7009): Standard for Models and Simulations
+- [NASA-STD-8739.8B](https://standards.nasa.gov/standard/nasa/nasa-std-87398): Software Assurance and Software Safety Standard
+- [NASA-STD-5017B](https://standards.nasa.gov/standard/nasa/nasa-std-5017): Design and Development Requirements for Mechanisms
+- [NASA-HDBK-8739.18](https://standards.nasa.gov/standard/nasa/nasa-hdbk-873918): Software Engineering Handbook
+- [NASA-HDBK-8739.19-2](https://standards.nasa.gov/standard/nasa/nasa-hdbk-873919-2): Software Assurance Handbook
+- [NASA-HDBK-8739.19-3](https://standards.nasa.gov/standard/nasa/nasa-hdbk-873919-3): Software Measurement Handbook
+- [NASA-HDBK-8709.22](https://standards.nasa.gov/standard/nasa/nasa-hdbk-870922): Safety and Mission Assurance Acronyms, Abbreviations, and Definitions
+- [NASA-HDBK-8709.24](https://standards.nasa.gov/standard/nasa/nasa-hdbk-870924): Planetary Protection Handbook
+- [NASA-HDBK-1004](https://standards.nasa.gov/standard/nasa/nasa-hdbk-1004): Data Requirements Descriptions (DRDs) for Software
+- [NASA-HDBK-1009A](https://standards.nasa.gov/standard/nasa/nasa-hdbk-1009): Software Error Causes
 
 > *At mission control, ten specialized operators govern the success of every launch. Each holds authority over a critical telemetry system. Together they ensure mission success. Here, ten agents govern the craft of code.*
 

@@ -233,3 +233,10 @@ OpenCode has a built-in `/review` command that automatically performs comprehens
 - Skills are located in `src/skills/` (included in package publish)
 - Background task management is in `src/background/`
 - Tmux utilities are in `src/utils/tmux.ts`
+
+## NASA Guardrails (High-Reliability Mode)
+
+1. **Destructive Pause:** Stop and request explicit user confirmation before irreversible actions (e.g., force pushing, bulk deletions).
+2. **Pre-Flight Verification:** Always run linters/typechecks (`bun run check:ci`, `bun run typecheck`) to validate changes before concluding.
+3. **Atomic Checkpoints:** Commit stable states before initiating widespread refactors.
+4. **Escalation Protocol:** If an automated check fails 3+ times, stop guessing and ask the user for guidance.

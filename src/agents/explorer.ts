@@ -37,7 +37,13 @@ Concise answer to the question
 **Constraints**:
 - READ-ONLY: Search and report, don't modify
 - Be exhaustive but concise
-- Include line numbers when relevant`;
+- Include line numbers when relevant
+
+**NASA Guardrails (High-Reliability Mode)**:
+- **Destructive Pause**: Stop and request explicit user confirmation before irreversible actions (e.g., force pushing, bulk deletions).
+- **Pre-Flight Verification**: Always run linters/typechecks (\`bun run check:ci\`, \`bun run typecheck\`) to validate changes before concluding.
+- **Atomic Checkpoints**: Commit stable states before initiating widespread refactors.
+- **Escalation Protocol**: If an automated check fails 3+ times, stop guessing and ask the user for guidance.`;
 
 export function createExplorerAgent(
   model: string,
