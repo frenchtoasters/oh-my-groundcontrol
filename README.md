@@ -44,7 +44,7 @@ Install and configure by following the instructions here:
 https://raw.githubusercontent.com/frenchtoasters/oh-my-groundcontrol/refs/heads/master/README.md
 ```
 
-**Detailed installation guide:** [docs/installation.md](docs/installation.md)
+**Note:** We recommend adding `.groundcontrol/` to your project's `.gitignore` to prevent generated flight plans from being committed.
 
 **Additional guides:**
 - **[Antigravity Setup](docs/antigravity.md)** - Complete guide for Antigravity provider configuration  
@@ -83,26 +83,6 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 *Those who plan, perceive, and verify before the launch sequence begins.*
 
-```mermaid
-graph TD
-    U["🧑 User"] -->|"request"| P["🏛️ Groundcontrol"]
-    P -->|"gap analysis"| S["👁️ PreFlight"]
-    P -->|"codebase recon"| E["🧭 Explorer"]
-    P -->|"knowledge retrieval"| L["📜 Librarian"]
-    P -->|"plan verification"| M["⚖️ Verification"]
-    S -.->|"risks & gaps"| P
-    E -.->|"file map"| P
-    L -.->|"docs & references"| P
-    M -.->|"PASS / FAIL"| P
-    P -->|"approved plan"| O["👑 Orchestrator"]
-
-    style P fill:#2d4a22,stroke:#4a7c34,color:#fff
-    style S fill:#4a3728,stroke:#7a5a3e,color:#fff
-    style E fill:#1a3a4a,stroke:#2a6a8a,color:#fff
-    style L fill:#3a2a4a,stroke:#6a4a8a,color:#fff
-    style M fill:#4a4a1a,stroke:#8a8a2a,color:#fff
-    style O fill:#4a2a1a,stroke:#8a4a2a,color:#fff
-```
 
 ---
 
@@ -200,25 +180,6 @@ graph TD
 
 *Those who explore, advise, and execute once the plan is authorized.*
 
-```mermaid
-graph TD
-    P["🏛️ Groundcontrol"] -->|"approved plan"| O["👑 Orchestrator"]
-    O -->|"implementation"| F["⚒️ Fixer"]
-    O -->|"UI/UX"| D["🎨 Designer"]
-    O -->|"codebase recon"| E["🧭 Explorer"]
-    O -->|"architecture advice"| R["🔮 Oracle"]
-    F -.->|"code changes"| O
-    D -.->|"visual polish"| O
-    E -.->|"file map"| O
-    R -.->|"guidance"| O
-
-    style O fill:#4a2a1a,stroke:#8a4a2a,color:#fff
-    style F fill:#3a3a3a,stroke:#6a6a6a,color:#fff
-    style D fill:#4a1a3a,stroke:#8a2a6a,color:#fff
-    style E fill:#1a3a4a,stroke:#2a6a8a,color:#fff
-    style R fill:#2a2a4a,stroke:#4a4a8a,color:#fff
-    style P fill:#2d4a22,stroke:#4a7c34,color:#fff
-```
 
 ---
 
