@@ -1,7 +1,7 @@
 {
   "name": "@frenchtoastman/oh-my-groundcontrol",
   "version": "0.0.11",
-  "description": "Lightweight agent orchestration plugin for OpenCode - a slimmed-down fork of oh-my-opencode",
+  "description": "An OpenCode plugin for multi-agent orchestration featuring the @groundcontrol agent for structured planning and NASA-style guardrails.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
