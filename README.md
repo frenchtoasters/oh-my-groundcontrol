@@ -104,7 +104,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
   </tr>
   <tr>
     <td colspan="2">
-      <b>Prompt:</b> <a href="src/agents/contractor/index.ts"><code>contractor/index.ts</code></a>
+      <b>Prompt:</b> <a href="src/agents/groundcontrol/index.ts"><code>contractor/index.ts</code></a>
     </td>
   </tr>
   <tr>
