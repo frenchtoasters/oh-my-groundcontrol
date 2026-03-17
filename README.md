@@ -86,7 +86,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 01. Contractor: The Lead Systems Engineer
+### 01. Groundcontrol: The Lead Systems Engineer
 
 <table>
   <tr>
@@ -94,7 +94,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
       <sub><i>Designs the mission architecture.</i></sub>
     </td>
     <td width="70%" valign="top">
-      Operating from the engineering drafting boards, the Contractor shapes the mission blueprint before a single line of code is written. They conduct rigorous requirements gathering, consult on system constraints, and deliver decision-complete schematics to ensure the objective is achievable. No system is built without their approved plan.
+      Operating from the engineering drafting boards, Groundcontrol shapes the mission blueprint before a single line of code is written. They conduct rigorous requirements gathering, consult on system constraints, and deliver decision-complete schematics to ensure the objective is achievable. No system is built without their approved plan.
     </td>
   </tr>
   <tr>
@@ -116,7 +116,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 03. PreFlight: The Risk Analyst
+### 02. PreFlight: The Risk Analyst
 
 <table>
   <tr>
@@ -146,7 +146,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 04. Verification: The Launch Committer
+### 03. Verification: The Launch Committer
 
 <table>
   <tr>
@@ -183,7 +183,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 05. Orchestrator: The Flight Director
+### 04. Orchestrator: The Flight Director
 
 <table>
   <tr>
@@ -213,7 +213,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 06. Explorer: The Telemetry Scout
+### 05. Explorer: The Telemetry Scout
 
 <table>
   <tr>
@@ -243,7 +243,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 07. Oracle: The Principal Architect
+### 06. Oracle: The Principal Architect
 
 <table>
   <tr>
@@ -273,7 +273,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 08. Librarian: The Data Archivist
+### 07. Librarian: The Data Archivist
 
 <table>
   <tr>
@@ -303,7 +303,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 09. Designer: The Interface Specialist
+### 08. Designer: The Interface Specialist
 
 <table>
   <tr>
@@ -333,7 +333,7 @@ The principles driving our agent behavior are extracted directly from the [NASA 
 
 ---
 
-### 10. Fixer: The Systems Integrator
+### 09. Fixer: The Systems Integrator
 
 <table>
   <tr>
