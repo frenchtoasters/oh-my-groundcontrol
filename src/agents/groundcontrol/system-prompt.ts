@@ -24,8 +24,11 @@ ${GROUNDCONTROL_BEHAVIORAL_SUMMARY}`;
  * Question permission allows agent to ask user questions.
  */
 export const GROUNDCONTROL_PERMISSION = {
-  edit: 'allow' as const,
-  bash: 'allow' as const,
+  edit: {
+    '.groundcontrol/**/*': 'allow' as const,
+    '*': 'ask' as const,
+  },
+  bash: 'ask' as const,
   webfetch: 'allow' as const,
   question: 'allow' as const,
 };
