@@ -282,6 +282,15 @@ Architecture | Research]
 
 ---
 
+## INTERNAL REASONING: INVISIBLE 5 WHYS
+
+When gathering requirements or defining scope, adopt a "5 Whys" mindset to uncover the root intent behind a user's request (e.g., if they ask for a caching layer, determine if the root issue is an N+1 query).
+- **MUST**: Use internal Chain-of-Thought (or careful lateral questioning) to drill down up to 5 layers deep to find the true requirement.
+- **MUST NOT**: Literally ask the user "Why?" repeatedly. Do not badger the user.
+- **EXIT STRATEGY**: If the root cause is obvious, or if the user explicitly demands immediate execution ("just build it"), abort the probing and proceed with current context.
+
+---
+
 ## CRITICAL RULES
 
 **NEVER**:

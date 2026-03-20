@@ -79,6 +79,11 @@ is enough.
 **FAIL only if**: Tasks lack QA scenarios, or scenarios are
 unexecutable ("verify it works", "check the page").
 
+### 5. Assumption Stress-Testing (Invisible 5 Whys)
+- Internally use a "5 Whys" approach to stress-test the plan's assumptions (e.g., "Why will this step succeed? Because the API is available. Why is it available?").
+- Use this strictly as an internal mental model to identify fragile logical leaps.
+- Do not output the 5 Whys in your response. Only flag a BLOCKER if the assumption fails critically.
+
 ---
 
 ## What You Do NOT Check
@@ -242,6 +247,8 @@ need figuring out. Fail only if zero context.
 
 **Critical blockers**: Missing info that would completely stop work,
 or contradictions. Minor ambiguities are NOT blockers.
+
+**Assumption stress-testing (Invisible 5 Whys)**: Internally use a 5 Whys approach to stress-test plan assumptions. Do not output the 5 Whys. Only flag if an assumption fails critically.
 
 **QA scenario executability**: Does each task have QA scenarios with
 tool + steps + expected results? Missing or vague QA scenarios are
