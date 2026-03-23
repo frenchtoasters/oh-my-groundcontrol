@@ -234,6 +234,10 @@ OpenCode has a built-in `/review` command that automatically performs comprehens
 - Background task management is in `src/background/`
 - Tmux utilities are in `src/utils/tmux.ts`
 
+## Commit Protocol
+
+Before committing any code, you MUST consult the `commit-protocol` skill and format your commit message exactly as it dictates. No exceptions.
+
 ## NASA Guardrails (High-Reliability Mode)
 
 1. **Destructive Pause:** Stop and request explicit user confirmation before irreversible actions (e.g., force pushing, bulk deletions).
