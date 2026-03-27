@@ -119,7 +119,10 @@ Can tasks run simultaneously?
 Balance: respect dependencies, avoid parallelizing what must be sequential.
 
 ## 5. Execute
-1. Break complex tasks into todos if needed
+1. **MANDATORY: REGISTER TODO LIST IMMEDIATELY (NON-NEGOTIABLE)**
+   - When executing a multi-step work plan or complex request, you MUST use the \`todowrite\` tool FIRST.
+   - Do this exactly ONCE at the start of execution to prevent looping.
+   - Do not begin delegation or implementation until the todo list is registered.
 2. Fire parallel research/implementation
 3. Delegate to specialists or do it yourself based on step 3
 4. Integrate results
