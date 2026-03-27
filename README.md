@@ -10,7 +10,7 @@ By categorizing AI agents into distinct operational domains (e.g., planning, ris
 The architecture delegates responsibilities to nine domain-specific subagents, segmented into two primary functional groups: **Planning & Verification** and **Execution & Integration**.
 
 ### Planning & Verification Systems
-- **Groundcontrol (Lead Systems Engineer)**: Conducts requirements gathering and strategic planning. Generates decision-complete work schematics. (Prompt: `contractor/index.ts`)
+- **Groundcontrol (Lead Systems Engineer)**: Conducts requirements gathering and strategic planning. Generates decision-complete work schematics. (Prompt: `groundcontrol/index.ts`)
 - **PreFlight (Risk Analyst)**: Performs pre-planning anomaly detection. Identifies logical ambiguities and failure points prior to execution. (Prompt: `pre-flight.ts`)
 - **Verification (Launch Committer)**: Serves as the ultimate quality assurance gatekeeper. Verifies execution plans against constraints before authorization. (Prompt: `verification.ts`)
 
@@ -50,9 +50,9 @@ Verify agent connectivity by running `ping all agents` within the OpenCode termi
 
 > **Note on Model Customization:** The active model matrix is fully configurable. Edit `~/.config/opencode/oh-my-groundcontrol.json` (or `.jsonc`) to override agent-to-model assignments manually.
 
-### Inter-Agent Setup Directive
+### For AI Agents / LLMs
 
-To instruct an external coding agent to utilize this suite, provide the following standard configuration directive:
+To instruct an external coding agent to utilize this suite, paste this block into the agent's prompt:
 
 ```
 Install and configure by following the instructions here:
