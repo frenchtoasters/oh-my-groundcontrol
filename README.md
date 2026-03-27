@@ -70,6 +70,20 @@ Our execution pipelines are strictly governed by protocols modeled on the NASA T
 3. **Atomic Checkpoints (NASA-HDBK-8739.18):** Stable codebase states must be committed prior to the initiation of widespread architectural refactors.
 4. **Escalation Protocol (NASA-STD-7009B):** In the event an automated verification process fails three or more consecutive times, agents must abort automated remediation attempts and escalate to the human operator for guidance.
 
+### Source Standards Documentation
+The principles governing our agent behaviors are extracted directly from the [NASA Technical Standards System](https://standards.nasa.gov):
+
+- [NASA-STD-7009B](https://standards.nasa.gov/standard/nasa/nasa-std-7009): Standard for Models and Simulations
+- [NASA-STD-8739.8B](https://standards.nasa.gov/standard/nasa/nasa-std-87398): Software Assurance and Software Safety Standard
+- [NASA-STD-5017B](https://standards.nasa.gov/standard/nasa/nasa-std-5017): Design and Development Requirements for Mechanisms
+- [NASA-HDBK-8739.18](https://standards.nasa.gov/standard/nasa/nasa-hdbk-873918): Software Engineering Handbook
+- [NASA-HDBK-8739.19-2](https://standards.nasa.gov/standard/nasa/nasa-hdbk-873919-2): Software Assurance Handbook
+- [NASA-HDBK-8739.19-3](https://standards.nasa.gov/standard/nasa/nasa-hdbk-873919-3): Software Measurement Handbook
+- [NASA-HDBK-8709.22](https://standards.nasa.gov/standard/nasa/nasa-hdbk-870922): Safety and Mission Assurance Acronyms, Abbreviations, and Definitions
+- [NASA-HDBK-8709.24](https://standards.nasa.gov/standard/nasa/nasa-hdbk-870924): Planetary Protection Handbook
+- [NASA-HDBK-1004](https://standards.nasa.gov/standard/nasa/nasa-hdbk-1004): Data Requirements Descriptions (DRDs) for Software
+- [NASA-HDBK-1009A](https://standards.nasa.gov/standard/nasa/nasa-hdbk-1009): Software Error Causes
+
 ## Reference Documentation
 
 - [Quick Reference](docs/quick-reference.md): Presets, Skills, MCPs, Tools, Configuration
