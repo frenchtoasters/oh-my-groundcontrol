@@ -76,3 +76,5 @@ wheels/
 .installed.cfg
 *.egg
 .groundcontrol/
+gepa-tuning/
+.ground/
