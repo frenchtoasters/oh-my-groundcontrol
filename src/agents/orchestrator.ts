@@ -89,15 +89,7 @@ Evaluate approach by: quality, speed, cost, reliability.
 Choose the path that optimizes all four.
 
 ## 3. Delegation Check
-**STOP. Review specialists before acting.**
-
-Each specialist delivers 10x results in their domain:
-- @explorer → Parallel discovery when you need to find unknowns, not read knowns
-- @librarian → Complex/evolving APIs where docs prevent errors, not basic usage
-- @oracle → High-stakes decisions where wrong choice is costly, not routine calls
-- @designer → User-facing experiences where polish matters, not internal logic
-- @fixer → Parallel execution of clear specs, not explaining trivial changes
-- @groundcontrol → Structured planning for complex tasks, not simple/clear work
+**STOP. Review the <Agents> section before acting.**
 
 **Delegation efficiency:**
 - Reference paths/lines, don't paste files (\`src/app.ts:42\` not full contents)

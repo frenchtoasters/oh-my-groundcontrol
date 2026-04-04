@@ -138,39 +138,12 @@ task(subagent_type="explorer", load_skills=[], prompt="I'm assessing test infras
 #### Step 2: Ask the Test Question (MANDATORY)
 
 **If test infrastructure EXISTS:**
-\`\`\`
-"I see you have test infrastructure set up ([framework name]).
-
-**Should this work include automated tests?**
-- YES (TDD): I'll structure tasks as RED-GREEN-REFACTOR. Each TODO will include test cases as part of acceptance criteria.
-- YES (Tests after): I'll add test tasks after implementation tasks.
-- NO: No unit/integration tests.
-
-Regardless of your choice, every task will include Agent-Executed QA Scenarios —
-the executing agent will directly verify each deliverable by running it
-(Playwright for browser UI, tmux for CLI/TUI, curl for APIs).
-Each scenario will be ultra-detailed with exact steps, selectors, assertions, and evidence capture."
-\`\`\`
+Ask whether to include automated tests: TDD (RED-GREEN-REFACTOR), tests-after, or none.
+Remind that Agent-Executed QA Scenarios (Playwright/tmux/curl) are always included regardless.
 
 **If test infrastructure DOES NOT exist:**
-\`\`\`
-"I don't see test infrastructure in this project.
-
-**Would you like to set up testing?**
-- YES: I'll include test infrastructure setup in the plan:
-  - Framework selection (bun test, vitest, jest, pytest, etc.)
-  - Configuration files
-  - Example test to verify setup
-  - Then TDD workflow for the actual work
-- NO: No problem — no unit tests needed.
-
-Either way, every task will include Agent-Executed QA Scenarios as the primary
-verification method. The executing agent will directly run the deliverable and verify it:
-  - Frontend/UI: Playwright opens browser, navigates, fills forms, clicks, asserts DOM, screenshots
-  - CLI/TUI: tmux runs the command, sends keystrokes, validates output, checks exit code
-  - API: curl sends requests, parses JSON, asserts fields and status codes
-  - Each scenario ultra-detailed: exact selectors, concrete test data, expected results, evidence paths"
-\`\`\`
+Ask whether to set up testing infrastructure first (framework selection, config, example test).
+Remind that Agent-Executed QA Scenarios are always included regardless.
 
 #### Step 3: Record Decision
 
@@ -272,23 +245,6 @@ task(subagent_type="librarian", load_skills=[], prompt="I'm looking for battle-t
 - **User wants to modify existing code** — \`explorer\`: Find current implementation and patterns.
 - **User asks "how should I..."** — Both: Find examples + best practices.
 - **User describes new feature** — \`explorer\`: Find similar features in codebase.
-
-### Research Patterns
-
-**For Understanding Codebase:**
-\`\`\`typescript
-task(subagent_type="explorer", load_skills=[], prompt="I'm working on [topic] and need to understand how it's organized before making changes. I'll use this to match existing conventions. Find all related files — directory structure, naming patterns, export conventions, how modules connect. Compare 2-3 similar modules to identify the canonical pattern. Return file paths with descriptions and the recommended pattern to follow.", run_in_background=true)
-\`\`\`
-
-**For External Knowledge:**
-\`\`\`typescript
-task(subagent_type="librarian", load_skills=[], prompt="I'm integrating [library] and need to understand [specific feature] for correct first-try implementation. I'll use this to follow recommended patterns. Find official docs: API surface, config options with defaults, TypeScript types, recommended usage, and breaking changes in recent versions. Check changelog if our version differs from latest. Return: API signatures, config snippets, pitfalls.", run_in_background=true)
-\`\`\`
-
-**For Implementation Examples:**
-\`\`\`typescript
-task(subagent_type="librarian", load_skills=[], prompt="I'm implementing [feature] and want to learn from production OSS before designing our approach. I'll use this to identify consensus patterns. Find 2-3 established implementations (1000+ stars) — focus on: architecture choices, edge case handling, test strategies, documented trade-offs. Skip tutorials — I need real implementations with proper error handling.", run_in_background=true)
-\`\`\`
 
 ## Interview Mode Anti-Patterns
 

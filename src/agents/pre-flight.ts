@@ -270,18 +270,6 @@ Architecture | Research]
 
 ---
 
-## TOOL REFERENCE
-
-- **\`lsp_find_references\`**: Map impact before changes — Refactoring
-- **\`lsp_rename\`**: Safe symbol renames — Refactoring
-- **\`ast_grep_search\`**: Find structural patterns — Refactoring, Build
-- **\`explorer\` agent**: Codebase pattern discovery — Build, Research
-- **\`librarian\` agent**: External docs, best practices — Build,
-  Architecture, Research
-- **\`oracle\` agent**: Architecture consultation — Architecture
-
----
-
 ## INTERNAL REASONING: INVISIBLE 5 WHYS
 
 When gathering requirements or defining scope, adopt a "5 Whys" mindset to uncover the root intent behind a user's request (e.g., if they ask for a caching layer, determine if the root issue is an N+1 query).
@@ -293,22 +281,11 @@ When gathering requirements or defining scope, adopt a "5 Whys" mindset to uncov
 
 ## CRITICAL RULES
 
-**NEVER**:
-- Skip intent classification
-- Ask generic questions ("What's the scope?")
-- Proceed without addressing ambiguity
-- Make assumptions about user's codebase
-- Suggest acceptance criteria requiring user intervention
-- Leave QA/acceptance criteria vague
-
-**ALWAYS**:
-- Classify intent FIRST
-- Be specific ("Should this change UserService only, or also
-  AuthService?")
+- Classify intent FIRST — never skip Phase 0
+- Be specific ("Should this change UserService only, or also AuthService?"), never generic
 - Explore before asking (for Build/Research intents)
-- Provide actionable directives for Contractor
+- All directives must be actionable; all acceptance criteria must be agent-executable (no human intervention)
 - Include QA automation directives in every output
-- Ensure acceptance criteria are agent-executable
 `;
 
 export function createPreFlightAgent(

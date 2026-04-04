@@ -77,17 +77,7 @@ Generate flight plan to: \`.groundcontrol/plans/{name}.md\`
 > **Objective**: Identify hazards, establish abort criteria, define system architecture following JPL Power of Ten principles.
 
 ### JPL Power of Ten Alignment
-> *Where practical, incorporate these principles:*
-> 1. Simplicity — Minimizes complexity and potential failure points
-> 2. Separation — Isolates components for independent failure containment
-> 3. Directness — Uses straightforward, traceable execution paths
-> 4. Consistency — Maintains uniform interfaces and error handling
-> 5. Reflexivity — Handles unexpected inputs gracefully
-> 6. Observability — Provides clear state indication and logging
-> 7. Recoverability — Enables clean rollback and state restoration
-> 8. Maturity — Relies on battle-tested patterns, not novel approaches
-> 9. Scrutability — Makes failure modes diagnosable
-> 10. Frugality — Avoids unnecessary features and complexity
+> Apply JPL's Power of Ten principles where practical (simplicity, separation, directness, consistency, reflexivity, observability, recoverability, maturity, scrutability, frugality).
 
 ### Hazard Analysis & Software Risk Management
 > *NPR 7150.2D Compliance: Software Risk Management*
@@ -211,17 +201,8 @@ Threshold: [Pass/fail boundary]
 \`\`\`
 
 #### Protocol 4.3: Simulation Credibility Assessment (NASA-STD-7009B) — CONDITIONAL
-> *Include this section ONLY when the mission involves models, simulations, physics engines, ML inference pipelines, or any software whose outputs are used to inform real-world decisions.*
-
-| Factor | Assessment | Evidence | Score (1-5) |
-|--------|-----------|----------|-------------|
-| Verification | [Code correctness proven?] | [Test results/review] | [1-5] |
-| Validation | [Outputs match real-world data?] | [Comparison data] | [1-5] |
-| Input Pedigree | [Input data quality/provenance?] | [Source documentation] | [1-5] |
-| Results Uncertainty | [Uncertainty bounds quantified?] | [Analysis method] | [1-5] |
-| Results Robustness | [Sensitivity to input variation?] | [Sensitivity tests] | [1-5] |
-
-> **Credibility Threshold**: Score ≥ 3 in all factors for decision-support use. Flag any factor scoring ≤ 2 as a mission risk in the Hazard Analysis (Phase 2).
+> *Include ONLY when the mission involves models, simulations, or ML inference.*
+> Assess: Verification, Validation, Input Pedigree, Results Uncertainty, Results Robustness (score 1-5 each, threshold ≥ 3).
 
 ### Final Mission Certification
 
@@ -246,31 +227,13 @@ Threshold: [Pass/fail boundary]
 
 | Event | Timestamp | Action | Result |
 |-------|-----------|--------|--------|
-| Mission Briefing Complete | T-XXX | Requirements defined | GO |
-| Pre-Flight Go/No-Go | T-XXX | Hazard analysis complete | GO |
-| Flight Phase 1 | T-XXX | Requirements approved | GO |
-| Flight Phase 2 | T-XXX | Architecture verified | GO |
-| Flight Phase 3 | T-XXX | Implementation complete | GO |
-| Flight Phase 4 | T-XXX | V&V complete | [Result] |
+| [Phase] | T-XXX | [Action] | [GO/NO-GO] |
 
 ---
 
 ## APPENDICES
-
-### A: Rollback Procedures
-\`\`\`
-Command: [Exact rollback command]
-Verification: [How to confirm rollback success]
-\`\`\`
-
-### B: Contact List
-- **Flight Director**: [User]
-- **Mission Control**: [System]
-- **Recovery Team**: [Agent]
-
-### C: Reference Documentation
-- [Link to relevant docs]
-- [Link to patterns followed]
+- **Rollback**: [Exact command + verification]
+- **References**: [Links to relevant docs/patterns]
 \`\`\`
 
 ---
