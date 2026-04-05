@@ -7,6 +7,7 @@ import { validateAllowedProviders } from './config/validate-providers';
 import {
   createAutoUpdateCheckerHook,
   createDelegateTaskRetryHook,
+  createDoubleConfirmationHook,
   createEditErrorRecoveryHook,
   createHashlineReadEnhancerHook,
   createJsonErrorRecoveryHook,
@@ -107,6 +108,12 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
 
   // Initialize edit error recovery hook (helps recover from Edit tool failures)
   const editErrorRecoveryHook = createEditErrorRecoveryHook();
+
+  // Initialize double-confirmation hook (Meta-Harness principle:
+  // verification nudge on task completion to prevent premature exits; ships disabled)
+  const doubleConfirmationHook = createDoubleConfirmationHook(
+    config.double_confirmation,
+  );
 
   // Conditionally create hashline edit tool (enabled by default)
   const hashlineEditEnabled = config.hashline_edit?.enabled !== false;
@@ -374,6 +381,19 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
           title: string;
           output: string;
           metadata: Record<string, unknown>;
+        },
+      );
+
+      await doubleConfirmationHook['tool.execute.after'](
+        input as {
+          tool: string;
+          sessionID?: string;
+          callID?: string;
+        },
+        output as {
+          title: string;
+          output: unknown;
+          metadata: unknown;
         },
       );
     },

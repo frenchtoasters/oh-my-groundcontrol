@@ -187,6 +187,15 @@ export const HashlineEditConfigSchema = z.object({
 
 export type HashlineEditConfig = z.infer<typeof HashlineEditConfigSchema>;
 
+// Double-confirmation configuration (Meta-Harness principle)
+export const DoubleConfirmationConfigSchema = z.object({
+  enabled: z.boolean().default(false),
+});
+
+export type DoubleConfirmationConfig = z.infer<
+  typeof DoubleConfirmationConfigSchema
+>;
+
 // Main plugin config
 export const PluginConfigSchema = z.object({
   preset: z.string().optional(),
@@ -202,6 +211,7 @@ export const PluginConfigSchema = z.object({
   allowedProviders: z.array(z.string()).optional(),
   sessionExport: SessionExportConfigSchema.optional(),
   hashline_edit: HashlineEditConfigSchema.optional(),
+  double_confirmation: DoubleConfirmationConfigSchema.optional(),
 });
 
 export type PluginConfig = z.infer<typeof PluginConfigSchema>;

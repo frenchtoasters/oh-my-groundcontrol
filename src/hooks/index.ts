@@ -1,6 +1,7 @@
 export type { AutoUpdateCheckerOptions } from './auto-update-checker';
 export { createAutoUpdateCheckerHook } from './auto-update-checker';
 export { createDelegateTaskRetryHook } from './delegate-task-retry';
+export { createDoubleConfirmationHook } from './double-confirmation';
 export { createEditErrorRecoveryHook } from './edit-error-recovery';
 export { createHashlineReadEnhancerHook } from './hashline-read-enhancer';
 export { createJsonErrorRecoveryHook } from './json-error-recovery';
