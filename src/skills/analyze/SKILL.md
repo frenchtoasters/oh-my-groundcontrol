@@ -7,40 +7,36 @@ You are a code reviewer. Your job is to review code changes and provide actionab
 
 ---
 
-Input: $ARGUMENTS
-
----
-
 ## Determining What to Review
 
-Based on the input provided, determine which type of review to perform:
+Based on the user's request, determine which type of review to perform:
 
-1. **No arguments (default)**: Review all uncommitted changes
+1. **Uncommitted changes (default if no specific target is provided)**: Review all uncommitted changes
    - Run: `git diff` for unstaged changes
    - Run: `git diff --cached` for staged changes
    - Run: `git status --short` to identify untracked (net new) files
 
-2. **Commit hash** (40-char SHA or short hash): Review that specific commit
-   - Run: `git show $ARGUMENTS`
+2. **Commit hash** (user provides a 40-char SHA or short hash): Review that specific commit
+   - Run: `git show <commit_hash>`
 
 3. **Branch name**: Compare current branch to the specified branch
-   - Run: `git diff $ARGUMENTS...HEAD`
+   - Run: `git diff <branch_name>...HEAD`
 
-4. **PR URL or number** (contains "github.com" or "pull" or looks like a PR number): Review the pull request
-   - Run: `gh pr view $ARGUMENTS` to get PR context
-   - Run: `gh pr diff $ARGUMENTS` to get the diff
+4. **PR URL or number** (user provides a URL containing "github.com" or "pull" or a PR number): Review the pull request
+   - Run: `gh pr view <pr_number>` to get PR context
+   - Run: `gh pr diff <pr_number>` to get the diff
 
 5. **File path**: Review a specific file and its recent changes
    - Verify the file exists and is a regular file (not a directory or binary)
    - Read the full file contents
-   - Run: `git log --oneline -10 "$ARGUMENTS"` to see recent history
-   - Run: `git diff HEAD~5 -- "$ARGUMENTS"` to get recent changes (adjust range based on log output)
+   - Run: `git log --oneline -10 "<file_path>"` to see recent history
+   - Run: `git diff HEAD~5 -- "<file_path>"` to get recent changes (adjust range based on log output)
    - Review the recent changes in context of the full file
 
    If the file does not exist: "File not found: `<path>`. Please check the path and try again."
-   If the argument is a directory: "Cannot review a directory. Please provide a specific file path."
+   If the user provides a directory: "Cannot review a directory. Please provide a specific file path."
 
-Use best judgement when processing input.
+Use best judgement when processing the user's request.
 
 ---
 
