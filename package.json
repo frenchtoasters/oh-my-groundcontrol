@@ -1,6 +1,6 @@
 {
   "name": "@frenchtoastman/oh-my-groundcontrol",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "An OpenCode plugin for multi-agent orchestration for structured planning with NASA-style guardrails.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
