@@ -1,4 +1,13 @@
-import { afterAll, describe, expect, mock, test } from 'bun:test';
+import {
+  afterAll,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  mock,
+  spyOn,
+  test,
+} from 'bun:test';
 import * as fs from 'node:fs';
 import { invalidatePackage } from './cache';
 
@@ -13,22 +22,32 @@ mock.module('../../shared/logger', () => ({
   log: mock(() => {}),
 }));
 
-// Mock fs and path
-mock.module('node:fs', () => ({
-  existsSync: mock(() => false),
-  rmSync: mock(() => {}),
-  readFileSync: mock(() => ''),
-  writeFileSync: mock(() => {}),
-}));
-
 mock.module('../../cli/config-manager', () => ({
   stripJsonComments: (s: string) => s,
 }));
 
 describe('auto-update-checker/cache', () => {
+  let existsMock: ReturnType<typeof spyOn>;
+  let readMock: ReturnType<typeof spyOn>;
+  let writeMock: ReturnType<typeof spyOn>;
+  let rmSyncMock: ReturnType<typeof spyOn>;
+
+  beforeEach(() => {
+    existsMock = spyOn(fs, 'existsSync').mockReturnValue(false);
+    readMock = spyOn(fs, 'readFileSync').mockReturnValue('');
+    writeMock = spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+    rmSyncMock = spyOn(fs, 'rmSync').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    existsMock.mockRestore();
+    readMock.mockRestore();
+    writeMock.mockRestore();
+    rmSyncMock.mockRestore();
+  });
+
   describe('invalidatePackage', () => {
     test('returns false when nothing to invalidate', () => {
-      const existsMock = fs.existsSync as any;
       existsMock.mockReturnValue(false);
 
       const result = invalidatePackage();
@@ -36,9 +55,6 @@ describe('auto-update-checker/cache', () => {
     });
 
     test('returns true and removes directory if node_modules path exists', () => {
-      const existsMock = fs.existsSync as any;
-      const rmSyncMock = fs.rmSync as any;
-
       existsMock.mockImplementation((p: string) => p.includes('node_modules'));
 
       const result = invalidatePackage();
@@ -48,10 +64,6 @@ describe('auto-update-checker/cache', () => {
     });
 
     test('removes dependency from package.json if present', () => {
-      const existsMock = fs.existsSync as any;
-      const readMock = fs.readFileSync as any;
-      const writeMock = fs.writeFileSync as any;
-
       existsMock.mockImplementation((p: string) => p.includes('package.json'));
       readMock.mockReturnValue(
         JSON.stringify({

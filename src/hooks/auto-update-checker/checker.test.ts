@@ -1,4 +1,13 @@
-import { afterAll, describe, expect, mock, test } from 'bun:test';
+import {
+  afterAll,
+  afterEach,
+  beforeEach,
+  describe,
+  expect,
+  mock,
+  spyOn,
+  test,
+} from 'bun:test';
 import * as fs from 'node:fs';
 import { extractChannel, findPluginEntry, getLocalDevVersion } from './checker';
 
@@ -12,14 +21,28 @@ mock.module('./constants', () => ({
     '/mock/cache/node_modules/oh-my-groundcontrol/package.json',
 }));
 
-mock.module('node:fs', () => ({
-  existsSync: mock((_p: string) => false),
-  readFileSync: mock((_p: string) => ''),
-  statSync: mock((_p: string) => ({ isDirectory: () => true })),
-  writeFileSync: mock(() => {}),
-}));
-
 describe('auto-update-checker/checker', () => {
+  let existsMock: ReturnType<typeof spyOn>;
+  let readMock: ReturnType<typeof spyOn>;
+  let statMock: ReturnType<typeof spyOn>;
+  let writeMock: ReturnType<typeof spyOn>;
+
+  beforeEach(() => {
+    existsMock = spyOn(fs, 'existsSync').mockReturnValue(false);
+    readMock = spyOn(fs, 'readFileSync').mockReturnValue('');
+    statMock = spyOn(fs, 'statSync').mockReturnValue({
+      isDirectory: () => true,
+    } as any);
+    writeMock = spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    existsMock.mockRestore();
+    readMock.mockRestore();
+    statMock.mockRestore();
+    writeMock.mockRestore();
+  });
+
   describe('extractChannel', () => {
     test('returns latest for null or empty', () => {
       expect(extractChannel(null)).toBe('latest');
@@ -50,9 +73,6 @@ describe('auto-update-checker/checker', () => {
     });
 
     test('returns version from local package.json if path exists', () => {
-      const existsMock = fs.existsSync as any;
-      const readMock = fs.readFileSync as any;
-
       existsMock.mockImplementation((p: string) => {
         if (p.includes('opencode.json')) return true;
         if (p.includes('package.json')) return true;
@@ -80,9 +100,6 @@ describe('auto-update-checker/checker', () => {
 
   describe('findPluginEntry', () => {
     test('detects latest version entry', () => {
-      const existsMock = fs.existsSync as any;
-      const readMock = fs.readFileSync as any;
-
       existsMock.mockImplementation((p: string) => p.includes('opencode.json'));
       readMock.mockImplementation(() =>
         JSON.stringify({
@@ -98,9 +115,6 @@ describe('auto-update-checker/checker', () => {
     });
 
     test('detects pinned version entry', () => {
-      const existsMock = fs.existsSync as any;
-      const readMock = fs.readFileSync as any;
-
       existsMock.mockImplementation((p: string) => p.includes('opencode.json'));
       readMock.mockImplementation(() =>
         JSON.stringify({
