@@ -18,10 +18,6 @@ mock.module('./constants', () => ({
   OLD_PACKAGE_NAME: 'oh-my-groundcontrol',
 }));
 
-mock.module('../../shared/logger', () => ({
-  log: mock(() => {}),
-}));
-
 mock.module('../../cli/config-manager', () => ({
   stripJsonComments: (s: string) => s,
 }));

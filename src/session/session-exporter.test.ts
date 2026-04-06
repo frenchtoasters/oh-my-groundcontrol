@@ -2,10 +2,6 @@ import { afterAll, describe, expect, mock, test } from 'bun:test';
 import { join } from 'node:path';
 import type { SessionExporterIO } from './session-exporter';
 
-mock.module('../utils/logger', () => ({
-  log: mock(() => {}),
-}));
-
 const { SessionExporter } = await import('./session-exporter');
 
 // --- Helpers ---

@@ -2,11 +2,16 @@ import { afterEach, beforeEach, describe, expect, test } from 'bun:test';
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import * as path from 'node:path';
+
+const testLogFile = path.join(
+  os.tmpdir(),
+  `oh-my-groundcontrol-test-${Date.now()}-${Math.random()}.log`,
+);
+process.env.GROUNDCONTROL_LOG_FILE = testLogFile;
+
 import { log } from './logger';
 
 describe('logger', () => {
-  const testLogFile = path.join(os.tmpdir(), 'oh-my-groundcontrol.log');
-
   beforeEach(() => {
     // Clean up log file before each test
     if (fs.existsSync(testLogFile)) {
