@@ -5,6 +5,7 @@ import { loadPluginConfig, type TmuxConfig } from './config';
 import { parseList } from './config/agent-mcps';
 import { validateAllowedProviders } from './config/validate-providers';
 import {
+  createAnalyzeCommandHook,
   createAutoUpdateCheckerHook,
   createDelegateTaskRetryHook,
   createDoubleConfirmationHook,
@@ -94,6 +95,9 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
 
   // Initialize question router hook
   const questionRouterHook = createQuestionRouterHook(ctx);
+
+  // Initialize analyze command hook
+  const analyzeCommandHook = createAnalyzeCommandHook();
 
   // Initialize delegate-task retry guidance hook
   const delegateTaskRetryHook = createDelegateTaskRetryHook(ctx);
@@ -324,6 +328,8 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
       phaseReminderHook['experimental.chat.messages.transform'],
 
     'chat.message': questionRouterHook['chat.message'],
+
+    'command.execute.before': analyzeCommandHook['command.execute.before'],
 
     // Post-tool hooks: retry guidance for delegation errors + post-read nudge
     'tool.execute.after': async (input, output) => {

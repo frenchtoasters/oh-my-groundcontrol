@@ -34,13 +34,6 @@ export const CUSTOM_SKILLS: CustomSkill[] = [
     allowedAgents: ['orchestrator', 'explorer'],
     sourcePath: 'src/skills/cartography',
   },
-  {
-    name: 'analyze',
-    description:
-      'Code review and analysis for uncommitted changes, commits, branches, PRs, or specific files.',
-    allowedAgents: ['*'],
-    sourcePath: 'src/skills/analyze',
-  },
 ];
 
 /**
