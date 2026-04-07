@@ -21,6 +21,7 @@ import {
   pickSupportOpenCodeModel,
   writeLiteConfig,
 } from './config-manager';
+import { CUSTOM_COMMANDS, installCustomCommand } from './custom-commands';
 import { CUSTOM_SKILLS, installCustomSkill } from './custom-skills';
 import { installSkill, RECOMMENDED_SKILLS } from './skills';
 import type {
@@ -720,15 +721,24 @@ async function runManualSetupMode(
     skills = await askYesNo(rl, 'Install recommended skills?', 'yes');
     console.log();
 
-    // Custom skills prompt
-    console.log(`${BOLD}Custom Skills:${RESET}`);
+    // Custom skills & commands prompt
+    console.log(`${BOLD}Custom Skills & Commands:${RESET}`);
     for (const skill of CUSTOM_SKILLS) {
       console.log(
-        `  ${SYMBOLS.bullet} ${BOLD}${skill.name}${RESET}: ${skill.description}`,
+        `  ${SYMBOLS.bullet} ${BOLD}${skill.name}${RESET} (skill): ${skill.description}`,
+      );
+    }
+    for (const command of CUSTOM_COMMANDS) {
+      console.log(
+        `  ${SYMBOLS.bullet} ${BOLD}/${command.name}${RESET} (command): ${command.description}`,
       );
     }
     console.log();
-    customSkills = await askYesNo(rl, 'Install custom skills?', 'yes');
+    customSkills = await askYesNo(
+      rl,
+      'Install custom skills & commands?',
+      'yes',
+    );
     console.log();
   } else {
     printInfo(
@@ -1029,15 +1039,24 @@ async function runInteractiveMode(
       skills = await askYesNo(rl, 'Install recommended skills?', 'yes');
       console.log();
 
-      // Custom skills prompt
-      console.log(`${BOLD}Custom Skills:${RESET}`);
+      // Custom skills & commands prompt
+      console.log(`${BOLD}Custom Skills & Commands:${RESET}`);
       for (const skill of CUSTOM_SKILLS) {
         console.log(
-          `  ${SYMBOLS.bullet} ${BOLD}${skill.name}${RESET}: ${skill.description}`,
+          `  ${SYMBOLS.bullet} ${BOLD}${skill.name}${RESET} (skill): ${skill.description}`,
+        );
+      }
+      for (const command of CUSTOM_COMMANDS) {
+        console.log(
+          `  ${SYMBOLS.bullet} ${BOLD}/${command.name}${RESET} (command): ${command.description}`,
         );
       }
       console.log();
-      customSkills = await askYesNo(rl, 'Install custom skills?', 'yes');
+      customSkills = await askYesNo(
+        rl,
+        'Install custom skills & commands?',
+        'yes',
+      );
       console.log();
     } else {
       printInfo(
@@ -1107,6 +1126,7 @@ async function runInstall(config: InstallConfig): Promise<number> {
   if (hasAnyEnabledProvider) totalSteps += 1; // dynamic model resolution
   if (!modelsOnly && resolvedConfig.installSkills) totalSteps += 1; // skills installation
   if (!modelsOnly && resolvedConfig.installCustomSkills) totalSteps += 1; // custom skills installation
+  if (!modelsOnly && resolvedConfig.installCustomSkills) totalSteps += 1; // custom commands installation
 
   let step = 1;
 
@@ -1392,6 +1412,31 @@ async function runInstall(config: InstallConfig): Promise<number> {
       }
       printSuccess(
         `${customSkillsInstalled}/${CUSTOM_SKILLS.length} custom skills installed`,
+      );
+    }
+  }
+
+  // Install custom commands if requested
+  if (!modelsOnly && resolvedConfig.installCustomSkills) {
+    printStep(step++, totalSteps, 'Installing custom commands...');
+    if (resolvedConfig.dryRun) {
+      printInfo('Dry run mode - would install custom commands:');
+      for (const command of CUSTOM_COMMANDS) {
+        printInfo(`  - /${command.name}`);
+      }
+    } else {
+      let commandsInstalled = 0;
+      for (const command of CUSTOM_COMMANDS) {
+        printInfo(`Installing /${command.name}...`);
+        if (installCustomCommand(command)) {
+          printSuccess(`Installed: /${command.name}`);
+          commandsInstalled++;
+        } else {
+          printWarning(`Failed to install: /${command.name}`);
+        }
+      }
+      printSuccess(
+        `${commandsInstalled}/${CUSTOM_COMMANDS.length} custom commands installed`,
       );
     }
   }

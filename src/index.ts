@@ -32,7 +32,7 @@ import {
 import { startTmuxCheck } from './utils';
 import { log } from './utils/logger';
 
-const OhMyOpenCodeLite: Plugin = async (ctx) => {
+const OhMyGroundControl: Plugin = async (ctx) => {
   const config = loadPluginConfig(ctx.directory);
   const agentDefs = createAgents(config);
   const agents = getAgentConfigs(config);
@@ -406,7 +406,7 @@ const OhMyOpenCodeLite: Plugin = async (ctx) => {
   };
 };
 
-export default OhMyOpenCodeLite;
+export default OhMyGroundControl;
 
 export type {
   AgentName,

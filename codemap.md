@@ -19,7 +19,7 @@ The plugin integrates with OpenCode to provide:
 | File | Purpose | Key Exports |
 |------|---------|-------------|
 | `package.json` | Project manifest, dependencies, and build scripts | `oh-my-groundcontrol` CLI, `dist/index.js` main entry |
-| `src/index.ts` | Main plugin entry point | `OhMyOpenCodeLite` plugin, agent configs, tools, MCPs |
+| `src/index.ts` | Main plugin entry point | `OhMyGroundControl` plugin, agent configs, tools, MCPs |
 | `src/cli/index.ts` | CLI installer entry point | `install` command, configuration management |
 | `tsconfig.json` | TypeScript compiler configuration | Build settings, type checking, declaration generation |
 
@@ -65,7 +65,7 @@ The plugin integrates with OpenCode to provide:
 ```
 OpenCode loads plugin
     ↓
-src/index.ts: OhMyOpenCodeLite(ctx)
+src/index.ts: OhMyGroundControl(ctx)
     ↓
 Load plugin config (src/config)
     ↓
