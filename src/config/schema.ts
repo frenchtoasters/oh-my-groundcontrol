@@ -196,6 +196,14 @@ export type DoubleConfirmationConfig = z.infer<
   typeof DoubleConfirmationConfigSchema
 >;
 
+// Langfuse trace enrichment headers configuration
+export const LangfuseHeadersConfigSchema = z.object({
+  enabled: z.boolean().default(false),
+  customHeaders: z.record(z.string(), z.string()).default({}),
+});
+
+export type LangfuseHeadersConfig = z.infer<typeof LangfuseHeadersConfigSchema>;
+
 // Main plugin config
 export const PluginConfigSchema = z.object({
   preset: z.string().optional(),
@@ -212,6 +220,7 @@ export const PluginConfigSchema = z.object({
   sessionExport: SessionExportConfigSchema.optional(),
   hashline_edit: HashlineEditConfigSchema.optional(),
   double_confirmation: DoubleConfirmationConfigSchema.optional(),
+  langfuse_headers: LangfuseHeadersConfigSchema.optional(),
 });
 
 export type PluginConfig = z.infer<typeof PluginConfigSchema>;

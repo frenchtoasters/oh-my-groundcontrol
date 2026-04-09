@@ -12,6 +12,7 @@ import {
   createEditErrorRecoveryHook,
   createHashlineReadEnhancerHook,
   createJsonErrorRecoveryHook,
+  createLangfuseHeadersHook,
   createPhaseReminderHook,
   createPostReadNudgeHook,
   createQuestionRouterHook,
@@ -117,6 +118,11 @@ const OhMyGroundControl: Plugin = async (ctx) => {
   // verification nudge on task completion to prevent premature exits; ships disabled)
   const doubleConfirmationHook = createDoubleConfirmationHook(
     config.double_confirmation,
+  );
+
+  // Initialize Langfuse trace enrichment headers hook
+  const langfuseHeadersHook = createLangfuseHeadersHook(
+    config.langfuse_headers,
   );
 
   // Conditionally create hashline edit tool (enabled by default)
@@ -330,6 +336,8 @@ const OhMyGroundControl: Plugin = async (ctx) => {
     'chat.message': questionRouterHook['chat.message'],
 
     'command.execute.before': analyzeCommandHook['command.execute.before'],
+
+    'chat.headers': langfuseHeadersHook['chat.headers'],
 
     // Post-tool hooks: retry guidance for delegation errors + post-read nudge
     'tool.execute.after': async (input, output) => {
