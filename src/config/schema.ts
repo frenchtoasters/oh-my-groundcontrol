@@ -196,13 +196,14 @@ export type DoubleConfirmationConfig = z.infer<
   typeof DoubleConfirmationConfigSchema
 >;
 
-// Langfuse trace enrichment headers configuration
-export const LangfuseHeadersConfigSchema = z.object({
+// Langfuse tracing configuration
+export const LangfuseTracingConfigSchema = z.object({
   enabled: z.boolean().default(false),
-  customHeaders: z.record(z.string(), z.string()).default({}),
+  traceUserId: z.string().default('opencode'),
+  customMetadata: z.record(z.string(), z.unknown()).default({}),
 });
 
-export type LangfuseHeadersConfig = z.infer<typeof LangfuseHeadersConfigSchema>;
+export type LangfuseTracingConfig = z.infer<typeof LangfuseTracingConfigSchema>;
 
 // Main plugin config
 export const PluginConfigSchema = z.object({
@@ -220,7 +221,7 @@ export const PluginConfigSchema = z.object({
   sessionExport: SessionExportConfigSchema.optional(),
   hashline_edit: HashlineEditConfigSchema.optional(),
   double_confirmation: DoubleConfirmationConfigSchema.optional(),
-  langfuse_headers: LangfuseHeadersConfigSchema.optional(),
+  langfuse_tracing: LangfuseTracingConfigSchema.optional(),
 });
 
 export type PluginConfig = z.infer<typeof PluginConfigSchema>;

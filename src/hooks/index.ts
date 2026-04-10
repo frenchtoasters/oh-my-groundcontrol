@@ -6,7 +6,7 @@ export { createDoubleConfirmationHook } from './double-confirmation';
 export { createEditErrorRecoveryHook } from './edit-error-recovery';
 export { createHashlineReadEnhancerHook } from './hashline-read-enhancer';
 export { createJsonErrorRecoveryHook } from './json-error-recovery';
-export { createLangfuseHeadersHook } from './langfuse-headers';
+export { createLangfuseTracingHook } from './langfuse-tracing';
 export { createPhaseReminderHook } from './phase-reminder';
 export { createPostReadNudgeHook } from './post-read-nudge';
 export { createQuestionRouterHook } from './question-router';
