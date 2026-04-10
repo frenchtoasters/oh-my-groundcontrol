@@ -19,7 +19,7 @@ import {
   parseConfigFile,
   stripJsonComments,
   writeConfig,
-  writeLiteConfig,
+  writeGroundConfig,
 } from './config-io';
 import * as paths from './paths';
 
@@ -122,11 +122,11 @@ describe('config-io', () => {
     expect(saved.plugin.length).toBe(2);
   });
 
-  test('writeLiteConfig writes lite config', () => {
-    const litePath = join(tmpDir, 'opencode', 'oh-my-groundcontrol.json');
+  test('writeGroundConfig writes ground config', () => {
+    const groundPath = join(tmpDir, 'opencode', 'oh-my-groundcontrol.json');
     paths.ensureConfigDir();
 
-    const result = writeLiteConfig({
+    const result = writeGroundConfig({
       hasKimi: true,
       hasOpenAI: false,
       hasAntigravity: false,
@@ -137,7 +137,7 @@ describe('config-io', () => {
     });
     expect(result.success).toBe(true);
 
-    const saved = JSON.parse(readFileSync(litePath, 'utf-8'));
+    const saved = JSON.parse(readFileSync(groundPath, 'utf-8'));
     expect(saved.preset).toBe('kimi');
     expect(saved.presets.kimi).toBeDefined();
     expect(saved.tmux.enabled).toBe(true);
@@ -158,7 +158,7 @@ describe('config-io', () => {
 
   test('detectCurrentConfig detects installed status', () => {
     const configPath = join(tmpDir, 'opencode', 'opencode.json');
-    const litePath = join(tmpDir, 'opencode', 'oh-my-groundcontrol.json');
+    const groundPath = join(tmpDir, 'opencode', 'oh-my-groundcontrol.json');
     paths.ensureConfigDir();
 
     writeFileSync(
@@ -173,7 +173,7 @@ describe('config-io', () => {
       }),
     );
     writeFileSync(
-      litePath,
+      groundPath,
       JSON.stringify({
         preset: 'openai',
         presets: {
@@ -200,7 +200,7 @@ describe('config-io', () => {
 
   test('addChutesProvider keeps OpenCode auth-based chutes flow intact', () => {
     const configPath = join(tmpDir, 'opencode', 'opencode.json');
-    const litePath = join(tmpDir, 'opencode', 'oh-my-groundcontrol.json');
+    const groundPath = join(tmpDir, 'opencode', 'oh-my-groundcontrol.json');
     paths.ensureConfigDir();
 
     writeFileSync(
@@ -210,7 +210,7 @@ describe('config-io', () => {
       }),
     );
     writeFileSync(
-      litePath,
+      groundPath,
       JSON.stringify({
         preset: 'chutes',
         presets: {

@@ -11,7 +11,7 @@ import {
   discoverOpenCodeFreeModels,
   discoverProviderModels,
   fetchExternalModelSignals,
-  generateLiteConfig,
+  generateGroundConfig,
   getOpenCodePath,
   getOpenCodeVersion,
   isOpenCodeInstalled,
@@ -19,7 +19,7 @@ import {
   pickBestCodingOpenCodeModel,
   pickSupportChutesModel,
   pickSupportOpenCodeModel,
-  writeLiteConfig,
+  writeGroundConfig,
 } from './config-manager';
 import { CUSTOM_COMMANDS, installCustomCommand } from './custom-commands';
 import { CUSTOM_SKILLS, installCustomSkill } from './custom-skills';
@@ -124,8 +124,8 @@ function handleStepResult(
 }
 
 function formatConfigSummary(config: InstallConfig): string {
-  const liteConfig = generateLiteConfig(config);
-  const preset = (liteConfig.preset as string) || 'unknown';
+  const groundConfig = generateGroundConfig(config);
+  const preset = (groundConfig.preset as string) || 'unknown';
 
   const lines: string[] = [];
   lines.push(`${BOLD}Configuration Summary${RESET}`);
@@ -177,13 +177,16 @@ function formatConfigSummary(config: InstallConfig): string {
   lines.push(
     `  ${config.hasTmux ? SYMBOLS.check : `${DIM}○${RESET}`} Tmux Integration`,
   );
+  lines.push(
+    `  ${config.enableLangfuseTracing ? SYMBOLS.check : `${DIM}○${RESET}`} Langfuse Tracing`,
+  );
   return lines.join('\n');
 }
 
 function printAgentModels(config: InstallConfig): void {
-  const liteConfig = generateLiteConfig(config);
-  const presetName = (liteConfig.preset as string) || 'unknown';
-  const presets = liteConfig.presets as Record<string, unknown>;
+  const groundConfig = generateGroundConfig(config);
+  const presetName = (groundConfig.preset as string) || 'unknown';
+  const presets = groundConfig.presets as Record<string, unknown>;
   const agents = presets?.[presetName] as Record<
     string,
     { model: string; skills: string[] }
@@ -230,6 +233,7 @@ function argsToConfig(args: InstallArgs): InstallConfig {
     openRouterApiKey: args.openrouterKey,
     balanceProviderUsage: args.balancedSpend === 'yes',
     hasTmux: args.tmux === 'yes',
+    enableLangfuseTracing: args.langfuse === 'yes',
     installSkills: args.skills === 'yes',
     installCustomSkills: args.skills === 'yes', // Install custom skills when skills=yes
     setupMode: 'quick', // Non-interactive mode defaults to quick setup
@@ -707,6 +711,13 @@ async function runManualSetupMode(
   );
   console.log();
 
+  const enableLangfuse = await askYesNo(
+    rl,
+    'Enable Langfuse tracing for observability and debugging? This sends metadata (agent tags, session ID, model info) to Langfuse.',
+    'no',
+  );
+  console.log();
+
   let skills: BooleanArg = 'no';
   let customSkills: BooleanArg = 'no';
   if (!modelsOnly) {
@@ -764,6 +775,7 @@ async function runManualSetupMode(
     openRouterApiKey,
     balanceProviderUsage: balancedSpend === 'yes',
     hasTmux: false,
+    enableLangfuseTracing: enableLangfuse === 'yes',
     installSkills: skills === 'yes',
     installCustomSkills: customSkills === 'yes',
     setupMode: 'manual',
@@ -800,7 +812,7 @@ async function runInteractiveMode(
     // TODO: tmux has a bug, disabled for now
     // const tmuxInstalled = await isTmuxInstalled()
     // const totalQuestions = tmuxInstalled ? 3 : 2
-    const totalQuestions = 11;
+    const totalQuestions = 12;
 
     const existingAaKey = getEnv('ARTIFICIAL_ANALYSIS_API_KEY');
     const existingOpenRouterKey = getEnv('OPENROUTER_API_KEY');
@@ -1015,6 +1027,14 @@ async function runInteractiveMode(
     );
     console.log();
 
+    console.log(`${BOLD}Question 12/${totalQuestions}:${RESET}`);
+    const enableLangfuse = await askYesNo(
+      rl,
+      'Enable Langfuse tracing for observability and debugging? This sends metadata (agent tags, session ID, model info) to Langfuse.',
+      'no',
+    );
+    console.log();
+
     // TODO: tmux has a bug, disabled for now
     // let tmux: BooleanArg = "no"
     // if (tmuxInstalled) {
@@ -1086,6 +1106,7 @@ async function runInteractiveMode(
       openRouterApiKey,
       balanceProviderUsage: balancedSpend === 'yes',
       hasTmux: false,
+      enableLangfuseTracing: enableLangfuse === 'yes',
       installSkills: skills === 'yes',
       installCustomSkills: customSkills === 'yes',
       setupMode: 'quick',
@@ -1358,12 +1379,12 @@ async function runInstall(config: InstallConfig): Promise<number> {
 
   printStep(step++, totalSteps, 'Writing oh-my-groundcontrol configuration...');
   if (resolvedConfig.dryRun) {
-    const liteConfig = generateLiteConfig(resolvedConfig);
+    const groundConfig = generateGroundConfig(resolvedConfig);
     printInfo('Dry run mode - configuration that would be written:');
-    console.log(`\n${JSON.stringify(liteConfig, null, 2)}\n`);
+    console.log(`\n${JSON.stringify(groundConfig, null, 2)}\n`);
   } else {
-    const liteResult = writeLiteConfig(resolvedConfig);
-    if (!handleStepResult(liteResult, 'Config written')) return 1;
+    const groundResult = writeGroundConfig(resolvedConfig);
+    if (!handleStepResult(groundResult, 'Config written')) return 1;
   }
 
   // Install skills if requested

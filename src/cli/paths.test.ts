@@ -10,7 +10,7 @@ import {
   getConfigJson,
   getConfigJsonc,
   getExistingConfigPath,
-  getLiteConfig,
+  getGroundConfig,
   getOpenCodeConfigPaths,
 } from './paths';
 
@@ -50,9 +50,9 @@ describe('paths', () => {
     expect(getConfigJsonc()).toBe('/tmp/xdg-config/opencode/opencode.jsonc');
   });
 
-  test('getLiteConfig() returns correct path', () => {
+  test('getGroundConfig() returns correct path', () => {
     process.env.XDG_CONFIG_HOME = '/tmp/xdg-config';
-    expect(getLiteConfig()).toBe(
+    expect(getGroundConfig()).toBe(
       '/tmp/xdg-config/opencode/oh-my-groundcontrol.json',
     );
   });

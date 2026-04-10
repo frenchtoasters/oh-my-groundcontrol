@@ -13,6 +13,7 @@ export interface InstallArgs {
   skills?: BooleanArg;
   opencodeFree?: BooleanArg;
   balancedSpend?: BooleanArg;
+  langfuse?: BooleanArg;
   opencodeFreeModel?: string;
   aaKey?: string;
   openrouterKey?: string;
@@ -129,6 +130,7 @@ export interface InstallConfig {
   openRouterApiKey?: string;
   balanceProviderUsage?: boolean;
   hasTmux: boolean;
+  enableLangfuseTracing?: boolean;
   installSkills: boolean;
   installCustomSkills: boolean;
   setupMode: 'quick' | 'manual';

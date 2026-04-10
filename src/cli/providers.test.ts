@@ -3,13 +3,13 @@
 import { describe, expect, test } from 'bun:test';
 import {
   generateAntigravityMixedPreset,
-  generateLiteConfig,
+  generateGroundConfig,
   MODEL_MAPPINGS,
 } from './providers';
 
 describe('providers', () => {
-  test('generateLiteConfig generates kimi config when only kimi selected', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig generates kimi config when only kimi selected', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: true,
       hasOpenAI: false,
@@ -31,8 +31,8 @@ describe('providers', () => {
     expect((config.presets as any)['zen-free']).toBeUndefined();
   });
 
-  test('generateLiteConfig generates kimi-openai preset when both selected', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig generates kimi-openai preset when both selected', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: true,
       hasOpenAI: true,
@@ -55,8 +55,8 @@ describe('providers', () => {
     expect((config.presets as any)['zen-free']).toBeUndefined();
   });
 
-  test('generateLiteConfig generates openai preset when only openai selected', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig generates openai preset when only openai selected', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: true,
@@ -78,8 +78,8 @@ describe('providers', () => {
     expect((config.presets as any)['zen-free']).toBeUndefined();
   });
 
-  test('generateLiteConfig generates chutes preset when only chutes selected', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig generates chutes preset when only chutes selected', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: false,
@@ -103,8 +103,8 @@ describe('providers', () => {
     expect(agents.fixer.model).toBe('chutes/minimax-m2.1');
   });
 
-  test('generateLiteConfig generates anthropic preset when only anthropic selected', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig generates anthropic preset when only anthropic selected', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: false,
@@ -125,8 +125,8 @@ describe('providers', () => {
     expect(agents.explorer.model).toBe('anthropic/claude-haiku-4-5');
   });
 
-  test('generateLiteConfig prefers Chutes Kimi in mixed openai/antigravity when chutes is enabled', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig prefers Chutes Kimi in mixed openai/antigravity when chutes is enabled', () => {
+    const config = generateGroundConfig({
       hasAntigravity: true,
       hasKimi: false,
       hasOpenAI: true,
@@ -149,8 +149,8 @@ describe('providers', () => {
     expect(agents.explorer.model).toBe('opencode/gpt-5-nano');
   });
 
-  test('generateLiteConfig emits fallback chains for six agents', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig emits fallback chains for six agents', () => {
+    const config = generateGroundConfig({
       hasAntigravity: true,
       hasKimi: true,
       hasOpenAI: true,
@@ -184,8 +184,8 @@ describe('providers', () => {
     expect(chains.orchestrator).toContain('opencode/glm-4.7-free');
   });
 
-  test('generateLiteConfig generates zen-free preset when no providers selected', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig generates zen-free preset when no providers selected', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: false,
@@ -205,8 +205,8 @@ describe('providers', () => {
     expect((config.presets as any).openai).toBeUndefined();
   });
 
-  test('generateLiteConfig uses zen-free big-pickle models', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig uses zen-free big-pickle models', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: false,
@@ -225,8 +225,8 @@ describe('providers', () => {
     expect(agents.librarian.variant).toBe('low');
   });
 
-  test('generateLiteConfig enables tmux when requested', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig enables tmux when requested', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: false,
@@ -240,8 +240,8 @@ describe('providers', () => {
     expect((config.tmux as any).enabled).toBe(true);
   });
 
-  test('generateLiteConfig includes default skills', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig includes default skills', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: true,
       hasOpenAI: false,
@@ -262,8 +262,8 @@ describe('providers', () => {
     expect(agents.fixer.skills).toEqual([]);
   });
 
-  test('generateLiteConfig includes mcps field', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig includes mcps field', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: true,
       hasOpenAI: false,
@@ -280,8 +280,8 @@ describe('providers', () => {
     expect(Array.isArray(agents.librarian.mcps)).toBe(true);
   });
 
-  test('generateLiteConfig applies OpenCode free model overrides in hybrid mode', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig applies OpenCode free model overrides in hybrid mode', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: true,
@@ -304,8 +304,8 @@ describe('providers', () => {
     expect(agents.fixer.model).toBe('opencode/gpt-5-nano');
   });
 
-  test('generateLiteConfig applies OpenCode free model overrides in OpenCode-only mode', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig applies OpenCode free model overrides in OpenCode-only mode', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: false,
@@ -327,8 +327,8 @@ describe('providers', () => {
     expect(agents.fixer.model).toBe('opencode/gpt-5-nano');
   });
 
-  test('generateLiteConfig zen-free includes correct mcps', () => {
-    const config = generateLiteConfig({
+  test('generateGroundConfig zen-free includes correct mcps', () => {
+    const config = generateGroundConfig({
       hasAntigravity: false,
       hasKimi: false,
       hasOpenAI: false,
@@ -348,8 +348,8 @@ describe('providers', () => {
 
   // Antigravity tests
   describe('Antigravity presets', () => {
-    test('generateLiteConfig generates antigravity-mixed-both preset when all providers selected', () => {
-      const config = generateLiteConfig({
+    test('generateGroundConfig generates antigravity-mixed-both preset when all providers selected', () => {
+      const config = generateGroundConfig({
         hasKimi: true,
         hasOpenAI: true,
         hasAntigravity: true,
@@ -381,8 +381,8 @@ describe('providers', () => {
       expect(agents.fixer.variant).toBe('low');
     });
 
-    test('generateLiteConfig generates antigravity-mixed-kimi preset when Kimi + Antigravity', () => {
-      const config = generateLiteConfig({
+    test('generateGroundConfig generates antigravity-mixed-kimi preset when Kimi + Antigravity', () => {
+      const config = generateGroundConfig({
         hasKimi: true,
         hasOpenAI: false,
         hasAntigravity: true,
@@ -409,8 +409,8 @@ describe('providers', () => {
       expect(agents.fixer.model).toBe('google/antigravity-gemini-3-flash');
     });
 
-    test('generateLiteConfig generates antigravity-mixed-openai preset when OpenAI + Antigravity', () => {
-      const config = generateLiteConfig({
+    test('generateGroundConfig generates antigravity-mixed-openai preset when OpenAI + Antigravity', () => {
+      const config = generateGroundConfig({
         hasKimi: false,
         hasOpenAI: true,
         hasAntigravity: true,
@@ -440,8 +440,8 @@ describe('providers', () => {
       expect(agents.fixer.model).toBe('openai/gpt-5.3-codex');
     });
 
-    test('generateLiteConfig generates pure antigravity preset when only Antigravity', () => {
-      const config = generateLiteConfig({
+    test('generateGroundConfig generates pure antigravity preset when only Antigravity', () => {
+      const config = generateGroundConfig({
         hasKimi: false,
         hasOpenAI: false,
         hasAntigravity: true,

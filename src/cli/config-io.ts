@@ -10,9 +10,9 @@ import {
   ensureConfigDir,
   getConfigDir,
   getExistingConfigPath,
-  getLiteConfig,
+  getGroundConfig,
 } from './paths';
-import { generateLiteConfig } from './providers';
+import { generateGroundConfig } from './providers';
 import type {
   ConfigMergeResult,
   DetectedConfig,
@@ -145,16 +145,16 @@ export async function addPluginToOpenCodeConfig(): Promise<ConfigMergeResult> {
 // Removed: addAuthPlugins - no longer needed with cliproxy
 // Removed: addProviderConfig - default opencode now has kimi provider config
 
-export function writeLiteConfig(
+export function writeGroundConfig(
   installConfig: InstallConfig,
 ): ConfigMergeResult {
-  const configPath = getLiteConfig();
+  const configPath = getGroundConfig();
 
   try {
     ensureConfigDir();
-    const config = generateLiteConfig(installConfig);
+    const config = generateGroundConfig(installConfig);
 
-    // Atomic write for lite config too
+    // Atomic write for ground config too
     const tmpPath = `${configPath}.tmp`;
     const bakPath = `${configPath}.bak`;
     const content = `${JSON.stringify(config, null, 2)}\n`;
@@ -172,7 +172,7 @@ export function writeLiteConfig(
     return {
       success: false,
       configPath,
-      error: `Failed to write lite config: ${err}`,
+      error: `Failed to write ground config: ${err}`,
     };
   }
 }
@@ -416,10 +416,10 @@ export function detectCurrentConfig(): DetectedConfig {
   result.hasChutes = !!providers?.chutes;
   if (providers?.google) result.hasAntigravity = true;
 
-  // Try to detect from lite config
-  const { config: liteConfig } = parseConfig(getLiteConfig());
-  if (liteConfig && typeof liteConfig === 'object') {
-    const configObj = liteConfig as Record<string, unknown>;
+  // Try to detect from ground config
+  const { config: groundConfig } = parseConfig(getGroundConfig());
+  if (groundConfig && typeof groundConfig === 'object') {
+    const configObj = groundConfig as Record<string, unknown>;
     const presetName = configObj.preset as string;
     const presets = configObj.presets as Record<string, unknown>;
     const agents = presets?.[presetName] as

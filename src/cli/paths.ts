@@ -25,19 +25,19 @@ export function getConfigJsonc(): string {
   return join(getConfigDir(), 'opencode.jsonc');
 }
 
-export function getLiteConfig(): string {
+export function getGroundConfig(): string {
   return join(getConfigDir(), 'oh-my-groundcontrol.json');
 }
 
-export function getLiteConfigJsonc(): string {
+export function getGroundConfigJsonc(): string {
   return join(getConfigDir(), 'oh-my-groundcontrol.jsonc');
 }
 
-export function getExistingLiteConfigPath(): string {
-  const jsonPath = getLiteConfig();
+export function getExistingGroundConfigPath(): string {
+  const jsonPath = getGroundConfig();
   if (existsSync(jsonPath)) return jsonPath;
 
-  const jsoncPath = getLiteConfigJsonc();
+  const jsoncPath = getGroundConfigJsonc();
   if (existsSync(jsoncPath)) return jsoncPath;
 
   return jsonPath;

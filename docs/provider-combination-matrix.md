@@ -13,7 +13,7 @@ This matrix tests 5 combinations across the 8 provider toggles in this project:
 
 ## How this was determined
 
-I generated outputs directly from `generateLiteConfig` in `src/cli/providers.ts` using fixed deterministic inputs:
+I generated outputs directly from `generateGroundConfig` in `src/cli/providers.ts` using fixed deterministic inputs:
 
 - `selectedOpenCodePrimaryModel = opencode/glm-4.7-free`
 - `selectedOpenCodeSecondaryModel = opencode/gpt-5-nano`
@@ -176,5 +176,5 @@ Active providers: Gemini + Anthropic + Chutes + OpenCode Free
 
 ## Notes
 
-- This matrix shows deterministic `generateLiteConfig` output for the selected combinations.
+- This matrix shows deterministic `generateGroundConfig` output for the selected combinations.
 - If the dynamic planner is used during full install (live model catalog), the generated `dynamic` preset may differ based on discovered models and capabilities.

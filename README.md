@@ -50,6 +50,30 @@ Verify agent connectivity by running `ping all agents` within the OpenCode termi
 
 > **Note on Model Customization:** The active model matrix is fully configurable. Edit `~/.config/opencode/oh-my-groundcontrol.json` (or `.jsonc`) to override agent-to-model assignments manually.
 
+### Langfuse Observability (Optional)
+
+Langfuse tracing is available as an optional, toggleable feature for observability and debugging. When enabled, it injects metadata into LLM requests including:
+
+- **Agent tags** (e.g., `agent:explorer`, `task:research`)
+- **Session ID** for request correlation
+- **Trace user ID** (configurable, defaults to `opencode`)
+- **Model and provider information**
+- **Plugin version** for tracking
+
+To enable Langfuse tracing, add the following to your configuration:
+
+```json
+{
+  "langfuse_tracing": {
+    "enabled": true,
+    "traceUserId": "opencode",
+    "customMetadata": {}
+  }
+}
+```
+
+The feature is **disabled by default** and must be explicitly enabled in `~/.config/opencode/oh-my-groundcontrol.json`.
+
 ### For AI Agents / LLMs
 
 To instruct an external coding agent to utilize this suite, paste this block into the agent's prompt:

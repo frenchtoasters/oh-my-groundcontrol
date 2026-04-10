@@ -212,7 +212,7 @@ export function generateAntigravityMixedPreset(
   return result;
 }
 
-export function generateLiteConfig(
+export function generateGroundConfig(
   installConfig: InstallConfig,
 ): Record<string, unknown> {
   const config: Record<string, unknown> = {
@@ -271,6 +271,14 @@ export function generateLiteConfig(
         enabled: true,
         layout: 'main-vertical',
         main_pane_size: 60,
+      };
+    }
+
+    if (installConfig.enableLangfuseTracing) {
+      config.langfuse_tracing = {
+        enabled: true,
+        traceUserId: 'opencode',
+        customMetadata: {},
       };
     }
 
@@ -375,6 +383,14 @@ export function generateLiteConfig(
         enabled: true,
         layout: 'main-vertical',
         main_pane_size: 60,
+      };
+    }
+
+    if (installConfig.enableLangfuseTracing) {
+      config.langfuse_tracing = {
+        enabled: true,
+        traceUserId: 'opencode',
+        customMetadata: {},
       };
     }
 
@@ -605,6 +621,14 @@ export function generateLiteConfig(
       enabled: true,
       layout: 'main-vertical',
       main_pane_size: 60,
+    };
+  }
+
+  if (installConfig.enableLangfuseTracing) {
+    config.langfuse_tracing = {
+      enabled: true,
+      traceUserId: 'opencode',
+      customMetadata: {},
     };
   }
 

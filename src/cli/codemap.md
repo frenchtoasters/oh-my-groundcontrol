@@ -188,10 +188,10 @@ User runs: bunx oh-my-groundcontrol install
 │      - Set agent.explore.disable=true   │
 │      - Set agent.general.disable=true   │
 │                                         │
-│ Step 4: Write lite config               │
-│   └─> config-io.ts: writeLiteConfig()   │
+│ Step 4: Write ground config              │
+│   └─> config-io.ts: writeGroundConfig() │
 │      └─> providers.ts:                  │
-│         generateLiteConfig()            │
+│         generateGroundConfig()            │
 │         - Determine active preset       │
 │         - Build agent configurations    │
 │         - Map models to agents          │
@@ -237,7 +237,7 @@ detectCurrentConfig() [config-io.ts]
 ### Model Mapping Flow
 
 ```
-generateLiteConfig() [providers.ts]
+generateGroundConfig() [providers.ts]
          │
          ▼
 ┌─────────────────────────────────────────┐
@@ -318,7 +318,7 @@ InstallConfig (preferences)
          │    - Plugin registration
          │    - Agent disabling
          │
-         └─> LiteConfig (plugin config)
+         └─> GroundConfig (plugin config)
               - Preset selection
               - Model mappings
               - Skill assignments
