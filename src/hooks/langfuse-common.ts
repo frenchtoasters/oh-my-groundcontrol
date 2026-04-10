@@ -30,9 +30,9 @@ export function deriveTask(agent: string): string | undefined {
  * Returns ['opencode', agentName, taskType], filtering out empty values.
  */
 export function deriveTags(agent: string): string[] {
-  const tags = ['opencode'];
-  if (agent) tags.push(agent);
+  const tags: string[] = [];
+  if (agent) tags.push(`agent:${agent}`);
   const task = deriveTask(agent);
-  if (task) tags.push(task);
+  if (task) tags.push(`task:${task}`);
   return tags;
 }

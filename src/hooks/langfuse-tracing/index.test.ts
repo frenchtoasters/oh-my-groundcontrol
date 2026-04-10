@@ -59,7 +59,7 @@ describe('langfuse-tracing hook', () => {
     await hook['chat.params'](mockInput(), output);
 
     const meta = output.options.metadata as Record<string, unknown>;
-    expect(meta.tags).toEqual(['opencode', 'explorer', 'research']);
+    expect(meta.tags).toEqual(['agent:explorer', 'task:research']);
     expect(meta.session_id).toBe('ses_test123');
     expect(meta.trace_user_id).toBe('opencode');
     expect(meta.trace_name).toBe('explorer');
@@ -100,7 +100,7 @@ describe('langfuse-tracing hook', () => {
 
     const meta = output.options.metadata as Record<string, unknown>;
     expect(meta.generation_name).toBe('general');
-    expect(meta.tags).toEqual(['opencode', 'custom-agent', 'general']);
+    expect(meta.tags).toEqual(['agent:custom-agent', 'task:general']);
   });
 
   test('omits fields with empty values', async () => {
@@ -113,8 +113,8 @@ describe('langfuse-tracing hook', () => {
     // trace_name should be absent (empty agent)
     expect(meta.trace_name).toBeUndefined();
     expect(meta.generation_name).toBeUndefined();
-    // tags should only have 'opencode'
-    expect(meta.tags).toEqual(['opencode']);
+    // tags should be empty (no agent)
+    expect(meta.tags).toEqual([]);
     // Other fields should still be present
     expect(meta.model).toBe('claude-sonnet-4-20250514');
   });
@@ -147,7 +147,7 @@ describe('langfuse-tracing hook', () => {
 
     const meta = output.options.metadata as Record<string, unknown>;
     expect(meta.existingKey).toBe('preserve-me');
-    expect(meta.tags).toEqual(['opencode', 'explorer', 'research']);
+    expect(meta.tags).toEqual(['agent:explorer', 'task:research']);
   });
 
   test('customMetadata is applied', async () => {
